@@ -2,401 +2,536 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Because Two People Fell in Love</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dear Love | December</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<style>
-:root {
-  --cream: #F2E9D8;
-  --burgundy: #762E36;
-  --dark-red: #4B252A;
-  --green: #18372E;
-  --gold: #C9A76B;
-  --paper: #F8F0E2;
-}
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
-* {
-  box-sizing: border-box;
-}
+  <style>
+    :root {
+      --cream: #F2E9D8;
+      --burgundy: #762E36;
+      --dark-red: #4B252A;
+      --green: #18372E;
+      --gold: #C9A76B;
+      --paper: #F8F0E2;
+    }
 
-body {
-  margin: 0;
-  background: var(--cream);
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--burgundy);
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.cover {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+    body {
+      min-height: 100vh;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+    }
 
-/* LEFT SIDE */
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
 
-.left {
-  background: var(--cream);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 55px 35px;
-  position: relative;
-}
+    /* LEFT SIDE */
 
-.left-inner {
-  max-width: 540px;
-  width: 100%;
-  text-align: center;
-}
+    .left {
+      background: var(--cream);
+      color: var(--burgundy);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 55px 35px;
+      position: relative;
+      overflow: hidden;
+    }
 
-.small-heading {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 45px;
-  color: var(--gold);
-}
+    .left-content {
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+    }
 
-.main-phrase {
-  font-size: clamp(37px, 5.2vw, 73px);
-  font-weight: 500;
-  line-height: 0.95;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
+    .top-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      margin-bottom: 55px;
+      color: #98736B;
+    }
 
-.script-word {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.45em;
-  text-transform: none;
-  font-weight: 400;
-  letter-spacing: 0;
-  color: var(--burgundy);
-  display: inline-block;
-  line-height: 0.85;
-}
+    .main-phrase {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 5vw, 65px);
+      line-height: 1.05;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
 
-.phrase-line {
-  display: block;
-  margin: 9px 0;
-}
+    .main-phrase .script {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.35em;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      display: inline-block;
+      line-height: 0.9;
+    }
 
-.left-decoration {
-  margin-top: 48px;
-  font-size: 16px;
-  color: var(--gold);
-  letter-spacing: 8px;
-}
+    .main-phrase .small-line {
+      display: block;
+      font-size: 0.72em;
+      letter-spacing: 4px;
+      margin: 12px 0;
+    }
 
-.edition {
-  position: absolute;
-  bottom: 25px;
-  left: 30px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: #9E8270;
-}
+    .left-decoration {
+      width: 65px;
+      height: 1px;
+      background: var(--gold);
+      margin: 45px auto 25px;
+    }
 
-/* RIGHT SIDE */
+    .left-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-style: italic;
+      color: #8D6660;
+      letter-spacing: 1px;
+    }
 
-.right {
-  background: var(--burgundy);
-  min-height: 100vh;
-  padding: 55px 35px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
-  overflow: hidden;
-}
+    .year-label {
+      position: absolute;
+      bottom: 25px;
+      font-size: 9px;
+      letter-spacing: 3px;
+      color: #A88B7B;
+    }
 
-.right-heading {
-  font-family: 'DM Sans', sans-serif;
-  color: var(--gold);
-  font-size: 9px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 32px;
-}
+    /* RIGHT SIDE */
 
-/* LETTER */
+    .right {
+      min-height: 100vh;
+      background: var(--burgundy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 35px 25px;
+      position: relative;
+      overflow: hidden;
+    }
 
-.letter {
-  width: min(100%, 440px);
-  min-height: 440px;
-  padding: 38px 35px 55px;
-  background:
-    radial-gradient(ellipse at top left,
-      rgba(201,167,107,0.12), transparent 60%),
-    var(--paper);
-  color: var(--dark-red);
-  position: relative;
-  z-index: 2;
-  border: 2px dashed #C7A77D;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.15);
-  text-align: left;
-}
+    .intro-scene {
+      width: 100%;
+      max-width: 500px;
+      min-height: 740px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
 
-.letter::before,
-.letter::after {
-  content: "✦";
-  position: absolute;
-  color: var(--gold);
-  font-size: 13px;
-}
+    .intro-hint {
+      position: absolute;
+      top: 65px;
+      color: #E8D8B9;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-align: center;
+    }
 
-.letter::before {
-  top: 15px;
-  left: 17px;
-}
+    .intro-bottom {
+      position: absolute;
+      bottom: 55px;
+      color: #E8D8B9;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-align: center;
+      transition: opacity 0.4s ease;
+    }
 
-.letter::after {
-  bottom: 15px;
-  right: 17px;
-}
+    /* ENVELOPE */
 
-.dear {
-  font-family: 'Great Vibes', cursive;
-  font-size: 45px;
-  color: var(--burgundy);
-  margin: 0 0 22px;
-}
+    .intro-envelope {
+      width: min(340px, 85%);
+      height: 210px;
+      position: absolute;
+      top: 56%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      perspective: 1000px;
+    }
 
-.letter-message {
-  font-size: 19px;
-  line-height: 1.55;
-  color: #5D4140;
-}
+    .intro-pocket {
+      position: absolute;
+      inset: 0;
+      background: #4B252A;
+      border-radius: 3px;
+      z-index: 3;
+      clip-path: polygon(
+        0 0,
+        50% 58%,
+        100% 0,
+        100% 100%,
+        0 100%
+      );
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    }
 
-.letter-signature {
-  font-family: 'Great Vibes', cursive;
-  font-size: 32px;
-  color: var(--burgundy);
-  text-align: right;
-  margin-top: 20px;
-}
+    .intro-flap {
+      position: absolute;
+      inset: 0;
+      background: #91434A;
+      clip-path: polygon(0 0, 100% 0, 50% 65%);
+      transform-origin: top center;
+      transition: transform 0.8s ease, opacity 0.5s ease;
+      z-index: 4;
+      backface-visibility: hidden;
+    }
 
-/* ENVELOPE */
+    /* LETTER */
 
-.envelope-area {
-  position: relative;
-  width: min(100%, 450px);
-  height: 180px;
-  margin-top: -12px;
-  z-index: 3;
-}
+    .intro-letter {
+      position: absolute;
+      width: 90%;
+      left: 5%;
+      bottom: 25px;
+      background: var(--paper);
+      color: var(--dark-red);
+      padding: 30px 25px;
+      text-align: center;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        transform 1s ease 0.5s,
+        opacity 0.6s ease 0.5s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border: 1px solid #D8C7A9;
+      outline: 1px dashed #C9A76B;
+      outline-offset: -8px;
+    }
 
-.envelope {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 140px;
-  background: var(--dark-red);
-  border: 1px solid rgba(201,167,107,0.6);
-  box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
-}
+    .letter-small {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: #9B7770;
+      margin-bottom: 13px;
+    }
 
-.envelope::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 224px solid transparent;
-  border-right: 224px solid transparent;
-  border-top: 95px solid var(--burgundy);
-  transform: rotate(180deg);
-  z-index: 1;
-}
+    .intro-letter h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 39px;
+      font-weight: 400;
+      color: var(--burgundy);
+      margin-bottom: 16px;
+    }
 
-.wax-seal {
-  position: absolute;
-  width: 66px;
-  height: 66px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #C45C57, #861F2B 70%);
-  border: 3px solid #A53D43;
-  color: #F2C7A5;
-  font-size: 29px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-}
+    .intro-letter p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      line-height: 1.45;
+      color: #563B37;
+    }
 
-/* FOOTER */
+    .intro-letter strong {
+      color: var(--burgundy);
+      font-weight: 700;
+    }
 
-.bottom-note {
-  color: var(--gold);
-  font-family: 'Great Vibes', cursive;
-  font-size: 25px;
-  margin-top: 22px;
-  margin-bottom: 20px;
-  z-index: 4;
-}
+    .letter-signature {
+      display: block;
+      font-family: 'Great Vibes', cursive;
+      font-size: 27px;
+      color: var(--burgundy);
+      margin-top: 18px;
+    }
 
-.back {
-  position: fixed;
-  left: 16px;
-  top: 16px;
-  z-index: 10;
-  text-decoration: none;
-  color: var(--gold);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
-  letter-spacing: 2px;
-  background: rgba(16,40,32,0.8);
-  padding: 11px 15px;
-}
+    /* WAX SEAL */
 
-@media (max-width: 700px) {
-  .cover {
-    grid-template-columns: 1fr;
-  }
+    .intro-seal {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      border: 2px solid #B86B65;
+      background: #963C43;
+      color: var(--cream);
+      font-size: 27px;
+      cursor: pointer;
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.3),
+        inset 0 0 0 4px rgba(255,255,255,0.08);
+      transition:
+        transform 0.4s ease,
+        opacity 0.4s ease;
+    }
 
-  .left {
-    min-height: 480px;
-    padding: 70px 25px;
-  }
+    .intro-seal:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
 
-  .main-phrase {
-    font-size: clamp(43px, 10vw, 65px);
-  }
+    /* OPEN ANIMATION */
 
-  .right {
-    min-height: 720px;
-    padding: 45px 20px 20px;
-  }
+    .intro-envelope.is-open .intro-flap {
+      transform: rotateX(180deg);
+      opacity: 0;
+    }
 
-  .letter {
-    min-height: 390px;
-    padding: 35px 25px 45px;
-  }
+    .intro-envelope.is-open .intro-letter {
+      opacity: 1;
+      transform: translateY(-225px);
+      z-index: 6;
+    }
 
-  .envelope-area {
-    height: 160px;
-  }
+    .intro-envelope.is-open .intro-seal {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.4);
+    }
 
-  .envelope::before {
-    border-left-width: calc(50vw - 20px);
-    border-right-width: calc(50vw - 20px);
-  }
+    .intro-scene.is-open .intro-bottom {
+      opacity: 0;
+    }
 
-  .edition {
-    bottom: 15px;
-  }
-}
-</style>
+    /* BACK TO CALENDAR */
+
+    .back-link {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 10;
+      color: var(--burgundy);
+      text-decoration: none;
+      font-size: 10px;
+      letter-spacing: 2px;
+      background: rgba(242,233,216,0.85);
+      padding: 10px 14px;
+    }
+
+    .back-link:hover {
+      color: var(--dark-red);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 700px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+
+      .left {
+        min-height: 480px;
+        padding: 65px 25px;
+      }
+
+      .top-label {
+        margin-bottom: 40px;
+      }
+
+      .main-phrase {
+        font-size: clamp(38px, 10vw, 58px);
+      }
+
+      .right {
+        min-height: 780px;
+        padding: 20px 15px;
+      }
+
+      .intro-scene {
+        min-height: 740px;
+      }
+
+      .intro-hint {
+        top: 50px;
+      }
+
+      .intro-bottom {
+        bottom: 40px;
+      }
+
+      .intro-envelope {
+        width: min(330px, 88%);
+      }
+
+      .intro-letter {
+        padding: 27px 20px;
+      }
+
+      .intro-letter p {
+        font-size: 15px;
+      }
+
+      .intro-envelope.is-open .intro-letter {
+        transform: translateY(-225px);
+      }
+    }
+
+    @media (max-width: 380px) {
+      .intro-letter {
+        padding: 23px 17px;
+      }
+
+      .intro-letter p {
+        font-size: 14px;
+      }
+
+      .intro-envelope.is-open .intro-letter {
+        transform: translateY(-220px);
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<a class="back" href="../index.html">← DECEMBER</a>
+  <main class="page">
 
-<main class="cover">
+    <!-- LEFT HALF -->
 
-  <!-- LEFT HALF -->
+    <section class="left">
+      <div class="left-content">
 
-  <section class="left">
-    <div class="left-inner">
+        <p class="top-label">A LITTLE CHRISTMAS SURPRISE</p>
 
-      <div class="small-heading">
-        A collection of little love stories
-      </div>
+        <h1 class="main-phrase">
+          <span class="script">All</span>
+          <span class="small-line">BECAUSE</span>
+          TWO PEOPLE
+          <span class="small-line">FELL IN</span>
+          <span class="script">Love</span>
+        </h1>
 
-      <div class="main-phrase">
+        <div class="left-decoration"></div>
 
-        <span class="phrase-line">
-          <span class="script-word">All</span> because
-        </span>
-
-        <span class="phrase-line">
-          two people
-        </span>
-
-        <span class="phrase-line">
-          fell in
-        </span>
-
-        <span class="phrase-line">
-          <span class="script-word">Love</span>
-        </span>
-
-      </div>
-
-      <div class="left-decoration">
-        ✦ &nbsp; ♡ &nbsp; ✦
-      </div>
-
-    </div>
-
-    <div class="edition">
-      CHRISTMAS EDITION · 2026
-    </div>
-  </section>
-
-
-  <!-- RIGHT HALF -->
-
-  <section class="right">
-
-    <div class="right-heading">
-      A little letter for you
-    </div>
-
-    <article class="letter">
-
-      <h2 class="dear">Dear Love,</h2>
-
-      <div class="letter-message">
-        <p>
-          I wanted to make something special for you.
-          Something that reminds you of us, of all
-          the little moments, and of everything
-          that makes our story so beautiful.
+        <p class="left-subtitle">
+          A story made of little moments
         </p>
 
-        <p>
-          So, for the next 24 days, I have prepared
-          a little piece of my heart for you.
-        </p>
-
-        <p>
-          One day, one memory, one surprise at a time.
-        </p>
       </div>
 
-      <div class="letter-signature">
-        With all my love ♡
+      <span class="year-label">DECEMBER 2026</span>
+    </section>
+
+
+    <!-- RIGHT HALF -->
+
+    <section class="right">
+
+      <div class="intro-scene" id="introScene">
+
+        <p class="intro-hint">
+          A LITTLE SURPRISE FOR YOU
+        </p>
+
+        <div class="intro-envelope" id="introEnvelope">
+
+          <!-- THE LETTER -->
+
+          <div class="intro-letter">
+
+            <span class="letter-small">
+              DECEMBER · 24 DAYS
+            </span>
+
+            <h2>Dear Love,</h2>
+
+            <p>
+              This December, I have prepared something special for you.
+
+              <br><br>
+
+              Behind each little door, you will find a memory,
+              a surprise or a little piece of our story.
+
+              <br><br>
+
+              There will be photographs, videos, games,
+              moments to remember and many reasons to smile.
+
+              <br><br>
+
+              One day at a time, for 24 days,
+              I hope to remind you how special you are to me.
+
+              <br><br>
+
+              So, open each day with curiosity...
+
+              <br><br>
+
+              <strong>
+                Everything is made with love, just for you.
+              </strong>
+            </p>
+
+            <span class="letter-signature">
+              With all my love ♡
+            </span>
+
+          </div>
+
+          <!-- ENVELOPE -->
+
+          <div class="intro-flap"></div>
+          <div class="intro-pocket"></div>
+
+          <!-- WAX SEAL -->
+
+          <button
+            class="intro-seal"
+            id="introSeal"
+            aria-label="Open the letter"
+          >
+            🌹
+          </button>
+
+        </div>
+
+        <p class="intro-bottom">
+          CLICK THE SEAL TO OPEN
+        </p>
+
       </div>
 
-    </article>
+    </section>
 
-    <div class="envelope-area">
-      <div class="envelope"></div>
-      <div class="wax-seal">🌹</div>
-    </div>
+  </main>
 
-    <div class="bottom-note">
-      Just for you
-    </div>
 
-  </section>
+  <!-- BACK TO CALENDAR -->
 
-</main>
+  <a href="../index.html" class="back-link">
+    ← DECEMBER
+  </a>
+
+
+  <!-- INTERACTION -->
+
+  <script>
+    const seal = document.getElementById("introSeal");
+    const envelope = document.getElementById("introEnvelope");
+    const scene = document.getElementById("introScene");
+
+    seal.addEventListener("click", function() {
+      envelope.classList.add("is-open");
+      scene.classList.add("is-open");
+    });
+  </script>
 
 </body>
 </html>
