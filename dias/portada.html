@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Because Two People Fell in Love</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #F2E9D8;
+  --burgundy: #762E36;
+  --dark-red: #4B252A;
+  --green: #18372E;
+  --gold: #C9A76B;
+  --paper: #F8F0E2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--burgundy);
+}
+
+.cover {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* LEFT SIDE */
+
+.left {
+  background: var(--cream);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 55px 35px;
+  position: relative;
+}
+
+.left-inner {
+  max-width: 540px;
+  width: 100%;
+  text-align: center;
+}
+
+.small-heading {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 45px;
+  color: var(--gold);
+}
+
+.main-phrase {
+  font-size: clamp(37px, 5.2vw, 73px);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.script-word {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.45em;
+  text-transform: none;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--burgundy);
+  display: inline-block;
+  line-height: 0.85;
+}
+
+.phrase-line {
+  display: block;
+  margin: 9px 0;
+}
+
+.left-decoration {
+  margin-top: 48px;
+  font-size: 16px;
+  color: var(--gold);
+  letter-spacing: 8px;
+}
+
+.edition {
+  position: absolute;
+  bottom: 25px;
+  left: 30px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #9E8270;
+}
+
+/* RIGHT SIDE */
+
+.right {
+  background: var(--burgundy);
+  min-height: 100vh;
+  padding: 55px 35px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+}
+
+.right-heading {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+/* LETTER */
+
+.letter {
+  width: min(100%, 440px);
+  min-height: 440px;
+  padding: 38px 35px 55px;
+  background:
+    radial-gradient(ellipse at top left,
+      rgba(201,167,107,0.12), transparent 60%),
+    var(--paper);
+  color: var(--dark-red);
+  position: relative;
+  z-index: 2;
+  border: 2px dashed #C7A77D;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+  text-align: left;
+}
+
+.letter::before,
+.letter::after {
+  content: "✦";
+  position: absolute;
+  color: var(--gold);
+  font-size: 13px;
+}
+
+.letter::before {
+  top: 15px;
+  left: 17px;
+}
+
+.letter::after {
+  bottom: 15px;
+  right: 17px;
+}
+
+.dear {
+  font-family: 'Great Vibes', cursive;
+  font-size: 45px;
+  color: var(--burgundy);
+  margin: 0 0 22px;
+}
+
+.letter-message {
+  font-size: 19px;
+  line-height: 1.55;
+  color: #5D4140;
+}
+
+.letter-signature {
+  font-family: 'Great Vibes', cursive;
+  font-size: 32px;
+  color: var(--burgundy);
+  text-align: right;
+  margin-top: 20px;
+}
+
+/* ENVELOPE */
+
+.envelope-area {
+  position: relative;
+  width: min(100%, 450px);
+  height: 180px;
+  margin-top: -12px;
+  z-index: 3;
+}
+
+.envelope {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 140px;
+  background: var(--dark-red);
+  border: 1px solid rgba(201,167,107,0.6);
+  box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 224px solid transparent;
+  border-right: 224px solid transparent;
+  border-top: 95px solid var(--burgundy);
+  transform: rotate(180deg);
+  z-index: 1;
+}
+
+.wax-seal {
+  position: absolute;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #C45C57, #861F2B 70%);
+  border: 3px solid #A53D43;
+  color: #F2C7A5;
+  font-size: 29px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+/* FOOTER */
+
+.bottom-note {
+  color: var(--gold);
+  font-family: 'Great Vibes', cursive;
+  font-size: 25px;
+  margin-top: 22px;
+  margin-bottom: 20px;
+  z-index: 4;
+}
+
+.back {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 10;
+  text-decoration: none;
+  color: var(--gold);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  background: rgba(16,40,32,0.8);
+  padding: 11px 15px;
+}
+
+@media (max-width: 700px) {
+  .cover {
+    grid-template-columns: 1fr;
+  }
+
+  .left {
+    min-height: 480px;
+    padding: 70px 25px;
+  }
+
+  .main-phrase {
+    font-size: clamp(43px, 10vw, 65px);
+  }
+
+  .right {
+    min-height: 720px;
+    padding: 45px 20px 20px;
+  }
+
+  .letter {
+    min-height: 390px;
+    padding: 35px 25px 45px;
+  }
+
+  .envelope-area {
+    height: 160px;
+  }
+
+  .envelope::before {
+    border-left-width: calc(50vw - 20px);
+    border-right-width: calc(50vw - 20px);
+  }
+
+  .edition {
+    bottom: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<a class="back" href="../index.html">← DECEMBER</a>
+
+<main class="cover">
+
+  <!-- LEFT HALF -->
+
+  <section class="left">
+    <div class="left-inner">
+
+      <div class="small-heading">
+        A collection of little love stories
+      </div>
+
+      <div class="main-phrase">
+
+        <span class="phrase-line">
+          <span class="script-word">All</span> because
+        </span>
+
+        <span class="phrase-line">
+          two people
+        </span>
+
+        <span class="phrase-line">
+          fell in
+        </span>
+
+        <span class="phrase-line">
+          <span class="script-word">Love</span>
+        </span>
+
+      </div>
+
+      <div class="left-decoration">
+        ✦ &nbsp; ♡ &nbsp; ✦
+      </div>
+
+    </div>
+
+    <div class="edition">
+      CHRISTMAS EDITION · 2026
+    </div>
+  </section>
+
+
+  <!-- RIGHT HALF -->
+
+  <section class="right">
+
+    <div class="right-heading">
+      A little letter for you
+    </div>
+
+    <article class="letter">
+
+      <h2 class="dear">Dear Love,</h2>
+
+      <div class="letter-message">
+        <p>
+          I wanted to make something special for you.
+          Something that reminds you of us, of all
+          the little moments, and of everything
+          that makes our story so beautiful.
+        </p>
+
+        <p>
+          So, for the next 24 days, I have prepared
+          a little piece of my heart for you.
+        </p>
+
+        <p>
+          One day, one memory, one surprise at a time.
+        </p>
+      </div>
+
+      <div class="letter-signature">
+        With all my love ♡
+      </div>
+
+    </article>
+
+    <div class="envelope-area">
+      <div class="envelope"></div>
+      <div class="wax-seal">🌹</div>
+    </div>
+
+    <div class="bottom-note">
+      Just for you
+    </div>
+
+  </section>
+
+</main>
+
+</body>
+</html>
