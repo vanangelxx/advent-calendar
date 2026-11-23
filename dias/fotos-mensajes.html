@@ -41,8 +41,8 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: auto 1fr;
-      background: var(--cream);
       padding: 0 4%;
+      background: var(--cream);
     }
 
     /* TÍTULO */
@@ -78,10 +78,10 @@
     .right {
       min-width: 0;
       min-height: calc(100vh - 190px);
-      padding: 25px 30px 45px;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 25px 30px 45px;
     }
 
     /* FOTOGRAFÍA GRANDE DE LA IZQUIERDA */
@@ -96,19 +96,47 @@
       transform: rotate(-2deg);
     }
 
-    /* FOTOGRAFÍAS DE LA DERECHA */
+    /* ZONA DE LAS DOS TIRAS */
 
     .right {
       padding-left: 35px;
+      overflow: visible;
     }
 
-    .photo-grid {
+    .photo-strips {
       width: 100%;
-      max-width: 620px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px 25px;
+      display: flex;
       align-items: center;
+      justify-content: center;
+      gap: clamp(15px, 3vw, 35px);
+      padding: 25px 10px;
+    }
+
+    /* TIRAS NEGRAS DE FOTOMATÓN */
+
+    .photo-strip {
+      width: min(42%, 220px);
+      background: #151515;
+      padding: 13px 11px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 4px 7px 14px rgba(0, 0, 0, 0.22);
+      flex-shrink: 0;
+    }
+
+    /* PRIMERA TIRA: MÁS INCLINADA */
+
+    .photo-strip:first-child {
+      transform: rotate(-8deg);
+      margin-top: 10px;
+    }
+
+    /* SEGUNDA TIRA: MENOS INCLINADA */
+
+    .photo-strip:last-child {
+      transform: rotate(3deg);
+      margin-top: -5px;
     }
 
     /* TARJETAS INTERACTIVAS */
@@ -142,17 +170,17 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      border-radius: 3px;
+      border-radius: 1px;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       overflow: hidden;
     }
 
-    /* CARA DE LA FOTOGRAFÍA */
+    /* FRENTE GRANATE */
 
     .flip-front {
       background: var(--burgundy);
-      border: 7px solid var(--burgundy);
+      border: 4px solid var(--burgundy);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -168,26 +196,24 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 12px;
+      padding: 8px;
     }
 
     .photo-placeholder .number {
       font-family: "Cormorant Garamond", serif;
-      font-size: clamp(22px, 2.5vw, 34px);
+      font-size: clamp(20px, 2vw, 30px);
       color: var(--gold);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .photo-placeholder .hint {
       font-family: "DM Sans", sans-serif;
-      font-size: 10px;
-      letter-spacing: 2px;
+      font-size: 9px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--cream);
-      opacity: 0.85;
+      opacity: 0.9;
     }
-
-    /* Cuando añadas una fotografía real, utiliza esta clase */
 
     .photo-placeholder img {
       width: 100%;
@@ -196,24 +222,24 @@
       display: block;
     }
 
-    /* CARA DEL MENSAJE */
+    /* REVERSO CON MENSAJE */
 
     .flip-back {
       background: var(--dark-red);
       color: var(--cream);
       transform: rotateY(180deg);
-      border: 5px solid var(--gold);
+      border: 4px solid var(--gold);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 15px;
+      padding: 10px;
       text-align: center;
     }
 
     .message {
       font-family: "Cormorant Garamond", serif;
-      font-size: clamp(15px, 1.6vw, 22px);
-      line-height: 1.35;
+      font-size: clamp(13px, 1.3vw, 19px);
+      line-height: 1.3;
       font-weight: 500;
     }
 
@@ -221,30 +247,14 @@
       content: "♥";
       display: block;
       color: var(--gold);
-      font-size: 20px;
-      margin-bottom: 8px;
+      font-size: 17px;
+      margin-bottom: 5px;
     }
 
-    /* COMPOSICIÓN ASIMÉTRICA DE LAS FOTOS */
+    /* FOTOGRAFÍA GRANDE IZQUIERDA */
 
-    .photo-grid .flip-card:nth-child(2) {
-      transform: translateY(12px) rotate(1deg);
-    }
-
-    .photo-grid .flip-card:nth-child(3) {
-      transform: translateY(-8px) rotate(-1deg);
-    }
-
-    .photo-grid .flip-card:nth-child(4) {
-      transform: translateY(10px) rotate(1deg);
-    }
-
-    .photo-grid .flip-card:nth-child(5) {
-      transform: translateY(-8px) rotate(-1deg);
-    }
-
-    .photo-grid .flip-card:nth-child(6) {
-      transform: translateY(12px) rotate(1deg);
+    .main-photo .flip-card {
+      width: 100%;
     }
 
     /* CORAZÓN DECORATIVO */
@@ -282,7 +292,7 @@
       color: var(--cream);
     }
 
-    /* MÓVILES Y TABLETS */
+    /* TABLETS Y MÓVILES */
 
     @media (max-width: 700px) {
 
@@ -321,29 +331,38 @@
       }
 
       .right {
-        padding-top: 30px;
+        padding-top: 35px;
       }
 
-      .photo-grid {
-        max-width: 520px;
-        gap: 18px 14px;
+      .photo-strips {
+        gap: 22px;
+        padding: 25px 5px;
       }
 
-      .photo-grid .flip-card {
-        transform: none;
+      .photo-strip {
+        width: min(43%, 210px);
+        padding: 10px 9px 22px;
+        gap: 9px;
+      }
+
+      .photo-strip:first-child {
+        transform: rotate(-6deg);
+      }
+
+      .photo-strip:last-child {
+        transform: rotate(2deg);
       }
 
       .message {
-        font-size: 16px;
+        font-size: 14px;
       }
 
       .photo-placeholder .number {
-        font-size: 24px;
+        font-size: 22px;
       }
 
       .photo-placeholder .hint {
-        font-size: 8px;
-        letter-spacing: 1px;
+        font-size: 7px;
       }
 
       .back-link {
@@ -354,16 +373,21 @@
     }
 
     @media (max-width: 380px) {
-      .photo-grid {
-        gap: 12px 10px;
+      .photo-strips {
+        gap: 14px;
+      }
+
+      .photo-strip {
+        padding: 8px 7px 18px;
+        gap: 7px;
       }
 
       .flip-back {
-        padding: 8px;
+        padding: 5px;
       }
 
       .message {
-        font-size: 14px;
+        font-size: 12px;
       }
     }
 
@@ -374,7 +398,7 @@
 
   <main class="page">
 
-    <!-- TÍTULO DE LA DOBLE PÁGINA -->
+    <!-- TÍTULO -->
 
     <header class="title-area">
       <h1>Historias de nuestra vida</h1>
@@ -383,7 +407,7 @@
 
     <div class="heart">♥</div>
 
-    <!-- MITAD IZQUIERDA: UNA FOTOGRAFÍA -->
+    <!-- MITAD IZQUIERDA: FOTOGRAFÍA 1 -->
 
     <section class="left">
 
@@ -414,119 +438,131 @@
 
     </section>
 
-    <!-- MITAD DERECHA: SEIS FOTOGRAFÍAS -->
+    <!-- MITAD DERECHA: DOS TIRAS DE FOTOMATÓN -->
 
     <section class="right">
 
-      <div class="photo-grid">
+      <div class="photo-strips">
 
-        <!-- FOTOGRAFÍA 2 -->
+        <!-- PRIMERA TIRA: FOTOS 2, 4 Y 6 -->
 
-        <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 2" aria-pressed="false">
-          <div class="flip-inner">
-            <div class="flip-front">
-              <div class="photo-placeholder">
-                <span class="number">02</span>
-                <span class="hint">Pulsa para descubrir</span>
+        <div class="photo-strip">
+
+          <!-- FOTO 2 -->
+
+          <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 2" aria-pressed="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="photo-placeholder">
+                  <span class="number">02</span>
+                  <span class="hint">Pulsa para descubrir</span>
+                </div>
+              </div>
+              <div class="flip-back">
+                <p class="message">
+                  Me encanta poder mirar atrás y ver todo lo que hemos vivido juntos.
+                </p>
               </div>
             </div>
-            <div class="flip-back">
-              <p class="message">
-                Me encanta poder mirar atrás y ver todo lo que hemos vivido juntos.
-              </p>
-            </div>
-          </div>
-        </button>
+          </button>
 
-        <!-- FOTOGRAFÍA 3 -->
+          <!-- FOTO 4 -->
 
-        <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 3" aria-pressed="false">
-          <div class="flip-inner">
-            <div class="flip-front">
-              <div class="photo-placeholder">
-                <span class="number">03</span>
-                <span class="hint">Pulsa para descubrir</span>
+          <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 4" aria-pressed="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="photo-placeholder">
+                  <span class="number">04</span>
+                  <span class="hint">Pulsa para descubrir</span>
+                </div>
+              </div>
+              <div class="flip-back">
+                <p class="message">
+                  Gracias por todas las risas, las aventuras y las historias que todavía nos quedan por vivir.
+                </p>
               </div>
             </div>
-            <div class="flip-back">
-              <p class="message">
-                Contigo, hasta los planes más sencillos terminan siendo especiales.
-              </p>
-            </div>
-          </div>
-        </button>
+          </button>
 
-        <!-- FOTOGRAFÍA 4 -->
+          <!-- FOTO 6 -->
 
-        <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 4" aria-pressed="false">
-          <div class="flip-inner">
-            <div class="flip-front">
-              <div class="photo-placeholder">
-                <span class="number">04</span>
-                <span class="hint">Pulsa para descubrir</span>
+          <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 6" aria-pressed="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="photo-placeholder">
+                  <span class="number">06</span>
+                  <span class="hint">Pulsa para descubrir</span>
+                </div>
+              </div>
+              <div class="flip-back">
+                <p class="message">
+                  Qué suerte haber coincidido y poder construir tantos recuerdos contigo.
+                </p>
               </div>
             </div>
-            <div class="flip-back">
-              <p class="message">
-                Gracias por todas las risas, las aventuras y las historias que todavía nos quedan por vivir.
-              </p>
-            </div>
-          </div>
-        </button>
+          </button>
 
-        <!-- FOTOGRAFÍA 5 -->
+        </div>
 
-        <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 5" aria-pressed="false">
-          <div class="flip-inner">
-            <div class="flip-front">
-              <div class="photo-placeholder">
-                <span class="number">05</span>
-                <span class="hint">Pulsa para descubrir</span>
+        <!-- SEGUNDA TIRA: FOTOS 3, 5 Y 7 -->
+
+        <div class="photo-strip">
+
+          <!-- FOTO 3 -->
+
+          <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 3" aria-pressed="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="photo-placeholder">
+                  <span class="number">03</span>
+                  <span class="hint">Pulsa para descubrir</span>
+                </div>
+              </div>
+              <div class="flip-back">
+                <p class="message">
+                  Contigo, hasta los planes más sencillos terminan siendo especiales.
+                </p>
               </div>
             </div>
-            <div class="flip-back">
-              <p class="message">
-                Si pudiera repetir algunos días de mi vida, muchos de ellos serían a tu lado.
-              </p>
-            </div>
-          </div>
-        </button>
+          </button>
 
-        <!-- FOTOGRAFÍA 6 -->
+          <!-- FOTO 5 -->
 
-        <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 6" aria-pressed="false">
-          <div class="flip-inner">
-            <div class="flip-front">
-              <div class="photo-placeholder">
-                <span class="number">06</span>
-                <span class="hint">Pulsa para descubrir</span>
+          <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 5" aria-pressed="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="photo-placeholder">
+                  <span class="number">05</span>
+                  <span class="hint">Pulsa para descubrir</span>
+                </div>
+              </div>
+              <div class="flip-back">
+                <p class="message">
+                  Si pudiera repetir algunos días de mi vida, muchos de ellos serían a tu lado.
+                </p>
               </div>
             </div>
-            <div class="flip-back">
-              <p class="message">
-                Qué suerte haber coincidido y poder construir tantos recuerdos contigo.
-              </p>
-            </div>
-          </div>
-        </button>
+          </button>
 
-        <!-- FOTOGRAFÍA 7 -->
+          <!-- FOTO 7 -->
 
-        <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 7" aria-pressed="false">
-          <div class="flip-inner">
-            <div class="flip-front">
-              <div class="photo-placeholder">
-                <span class="number">07</span>
-                <span class="hint">Pulsa para descubrir</span>
+          <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 7" aria-pressed="false">
+            <div class="flip-inner">
+              <div class="flip-front">
+                <div class="photo-placeholder">
+                  <span class="number">07</span>
+                  <span class="hint">Pulsa para descubrir</span>
+                </div>
+              </div>
+              <div class="flip-back">
+                <p class="message">
+                  Y lo mejor de nuestra historia es que todavía nos quedan muchísimas páginas por escribir.
+                </p>
               </div>
             </div>
-            <div class="flip-back">
-              <p class="message">
-                Y lo mejor de nuestra historia es que todavía nos quedan muchísimas páginas por escribir.
-              </p>
-            </div>
-          </div>
-        </button>
+          </button>
+
+        </div>
 
       </div>
 
