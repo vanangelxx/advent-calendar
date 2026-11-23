@@ -112,17 +112,48 @@
       padding: 25px 10px;
     }
 
-    /* TIRAS NEGRAS DE FOTOMATÓN */
+    /* TIRAS DE PELÍCULA ANALÓGICA */
 
     .photo-strip {
       width: min(42%, 220px);
-      background: #151515;
-      padding: 13px 11px 28px;
+      background: #111111;
+      padding: 22px 17px 42px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      box-shadow: 4px 7px 14px rgba(0, 0, 0, 0.22);
+      gap: 15px;
+      position: relative;
       flex-shrink: 0;
+      box-shadow:
+        4px 8px 15px rgba(0, 0, 0, 0.25),
+        inset 0 0 0 1px #333333;
+    }
+
+    /* PERFORACIONES DE LA PELÍCULA */
+
+    .photo-strip::before,
+    .photo-strip::after {
+      content: "";
+      position: absolute;
+      top: 12px;
+      bottom: 12px;
+      width: 7px;
+      background-image: radial-gradient(
+        ellipse,
+        var(--cream) 0 2.5px,
+        transparent 2.8px
+      );
+      background-size: 7px 17px;
+      background-repeat: repeat-y;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .photo-strip::before {
+      left: 4px;
+    }
+
+    .photo-strip::after {
+      right: 4px;
     }
 
     /* PRIMERA TIRA: MÁS INCLINADA */
@@ -150,6 +181,16 @@
       cursor: pointer;
       display: block;
       -webkit-tap-highlight-color: transparent;
+    }
+
+    /* MARCO NEGRO DE CADA FOTOGRAFÍA */
+
+    .photo-strip .flip-card {
+      position: relative;
+      z-index: 1;
+      border: 3px solid #080808;
+      background: #111111;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
     }
 
     .flip-inner {
@@ -185,6 +226,10 @@
       align-items: center;
       justify-content: center;
       color: var(--cream);
+    }
+
+    .photo-strip .flip-front {
+      border: 2px solid #111111;
     }
 
     .photo-placeholder {
@@ -234,6 +279,10 @@
       justify-content: center;
       padding: 10px;
       text-align: center;
+    }
+
+    .photo-strip .flip-back {
+      border: 2px solid var(--gold);
     }
 
     .message {
@@ -341,8 +390,8 @@
 
       .photo-strip {
         width: min(43%, 210px);
-        padding: 10px 9px 22px;
-        gap: 9px;
+        padding: 19px 15px 35px;
+        gap: 12px;
       }
 
       .photo-strip:first-child {
@@ -372,14 +421,17 @@
       }
     }
 
+    /* MÓVILES PEQUEÑOS */
+
     @media (max-width: 380px) {
+
       .photo-strips {
         gap: 14px;
       }
 
       .photo-strip {
-        padding: 8px 7px 18px;
-        gap: 7px;
+        padding: 16px 13px 30px;
+        gap: 9px;
       }
 
       .flip-back {
@@ -599,3 +651,4 @@
 
 </body>
 </html>
+
