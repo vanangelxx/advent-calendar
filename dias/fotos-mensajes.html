@@ -2,510 +2,790 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Historias de nuestra vida</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<title>Historias de nuestra vida</title>
 
-  <style>
-    :root {
-      --cream: #F2E9D8;
-      --burgundy: #762E36;
-      --dark-red: #4B252A;
-      --green: #18372E;
-      --gold: #C9A76B;
-      --paper: #FFFFFF;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    * {
-      box-sizing: border-box;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
-    html, body {
-      margin: 0;
-      width: 100%;
-      min-height: 100%;
-    }
+<style>
 
-    body {
-      min-height: 100vh;
-      background: var(--cream);
-      color: var(--dark-red);
-      font-family: "Cormorant Garamond", serif;
-    }
+/* =========================
+   COLORES
+========================= */
 
-    /* REVISTA: MISMO ESPACIO DE PANTALLA QUE EL DIA 1 */
-    .magazine {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      min-height: 680px;
-      margin: 0;
-      padding: 0;
-      background: var(--paper);
-      box-shadow: 0 10px 35px rgba(65, 42, 31, 0.12);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
+:root {
+  --cream: #F2E9D8;
+  --burgundy: #762E36;
+  --dark-red: #4B252A;
+  --green: #18372E;
+  --gold: #C9A76B;
+  --paper: #FFFFFF;
+}
 
-    /* UNION CENTRAL MUY SUAVE */
-    .magazine::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 18px;
-      transform: translateX(-50%);
-      pointer-events: none;
-      z-index: 2;
-      background: linear-gradient(
-        to right,
-        transparent,
-        rgba(0,0,0,0.035),
-        transparent
-      );
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    /* TITULO */
-    .title-area {
-      position: relative;
-      z-index: 1;
-      flex-shrink: 0;
-      padding: 25px 35px 8px;
-      text-align: center;
-    }
+/* =========================
+   ESTRUCTURA GENERAL
+========================= */
 
-    .main-title {
-      margin: 0;
-      color: var(--burgundy);
-      font-family: "Great Vibes", cursive;
-      font-size: clamp(75px, 9.5vw, 125px);
-      font-weight: 400;
-      line-height: 0.82;
-      letter-spacing: -2px;
-    }
+body {
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+}
 
-    .main-title span {
-      display: block;
-    }
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  background: var(--paper);
+}
 
-    .subtitle {
-      margin-top: 13px;
-      color: var(--green);
-      font-family: "DM Sans", sans-serif;
-      font-size: 9px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
+/* =========================
+   TITULO PRINCIPAL
+========================= */
 
-    /* DOBLE PAGINA */
-    .spread {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      flex: 1;
-      min-height: 0;
-      overflow: hidden;
-    }
+.title-area {
+  grid-column: 1 / -1;
+  background: var(--paper);
+  text-align: center;
+  padding: 22px 20px 8px;
+  position: relative;
+  z-index: 2;
+}
 
-    .left-page,
-    .right-page {
-      min-width: 0;
-      min-height: 0;
-      padding: 18px 42px 25px;
-      overflow: hidden;
-    }
+.main-title {
+  color: var(--burgundy);
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(65px, 8.5vw, 112px);
+  font-weight: 400;
+  line-height: 0.78;
+}
 
-    .left-page {
-      padding-right: 35px;
-    }
+.main-title span {
+  display: block;
+}
 
-    .right-page {
-      padding-left: 35px;
-    }
+.subtitle {
+  color: var(--green);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  margin-top: 15px;
+  text-transform: uppercase;
+}
 
-    /* TEXTOS */
-    .eyebrow {
-      margin: 0 0 9px;
-      color: var(--gold);
-      font-family: "DM Sans", sans-serif;
-      font-size: 9px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
+/* =========================
+   DOS MITADES
+========================= */
 
-    .intro-text {
-      max-width: 390px;
-      margin: 0 0 12px;
-      font-size: 19px;
-      line-height: 1.35;
-    }
+.left,
+.right {
+  min-height: calc(100vh - 190px);
+  background: var(--paper);
+  position: relative;
+  padding: 20px 35px 45px;
+  overflow: hidden;
+}
 
-    /* ESPACIOS PARA LAS FOTOS */
-    .photo-placeholder {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 0;
-      background: #F7F2E9;
-      border: 1px dashed var(--gold);
-      color: #A18B70;
-      font-family: "DM Sans", sans-serif;
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-align: center;
-      overflow: hidden;
-    }
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-    .photo-placeholder::before {
-      content: "＋";
-      margin-right: 7px;
-      color: var(--gold);
-      font-size: 18px;
-    }
+.right {
+  display: flex;
+  flex-direction: column;
+}
 
-    .main-photo {
-      width: 100%;
-      height: 34%;
-      min-height: 125px;
-      margin: 5px 0 10px;
-    }
+/* =========================
+   PEQUEÑOS TITULOS
+========================= */
 
-    /* CORAZON DIBUJADO */
-    .heart {
-      display: block;
-      width: 85px;
-      height: 75px;
-      margin: 0 auto 5px;
-      color: var(--burgundy);
-    }
+.eyebrow {
+  color: var(--gold);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  text-align: center;
+}
 
-    .heart svg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
+.section-title {
+  color: var(--green);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 15px;
+}
 
-    .heart path {
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
+/* =========================
+   TARJETAS GIRATORIAS
+========================= */
 
-    .left-bottom-text {
-      margin: 5px 0;
-      font-size: 17px;
-      line-height: 1.35;
-      text-align: left;
-    }
+.flip-card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1000px;
+  text-align: center;
+  color: var(--dark-red);
+  -webkit-tap-highlight-color: transparent;
+}
 
-    .small-quote {
-      margin: 12px 0 0;
-      color: var(--green);
-      font-size: 20px;
-      font-style: italic;
-      text-align: center;
-    }
+.flip-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.75s ease;
+}
 
-    /* PAREJAS DE FOTOGRAFIAS */
-    .photo-groups {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding-top: 3px;
-    }
+.flip-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
 
-    .photo-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 13px;
-      align-items: start;
-    }
+.flip-front,
+.flip-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
 
-    .photo-row .photo-placeholder {
-      aspect-ratio: 1.12 / 1;
-      width: 100%;
-    }
+/* CARA DE LA FOTO */
 
-    /* PRIMERA PAREJA */
-    .photo-row:nth-child(1) .photo-placeholder:nth-child(2) {
-      margin-top: 15px;
-    }
+.flip-front {
+  background: #F7F2E9;
+  border: 1px solid var(--gold);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #A18B70;
+}
 
-    /* SEGUNDA PAREJA */
-    .photo-row:nth-child(2) {
-      margin-top: 8px;
-    }
+.photo-symbol {
+  color: var(--gold);
+  font-size: 32px;
+  margin-bottom: 10px;
+}
 
-    .photo-row:nth-child(2) .photo-placeholder:nth-child(1) {
-      margin-top: 13px;
-    }
+.photo-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 
-    /* TERCERA PAREJA */
-    .photo-row:nth-child(3) {
-      margin-top: 2px;
-    }
+.photo-hint {
+  margin-top: 9px;
+  color: #A18B70;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+}
 
-    .photo-row:nth-child(3) .photo-placeholder:nth-child(2) {
-      margin-top: 18px;
-    }
+/* REVERSO CON MENSAJE */
 
-    .right-text {
-      max-width: 390px;
-      margin: 16px 0 5px;
-      font-size: 17px;
-      line-height: 1.35;
-    }
+.flip-back {
+  transform: rotateY(180deg);
+  background: var(--cream);
+  border: 1px solid var(--gold);
+  outline: 1px dashed rgba(201, 167, 107, 0.65);
+  outline-offset: -7px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
-    .closing-line {
-      margin: 8px 0 0;
-      color: var(--burgundy);
-      font-family: "Great Vibes", cursive;
-      font-size: 34px;
-      text-align: right;
-    }
+.message-heart {
+  color: var(--burgundy);
+  font-size: 19px;
+  margin-bottom: 8px;
+}
 
-    /* VOLVER */
-    .back-link {
-      position: fixed;
-      z-index: 5;
-      bottom: 18px;
-      left: 22px;
-      color: var(--green);
-      font-family: "DM Sans", sans-serif;
-      font-size: 10px;
-      letter-spacing: 1px;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
+.message-title {
+  color: var(--burgundy);
+  font-family: 'Great Vibes', cursive;
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 9px;
+}
 
-    .back-link:hover {
-      color: var(--burgundy);
-    }
+.message-text {
+  color: var(--dark-red);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  line-height: 1.3;
+}
 
-    /* MOVIL */
-    @media (max-width: 700px) {
-      .magazine {
-        height: auto;
-        min-height: 100vh;
-        overflow: visible;
-      }
+/* =========================
+   FOTO PRINCIPAL IZQUIERDA
+========================= */
 
-      .magazine::after {
-        display: none;
-      }
+.main-photo-card {
+  width: min(390px, 100%);
+  height: 260px;
+  margin: 5px auto 0;
+}
 
-      .title-area {
-        padding: 35px 15px 18px;
-      }
+.main-photo-card .message-title {
+  font-size: 35px;
+}
 
-      .main-title {
-        font-size: clamp(58px, 13vw, 88px);
-        line-height: 0.9;
-      }
+.main-photo-card .message-text {
+  font-size: 19px;
+}
 
-      .subtitle {
-        font-size: 8px;
-        letter-spacing: 2px;
-      }
+.left-decoration {
+  width: 75px;
+  height: 1px;
+  background: var(--gold);
+  margin: 20px auto 12px;
+}
 
-      .spread {
-        grid-template-columns: 1fr;
-        overflow: visible;
-      }
+.left-caption {
+  color: var(--green);
+  font-family: 'Great Vibes', cursive;
+  font-size: 31px;
+  text-align: center;
+}
 
-      .left-page,
-      .right-page {
-        padding: 25px 25px 35px;
-        overflow: visible;
-      }
+/* =========================
+   CORAZON DECORATIVO
+========================= */
 
-      .left-page {
-        border-bottom: 1px solid rgba(201, 167, 107, 0.25);
-      }
+.heart {
+  width: 85px;
+  height: 70px;
+  margin: 15px auto 0;
+  color: var(--burgundy);
+}
 
-      .right-page {
-        padding-top: 25px;
-      }
+.heart svg {
+  width: 100%;
+  height: 100%;
+}
 
-      .intro-text,
-      .right-text {
-        font-size: 19px;
-      }
+.heart path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
-      .main-photo {
-        height: auto;
-        aspect-ratio: 1.45 / 1;
-      }
+/* =========================
+   GRUPOS DE FOTOS DERECHA
+========================= */
 
-      .heart {
-        width: 95px;
-        height: 85px;
-      }
+.photo-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  width: 100%;
+}
 
-      .left-bottom-text {
-        font-size: 19px;
-      }
+.photo-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  align-items: start;
+}
 
-      .small-quote {
-        font-size: 22px;
-      }
+.small-photo-card {
+  height: 132px;
+  width: 100%;
+}
 
-      .photo-row {
-        gap: 10px;
-      }
+/* PRIMERA PAREJA */
 
-      .photo-row .photo-placeholder {
-        min-height: 125px;
-      }
+.photo-row:nth-child(1) .flip-card:nth-child(2) {
+  margin-top: 17px;
+}
 
-      .right-text {
-        margin-top: 25px;
-      }
+/* SEGUNDA PAREJA */
 
-      .closing-line {
-        font-size: 38px;
-      }
+.photo-row:nth-child(2) {
+  margin-top: 5px;
+}
 
-      .back-link {
-        position: relative;
-        display: block;
-        width: fit-content;
-        margin: 25px auto;
-        bottom: auto;
-        left: auto;
-      }
-    }
+.photo-row:nth-child(2) .flip-card:nth-child(1) {
+  margin-top: 15px;
+}
 
-    @media (max-width: 380px) {
-      .left-page,
-      .right-page {
-        padding-left: 17px;
-        padding-right: 17px;
-      }
+/* TERCERA PAREJA */
 
-      .main-title {
-        font-size: 55px;
-      }
+.photo-row:nth-child(3) {
+  margin-top: 3px;
+}
 
-      .photo-groups {
-        gap: 10px;
-      }
-    }
-  </style>
+.photo-row:nth-child(3) .flip-card:nth-child(2) {
+  margin-top: 17px;
+}
+
+/* MENSAJES DE FOTOS PEQUEÑAS */
+
+.small-photo-card .flip-back {
+  padding: 11px;
+}
+
+.small-photo-card .message-title {
+  font-size: 25px;
+}
+
+.small-photo-card .message-text {
+  font-size: 15px;
+}
+
+/* =========================
+   VOLVER AL CALENDARIO
+========================= */
+
+.back-link {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10;
+  color: var(--burgundy);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 2px;
+  background: rgba(242,233,216,0.92);
+  padding: 10px 14px;
+}
+
+.back-link:hover {
+  color: var(--dark-red);
+}
+
+/* =========================
+   VERSION MOVIL
+========================= */
+
+@media (max-width: 700px) {
+
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .title-area {
+    padding: 35px 15px 20px;
+  }
+
+  .main-title {
+    font-size: clamp(58px, 13vw, 88px);
+    line-height: 0.88;
+  }
+
+  .subtitle {
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+
+  .left,
+  .right {
+    min-height: auto;
+    padding: 30px 25px 45px;
+    overflow: visible;
+  }
+
+  .left {
+    border-bottom: 1px solid rgba(201, 167, 107, 0.25);
+  }
+
+  .main-photo-card {
+    height: 260px;
+  }
+
+  .right {
+    padding-top: 35px;
+  }
+
+  .small-photo-card {
+    height: 155px;
+  }
+
+  .photo-groups {
+    gap: 20px;
+  }
+
+  .photo-row {
+    gap: 12px;
+  }
+
+  .photo-row:nth-child(1) .flip-card:nth-child(2) {
+    margin-top: 15px;
+  }
+
+  .photo-row:nth-child(2) .flip-card:nth-child(1) {
+    margin-top: 15px;
+  }
+
+  .photo-row:nth-child(3) .flip-card:nth-child(2) {
+    margin-top: 15px;
+  }
+
+  .back-link {
+    position: relative;
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    bottom: auto;
+    left: auto;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .left,
+  .right {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
+
+  .main-title {
+    font-size: 55px;
+  }
+
+  .small-photo-card {
+    height: 135px;
+  }
+
+  .message-text {
+    font-size: 14px;
+  }
+}
+
+/* =========================
+   MOVIMIENTO REDUCIDO
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner {
+    transition: none;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
-  <main class="magazine">
+<main class="page">
 
-    <!-- TITULO -->
-    <header class="title-area">
-      <h1 class="main-title">
-        <span>Historias</span>
-        <span>de nuestra vida</span>
-      </h1>
+  <!-- TITULO QUE OCUPA LAS DOS MITADES -->
 
-      <div class="subtitle">
-        Un pequeño álbum de nuestros recuerdos
+  <header class="title-area">
+
+    <h1 class="main-title">
+      <span>Historias</span>
+      <span>de nuestra vida</span>
+    </h1>
+
+    <p class="subtitle">
+      Un pequeño álbum de nuestros recuerdos
+    </p>
+
+  </header>
+
+
+  <!-- MITAD IZQUIERDA -->
+
+  <section class="left">
+
+    <p class="eyebrow">
+      Capítulo uno · Nosotros
+    </p>
+
+    <h2 class="section-title">
+      Un recuerdo para guardar
+    </h2>
+
+    <!-- FOTO 1 -->
+
+    <button class="flip-card main-photo-card" type="button"
+      aria-label="Dar la vuelta a la fotografía uno">
+
+      <span class="flip-inner">
+
+        <span class="flip-front">
+          <span class="photo-symbol">♡</span>
+          <span class="photo-label">Fotografía 01</span>
+          <span class="photo-hint">Pulsa para descubrir</span>
+        </span>
+
+        <span class="flip-back">
+          <span class="message-heart">♡</span>
+          <span class="message-title">Nuestro comienzo</span>
+          <span class="message-text">
+            Hay momentos que parecen pequeños cuando los vivimos,
+            pero que con el tiempo se convierten en recuerdos inolvidables.
+          </span>
+        </span>
+
+      </span>
+
+    </button>
+
+    <!-- CORAZON DECORATIVO -->
+
+    <div class="heart">
+      <svg viewBox="0 0 120 110" aria-hidden="true">
+        <path d="M60 91
+          C45 77 15 61 18 37
+          C21 14 49 14 60 37
+          C72 13 101 16 103 39
+          C105 59 79 78 60 91
+          C49 101 38 103 31 96
+          C24 89 34 83 42 89
+          C49 95 57 101 67 105" />
+      </svg>
+    </div>
+
+    <div class="left-decoration"></div>
+
+    <p class="left-caption">
+      Y todavía nos quedan tantos...
+    </p>
+
+  </section>
+
+
+  <!-- MITAD DERECHA -->
+
+  <section class="right">
+
+    <p class="eyebrow">
+      Pequeños instantes · Grandes recuerdos
+    </p>
+
+    <h2 class="section-title">
+      Un montón de historias
+    </h2>
+
+    <div class="photo-groups">
+
+      <!-- FOTOS 2 Y 3 -->
+
+      <div class="photo-row">
+
+        <button class="flip-card small-photo-card" type="button"
+          aria-label="Dar la vuelta a la fotografía dos">
+
+          <span class="flip-inner">
+
+            <span class="flip-front">
+              <span class="photo-symbol">♡</span>
+              <span class="photo-label">Fotografía 02</span>
+              <span class="photo-hint">Pulsa para descubrir</span>
+            </span>
+
+            <span class="flip-back">
+              <span class="message-heart">♡</span>
+              <span class="message-title">Contigo</span>
+              <span class="message-text">
+                Cualquier lugar es especial si lo comparto contigo.
+              </span>
+            </span>
+
+          </span>
+        </button>
+
+
+        <button class="flip-card small-photo-card" type="button"
+          aria-label="Dar la vuelta a la fotografía tres">
+
+          <span class="flip-inner">
+
+            <span class="flip-front">
+              <span class="photo-symbol">♡</span>
+              <span class="photo-label">Fotografía 03</span>
+              <span class="photo-hint">Pulsa para descubrir</span>
+            </span>
+
+            <span class="flip-back">
+              <span class="message-heart">♡</span>
+              <span class="message-title">Sonrisas</span>
+              <span class="message-text">
+                Me encanta tener mil motivos para reírme contigo.
+              </span>
+            </span>
+
+          </span>
+        </button>
+
       </div>
-    </header>
 
-    <section class="spread">
 
-      <!-- PAGINA IZQUIERDA -->
-      <article class="left-page">
+      <!-- FOTOS 4 Y 5 -->
 
-        <p class="eyebrow">Capítulo uno · Nosotros</p>
+      <div class="photo-row">
 
-        <p class="intro-text">
-          Hay momentos que parecen pequeños cuando los vivimos,
-          pero que con el tiempo se convierten en nuestros recuerdos favoritos.
-        </p>
+        <button class="flip-card small-photo-card" type="button"
+          aria-label="Dar la vuelta a la fotografía cuatro">
 
-        <!-- FOTO 1 -->
-        <div class="photo-placeholder main-photo">
-          Foto 1
-        </div>
+          <span class="flip-inner">
 
-        <!-- CORAZON -->
-        <div class="heart">
-          <svg viewBox="0 0 120 110" aria-hidden="true">
-            <path d="M60 91
-              C45 77 15 61 18 37
-              C21 14 49 14 60 37
-              C72 13 101 16 103 39
-              C105 59 79 78 60 91
-              C49 101 38 103 31 96
-              C24 89 34 83 42 89
-              C49 95 57 101 67 105" />
-          </svg>
-        </div>
+            <span class="flip-front">
+              <span class="photo-symbol">♡</span>
+              <span class="photo-label">Fotografía 04</span>
+              <span class="photo-hint">Pulsa para descubrir</span>
+            </span>
 
-        <p class="left-bottom-text">
-          Me gusta pensar en todas las cosas que hemos vivido,
-          en las veces que nos hemos reído sin parar y en esos
-          instantes que, sin darnos cuenta, se han quedado para siempre.
-        </p>
+            <span class="flip-back">
+              <span class="message-heart">♡</span>
+              <span class="message-title">Mi favorito</span>
+              <span class="message-text">
+                Mi parte favorita de muchos días siempre eres tú.
+              </span>
+            </span>
 
-        <p class="small-quote">
-          Lo bonito es que todavía nos quedan muchísimos recuerdos por crear.
-        </p>
+          </span>
+        </button>
 
-      </article>
 
-      <!-- PAGINA DERECHA -->
-      <article class="right-page">
+        <button class="flip-card small-photo-card" type="button"
+          aria-label="Dar la vuelta a la fotografía cinco">
 
-        <p class="eyebrow">Pequeños instantes · Grandes recuerdos</p>
+          <span class="flip-inner">
 
-        <div class="photo-groups">
+            <span class="flip-front">
+              <span class="photo-symbol">♡</span>
+              <span class="photo-label">Fotografía 05</span>
+              <span class="photo-hint">Pulsa para descubrir</span>
+            </span>
 
-          <!-- FOTOS 2 Y 3 -->
-          <div class="photo-row">
-            <div class="photo-placeholder">Foto 2</div>
-            <div class="photo-placeholder">Foto 3</div>
-          </div>
+            <span class="flip-back">
+              <span class="message-heart">♡</span>
+              <span class="message-title">Nuestro mundo</span>
+              <span class="message-text">
+                Me gusta el mundo que construimos cuando estamos juntos.
+              </span>
+            </span>
 
-          <!-- FOTOS 4 Y 5 -->
-          <div class="photo-row">
-            <div class="photo-placeholder">Foto 4</div>
-            <div class="photo-placeholder">Foto 5</div>
-          </div>
+          </span>
+        </button>
 
-          <!-- FOTOS 6 Y 7 -->
-          <div class="photo-row">
-            <div class="photo-placeholder">Foto 6</div>
-            <div class="photo-placeholder">Foto 7</div>
-          </div>
+      </div>
 
-        </div>
 
-        <p class="right-text">
-          Cada fotografía guarda una historia: un lugar, una fecha,
-          una mirada o una tontería que probablemente solo nosotros
-          entendemos. Y eso es precisamente lo que las hace tan especiales.
-        </p>
+      <!-- FOTOS 6 Y 7 -->
 
-        <p class="closing-line">
-          Y los que nos quedan…
-        </p>
+      <div class="photo-row">
 
-      </article>
+        <button class="flip-card small-photo-card" type="button"
+          aria-label="Dar la vuelta a la fotografía seis">
 
-    </section>
-  </main>
+          <span class="flip-inner">
 
-  <a class="back-link" href="../index.html">
-    ← Volver al calendario
-  </a>
+            <span class="flip-front">
+              <span class="photo-symbol">♡</span>
+              <span class="photo-label">Fotografía 06</span>
+              <span class="photo-hint">Pulsa para descubrir</span>
+            </span>
+
+            <span class="flip-back">
+              <span class="message-heart">♡</span>
+              <span class="message-title">A tu lado</span>
+              <span class="message-text">
+                Gracias por hacer que tantos momentos sean inolvidables.
+              </span>
+            </span>
+
+          </span>
+        </button>
+
+
+        <button class="flip-card small-photo-card" type="button"
+          aria-label="Dar la vuelta a la fotografía siete">
+
+          <span class="flip-inner">
+
+            <span class="flip-front">
+              <span class="photo-symbol">♡</span>
+              <span class="photo-label">Fotografía 07</span>
+              <span class="photo-hint">Pulsa para descubrir</span>
+            </span>
+
+            <span class="flip-back">
+              <span class="message-heart">♡</span>
+              <span class="message-title">Por muchos más</span>
+              <span class="message-text">
+                Y lo mejor de nuestra historia es que todavía continúa.
+              </span>
+            </span>
+
+          </span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- VOLVER AL CALENDARIO -->
+
+<a href="../index.html" class="back-link">
+  ← VOLVER AL CALENDARIO
+</a>
+
+
+<!-- INTERACCION DE LAS FOTOGRAFIAS -->
+
+<script>
+
+const photoCards = document.querySelectorAll(".flip-card");
+
+photoCards.forEach(function(card) {
+
+  card.addEventListener("click", function() {
+
+    card.classList.toggle("flipped");
+
+    const isFlipped = card.classList.contains("flipped");
+
+    card.setAttribute(
+      "aria-pressed",
+      isFlipped ? "true" : "false"
+    );
+
+  });
+
+});
+
+</script>
 
 </body>
 </html>
+
