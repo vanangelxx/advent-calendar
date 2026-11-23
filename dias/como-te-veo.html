@@ -1,0 +1,675 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo te veo | Día 3</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #F2E9D8;
+  --burgundy: #762E36;
+  --dark-red: #4B252A;
+  --green: #18372E;
+  --gold: #C9A76B;
+  --paper: #F8F0E2;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--cream);
+  color: var(--dark-red);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+}
+
+/* VOLVER AL CALENDARIO */
+
+.back-link {
+  position: fixed;
+  top: 22px;
+  left: 22px;
+  z-index: 20;
+  color: var(--burgundy);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 11px 15px;
+  border: 1px solid var(--gold);
+  background: var(--cream);
+  transition: .3s;
+}
+
+.back-link:hover {
+  background: var(--burgundy);
+  color: var(--cream);
+}
+
+/* CONTENEDOR PRINCIPAL */
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 35px 25px;
+}
+
+/* ENCABEZADO */
+
+.header {
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.header h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(55px, 7vw, 88px);
+  font-weight: 400;
+  color: var(--burgundy);
+  line-height: 1.1;
+}
+
+.header p {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--green);
+  font-size: 17px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+/* ESCENA PRINCIPAL */
+
+.scene {
+  width: min(1150px, 100%);
+  height: 690px;
+  max-height: calc(100vh - 150px);
+  min-height: 600px;
+  position: relative;
+  margin: 0 auto;
+}
+
+/* CESTA CENTRAL */
+
+.basket {
+  position: absolute;
+  width: 36%;
+  height: 43%;
+  left: 32%;
+  top: 28%;
+  border: 9px solid #A77C55;
+  border-radius: 42% 42% 35% 35%;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 17px,
+      rgba(120,75,42,.24) 18px,
+      rgba(120,75,42,.24) 21px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 19px,
+      rgba(120,75,42,.20) 20px,
+      rgba(120,75,42,.20) 23px
+    ),
+    #D6B68D;
+  box-shadow:
+    inset 0 0 20px rgba(75,37,42,.15),
+    0 12px 25px rgba(75,37,42,.13);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transform: rotate(-2deg);
+}
+
+/* ASA DE LA CESTA */
+
+.basket::before {
+  content: "";
+  position: absolute;
+  width: 65%;
+  height: 35%;
+  border: 8px solid #A77C55;
+  border-bottom: none;
+  border-radius: 100px 100px 0 0;
+  top: -30%;
+  left: 17%;
+  z-index: -1;
+}
+
+/* TÍTULO DENTRO DE LA CESTA */
+
+.basket-title {
+  width: 75%;
+  padding: 18px 10px;
+  background: var(--cream);
+  border: 1px solid var(--gold);
+  outline: 1px dashed var(--burgundy);
+  outline-offset: -6px;
+  text-align: center;
+  transform: rotate(2deg);
+  box-shadow: 0 5px 12px rgba(75,37,42,.15);
+}
+
+.basket-title span {
+  display: block;
+  color: var(--burgundy);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 3vw, 38px);
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.basket-title small {
+  display: block;
+  color: var(--green);
+  font-size: 9px;
+  letter-spacing: 3px;
+  margin-top: 6px;
+}
+
+/* OBJETOS */
+
+.item {
+  position: absolute;
+  width: 165px;
+  text-align: center;
+  z-index: 4;
+}
+
+.item-button {
+  border: none;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+  display: block;
+}
+
+.image-space {
+  width: 145px;
+  height: 125px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: transform .35s ease;
+}
+
+.item-button:hover .image-space {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+/* ESPACIO RESERVADO PARA LOS PNG */
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed rgba(118,46,54,.45);
+  background: rgba(255,255,255,.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.image-placeholder span {
+  color: var(--burgundy);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.image-placeholder strong {
+  color: var(--gold);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+/* CUANDO SE AÑADA LA IMAGEN */
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* NOMBRE DEL OBJETO */
+
+.item-name {
+  color: var(--burgundy);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* FLECHA */
+
+.arrow {
+  color: var(--gold);
+  font-size: 25px;
+  line-height: 1;
+  margin-top: 3px;
+  display: block;
+}
+
+/* EXPLICACIÓN INTERACTIVA */
+
+.description {
+  display: none;
+  position: absolute;
+  width: 205px;
+  padding: 15px;
+  background: var(--paper);
+  border: 1px solid var(--gold);
+  color: var(--dark-red);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  line-height: 1.35;
+  text-align: center;
+  z-index: 10;
+  box-shadow: 0 6px 18px rgba(75,37,42,.16);
+}
+
+.item.active .description {
+  display: block;
+}
+
+.description::before {
+  content: "♡";
+  display: block;
+  color: var(--burgundy);
+  font-size: 19px;
+  margin-bottom: 5px;
+}
+
+/* POSICIONES IRREGULARES DE LOS SIETE OBJETOS */
+
+/* 1. ALTAVOZ */
+
+.speaker {
+  top: 2%;
+  left: 7%;
+  transform: rotate(-7deg);
+}
+
+.speaker .description {
+  top: 100%;
+  left: 0;
+}
+
+/* 2. CAMISETA LAS PALMAS */
+
+.laspalmas {
+  top: 5%;
+  right: 9%;
+  transform: rotate(5deg);
+}
+
+.laspalmas .description {
+  top: 100%;
+  right: 0;
+}
+
+/* 3. CAMISETA REAL MADRID */
+
+.realmadrid {
+  top: 36%;
+  left: 0;
+  transform: rotate(4deg);
+}
+
+.realmadrid .description {
+  top: 15%;
+  left: 105%;
+}
+
+/* 4. PLAYSTATION */
+
+.playstation {
+  top: 37%;
+  right: 0;
+  transform: rotate(-6deg);
+}
+
+.playstation .description {
+  top: 15%;
+  right: 105%;
+}
+
+/* 5. CERVEZA */
+
+.beer {
+  bottom: 0;
+  left: 12%;
+  transform: rotate(-5deg);
+}
+
+.beer .description {
+  bottom: 100%;
+  left: 0;
+}
+
+/* 6. SUDADERA */
+
+.hoodie {
+  bottom: 1%;
+  right: 12%;
+  transform: rotate(6deg);
+}
+
+.hoodie .description {
+  bottom: 100%;
+  right: 0;
+}
+
+/* 7. NBA */
+
+.nba {
+  top: 0;
+  left: 43%;
+  transform: rotate(3deg);
+}
+
+.nba .description {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* PEQUEÑOS DETALLES */
+
+.decoration {
+  position: absolute;
+  color: var(--gold);
+  font-size: 23px;
+  z-index: 1;
+}
+
+.d1 { top: 23%; left: 25%; }
+.d2 { top: 20%; right: 24%; }
+.d3 { bottom: 23%; left: 28%; }
+.d4 { bottom: 20%; right: 27%; }
+
+@media (max-width: 700px) {
+
+  .page {
+    padding: 75px 12px 35px;
+    overflow: visible;
+  }
+
+  .header h1 {
+    font-size: 62px;
+  }
+
+  .header p {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .scene {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 8px;
+    padding-top: 30px;
+  }
+
+  .basket {
+    position: relative;
+    left: auto;
+    top: auto;
+    grid-column: 1 / -1;
+    width: min(85%, 360px);
+    height: 230px;
+    margin: 55px auto 35px;
+    order: -1;
+  }
+
+  .basket-title span {
+    font-size: 30px;
+  }
+
+  .item {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    transform: none;
+    padding: 5px;
+  }
+
+  .image-space {
+    width: min(100%, 145px);
+    height: 115px;
+  }
+
+  .item-name {
+    font-size: 17px;
+  }
+
+  .description {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .decoration {
+    display: none;
+  }
+
+  .back-link {
+    top: 12px;
+    left: 10px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 380px) {
+  .image-space {
+    height: 95px;
+  }
+
+  .item-name {
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<a href="../index.html" class="back-link">
+  ← Volver al calendario
+</a>
+
+<main class="page">
+
+  <header class="header">
+    <h1>Cómo te veo</h1>
+    <p>Una pequeña colección de ti</p>
+  </header>
+
+  <section class="scene">
+
+    <span class="decoration d1">✦</span>
+    <span class="decoration d2">♡</span>
+    <span class="decoration d3">✧</span>
+    <span class="decoration d4">✦</span>
+
+    <!-- CESTA CENTRAL -->
+
+    <div class="basket">
+      <div class="basket-title">
+        <span>CÓMO TE VEO</span>
+        <small>EDICIÓN ESPECIAL · Nº 03</small>
+      </div>
+    </div>
+
+    <!-- 1. ALTAVOZ -->
+
+    <article class="item speaker">
+      <button class="item-button" type="button" onclick="toggleItem(this)">
+        <div class="image-space">
+          <div class="image-placeholder">
+            <strong>01</strong>
+            <span>AÑADIR PNG</span>
+          </div>
+        </div>
+        <span class="item-name">La música</span>
+        <span class="arrow">↘</span>
+      </button>
+      <div class="description">
+        Aquí irá lo que quieras contar sobre su relación con la música.
+      </div>
+    </article>
+
+    <!-- 2. LAS PALMAS -->
+
+    <article class="item laspalmas">
+      <button class="item-button" type="button" onclick="toggleItem(this)">
+        <div class="image-space">
+          <div class="image-placeholder">
+            <strong>02</strong>
+            <span>AÑADIR PNG</span>
+          </div>
+        </div>
+        <span class="item-name">Su equipo</span>
+        <span class="arrow">↙</span>
+      </button>
+      <div class="description">
+        Aquí irá el mensaje relacionado con la UD Las Palmas.
+      </div>
+    </article>
+
+    <!-- 3. REAL MADRID -->
+
+    <article class="item realmadrid">
+      <button class="item-button" type="button" onclick="toggleItem(this)">
+        <div class="image-space">
+          <div class="image-placeholder">
+            <strong>03</strong>
+            <span>AÑADIR PNG</span>
+          </div>
+        </div>
+        <span class="item-name">El Real Madrid</span>
+        <span class="arrow">→</span>
+      </button>
+      <div class="description">
+        Aquí irá el mensaje relacionado con el Real Madrid.
+      </div>
+    </article>
+
+    <!-- 4. PLAYSTATION -->
+
+    <article class="item playstation">
+      <button class="item-button" type="button" onclick="toggleItem(this)">
+        <div class="image-space">
+          <div class="image-placeholder">
+            <strong>04</strong>
+            <span>AÑADIR PNG</span>
+          </div>
+        </div>
+        <span class="item-name">PlayStation</span>
+        <span class="arrow">←</span>
+      </button>
+      <div class="description">
+        Aquí irá el mensaje relacionado con sus videojuegos.
+      </div>
+    </article>
+
+    <!-- 5. CERVEZA -->
+
+    <article class="item beer">
+      <button class="item-button" type="button" onclick="toggleItem(this)">
+        <div class="image-space">
+          <div class="image-placeholder">
+            <strong>05</strong>
+            <span>AÑADIR PNG</span>
+          </div>
+        </div>
+        <span class="item-name">Una cerveza</span>
+        <span class="arrow">↗</span>
+      </button>
+      <div class="description">
+        Aquí irá el mensaje que quieras dedicarle relacionado con este objeto.
+      </div>
+    </article>
+
+    <!-- 6. SUDADERA -->
+
+    <article class="item hoodie">
+      <button class="item-button" type="button" onclick="toggleItem(this)">
+        <div class="image-space">
+          <div class="image-placeholder">
+            <strong>06</strong>
+            <span>AÑADIR PNG</span>
+          </div>
+        </div>
+        <span class="item-name">Su sudadera</span>
+        <span class="arrow">↖</span>
+      </button>
+      <div class="description">
+        Aquí irá el mensaje relacionado con su ropa o su estilo.
+      </div>
+    </article>
+
+    <!-- 7. NBA -->
+
+    <article class="item nba">
+      <button class="item-button" type="button" onclick="toggleItem(this)">
+        <div class="image-space">
+          <div class="image-placeholder">
+            <strong>07</strong>
+            <span>AÑADIR PNG</span>
+          </div>
+        </div>
+        <span class="item-name">NBA</span>
+        <span class="arrow">↓</span>
+      </button>
+      <div class="description">
+        Aquí irá el mensaje relacionado con su afición a la NBA.
+      </div>
+    </article>
+
+  </section>
+</main>
+
+<script>
+function toggleItem(button) {
+  const item = button.closest(".item");
+  const wasActive = item.classList.contains("active");
+
+  document.querySelectorAll(".item").forEach(function(element) {
+    element.classList.remove("active");
+  });
+
+  if (!wasActive) {
+    item.classList.add("active");
+  }
+}
+</script>
+
+</body>
+</html>
