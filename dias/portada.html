@@ -200,25 +200,27 @@
     /* LETTER */
 
     .intro-letter {
-      position: absolute;
-      width: 90%;
-      left: 5%;
-      bottom: 25px;
-      background: var(--paper);
-      color: var(--dark-red);
-      padding: 30px 25px;
-      text-align: center;
-      z-index: 2;
-      opacity: 0;
-      transform: translateY(30px);
-      transition:
-        transform 1s ease 0.5s,
-        opacity 0.6s ease 0.5s;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      border: 1px solid #D8C7A9;
-      outline: 1px dashed #C9A76B;
-      outline-offset: -8px;
-    }
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  bottom: 25px;
+  background: var(--paper);
+  color: var(--dark-red);
+  padding: 30px 25px;
+  text-align: center;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    transform 1s ease 0.5s,
+    opacity 0.6s ease 0.5s;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  border: 1px solid #D8C7A9;
+  outline: 1px dashed #C9A76B;
+  outline-offset: -8px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
 
     .letter-small {
       display: block;
@@ -294,7 +296,7 @@
 
     .intro-envelope.is-open .intro-letter {
       opacity: 1;
-      transform: translateY(-80px);
+      transform: translateY(-65px);
       z-index: 6;
     }
 
