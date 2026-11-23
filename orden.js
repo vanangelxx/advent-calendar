@@ -1,0 +1,27 @@
+
+const ordenDias = [
+  "portada",
+  "fotos-mensajes",
+  "como-te-veo",
+  "videos-favoritos",
+  "primera-cita",
+  "bratislava",
+  "peliculas",
+  "billar",
+  "cantantes",
+  "10-cosas",
+  "viajes",
+  "sopa-letras",
+  "sudoku",
+  "fotos-mias",
+  "quiz",
+  "recetas",
+  "erasmus",
+  "madrid",
+  "gran-canaria",
+  "crucigrama",
+  "por-ti-soy",
+  "playlist",
+  "fotos-especiales",
+  "carta-navidad"
+];
