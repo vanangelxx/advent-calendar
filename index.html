@@ -281,21 +281,15 @@ for (let i = 1; i <= 24; i++) {
 }
 
 function openSurprise(day) {
-  document.getElementById("dayNumber").textContent =
-    "DECEMBER · DAY " + day;
+  const pagina = ordenDias[day - 1];
 
-  document.getElementById("dayTitle").textContent =
-    "Una historia para ti";
-
-  document.getElementById("dayMessage").textContent =
-    "Aquí empieza tu sorpresa. Pronto encontrarás algo especial en esta página.";
-
-  document.getElementById("surprise").classList.add("visible");
+  window.location.href = "dias/" + pagina + ".html";
 }
 
 function closeSurprise() {
   document.getElementById("surprise").classList.remove("visible");
 }
+<script src="orden.js"></script> 
 </script>
 
 </body>
