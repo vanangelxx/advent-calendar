@@ -18,6 +18,7 @@
   --green: #18372E;
   --gold: #C9A76B;
   --paper: #F8F0E2;
+  --basket: #C49A6C;
 }
 
 * {
@@ -33,21 +34,37 @@ body {
   min-height: 100vh;
 }
 
-/* VOLVER AL CALENDARIO */
+/* FONDO DE PAPEL */
+
+.page {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 25px 30px 45px;
+
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(rgba(118,46,54,.07) .7px, transparent .7px),
+    radial-gradient(rgba(201,167,107,.12) .6px, transparent .6px);
+  background-size: 7px 7px, 11px 11px;
+}
+
+/* VOLVER */
 
 .back-link {
   position: fixed;
-  top: 22px;
-  left: 22px;
-  z-index: 20;
+  top: 20px;
+  left: 20px;
+  z-index: 30;
   color: var(--burgundy);
   text-decoration: none;
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 11px 15px;
-  border: 1px solid var(--gold);
+  padding: 11px 14px;
   background: var(--cream);
+  border: 1px solid var(--gold);
   transition: .3s;
 }
 
@@ -56,48 +73,38 @@ body {
   color: var(--cream);
 }
 
-/* CONTENEDOR PRINCIPAL */
-
-.page {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
-  padding: 35px 25px;
-}
-
 /* ENCABEZADO */
 
 .header {
   text-align: center;
   position: relative;
-  z-index: 3;
+  z-index: 5;
+  margin: 0 auto 5px;
 }
 
 .header h1 {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(55px, 7vw, 88px);
+  font-size: clamp(55px, 7vw, 82px);
   font-weight: 400;
   color: var(--burgundy);
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .header p {
   font-family: 'Cormorant Garamond', serif;
   color: var(--green);
-  font-size: 17px;
-  letter-spacing: 3px;
+  font-size: 16px;
+  letter-spacing: 4px;
   text-transform: uppercase;
+  margin-top: -2px;
 }
 
-/* ESCENA PRINCIPAL */
+/* ESCENA */
 
 .scene {
-  width: min(1150px, 100%);
-  height: 690px;
-  max-height: calc(100vh - 150px);
-  min-height: 600px;
   position: relative;
+  width: min(1200px, 100%);
+  height: 750px;
   margin: 0 auto;
 }
 
@@ -105,46 +112,50 @@ body {
 
 .basket {
   position: absolute;
-  width: 36%;
-  height: 43%;
-  left: 32%;
-  top: 28%;
-  border: 9px solid #A77C55;
+  width: 39%;
+  height: 42%;
+  left: 30.5%;
+  top: 29%;
+  z-index: 2;
+
+  border: 11px solid #A77C55;
   border-radius: 42% 42% 35% 35%;
+
   background:
     repeating-linear-gradient(
       0deg,
       transparent 0px,
       transparent 17px,
-      rgba(120,75,42,.24) 18px,
-      rgba(120,75,42,.24) 21px
+      rgba(100,62,35,.35) 18px,
+      rgba(100,62,35,.35) 21px
     ),
     repeating-linear-gradient(
       90deg,
       transparent 0px,
       transparent 19px,
-      rgba(120,75,42,.20) 20px,
-      rgba(120,75,42,.20) 23px
+      rgba(100,62,35,.30) 20px,
+      rgba(100,62,35,.30) 23px
     ),
     #D6B68D;
+
   box-shadow:
-    inset 0 0 20px rgba(75,37,42,.15),
-    0 12px 25px rgba(75,37,42,.13);
+    inset 0 0 25px rgba(75,37,42,.16),
+    0 12px 25px rgba(75,37,42,.15);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 2;
   transform: rotate(-2deg);
 }
 
-/* ASA DE LA CESTA */
+/* ASA */
 
 .basket::before {
   content: "";
   position: absolute;
   width: 65%;
   height: 35%;
-  border: 8px solid #A77C55;
+  border: 9px solid #A77C55;
   border-bottom: none;
   border-radius: 100px 100px 0 0;
   top: -30%;
@@ -155,8 +166,8 @@ body {
 /* TÍTULO DENTRO DE LA CESTA */
 
 .basket-title {
-  width: 75%;
-  padding: 18px 10px;
+  width: 78%;
+  padding: 20px 10px;
   background: var(--cream);
   border: 1px solid var(--gold);
   outline: 1px dashed var(--burgundy);
@@ -170,7 +181,7 @@ body {
   display: block;
   color: var(--burgundy);
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(22px, 3vw, 38px);
+  font-size: clamp(23px, 3vw, 39px);
   font-weight: 600;
   letter-spacing: 2px;
 }
@@ -178,18 +189,20 @@ body {
 .basket-title small {
   display: block;
   color: var(--green);
+  font-family: 'DM Sans', sans-serif;
   font-size: 9px;
   letter-spacing: 3px;
-  margin-top: 6px;
+  margin-top: 7px;
 }
 
 /* OBJETOS */
 
 .item {
   position: absolute;
-  width: 165px;
+  width: 175px;
   text-align: center;
   z-index: 4;
+  transition: transform .3s ease;
 }
 
 .item-button {
@@ -198,85 +211,88 @@ body {
   width: 100%;
   cursor: pointer;
   display: block;
+  color: inherit;
+  font-family: inherit;
 }
 
 .image-space {
-  width: 145px;
+  width: 155px;
   height: 125px;
   margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
   transition: transform .35s ease;
 }
 
 .item-button:hover .image-space {
-  transform: scale(1.08) rotate(-3deg);
+  transform: scale(1.09) rotate(-3deg);
 }
 
-/* ESPACIO RESERVADO PARA LOS PNG */
+/* ESPACIO PNG */
 
 .image-placeholder {
   width: 100%;
   height: 100%;
-  border: 1px dashed rgba(118,46,54,.45);
-  background: rgba(255,255,255,.18);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-}
-
-.image-placeholder span {
-  color: var(--burgundy);
-  font-size: 9px;
-  letter-spacing: 2px;
+  gap: 7px;
+  color: rgba(118,46,54,.55);
+  border: 1px dashed rgba(118,46,54,.25);
+  background: rgba(255,255,255,.12);
 }
 
 .image-placeholder strong {
-  color: var(--gold);
   font-family: 'Cormorant Garamond', serif;
-  font-size: 30px;
+  font-size: 38px;
   font-weight: 400;
+  color: var(--gold);
 }
 
-/* CUANDO SE AÑADA LA IMAGEN */
+.image-placeholder span {
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+
+/* IMÁGENES REALES */
 
 .item-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(2px 5px 4px rgba(75,37,42,.16));
 }
 
-/* NOMBRE DEL OBJETO */
+/* TEXTO DE LOS OBJETOS */
 
 .item-name {
+  display: block;
   color: var(--burgundy);
   font-family: 'Cormorant Garamond', serif;
-  font-size: 19px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   margin-top: 5px;
 }
 
-/* FLECHA */
-
-.arrow {
-  color: var(--gold);
-  font-size: 25px;
-  line-height: 1;
-  margin-top: 3px;
-  display: block;
+.item-caption {
+  color: var(--green);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 5px auto 0;
+  max-width: 170px;
 }
 
-/* EXPLICACIÓN INTERACTIVA */
+/* EXPLICACIÓN AL PULSAR */
 
 .description {
   display: none;
   position: absolute;
-  width: 205px;
+  width: 210px;
   padding: 15px;
   background: var(--paper);
   border: 1px solid var(--gold);
@@ -285,12 +301,8 @@ body {
   font-size: 17px;
   line-height: 1.35;
   text-align: center;
-  z-index: 10;
+  z-index: 15;
   box-shadow: 0 6px 18px rgba(75,37,42,.16);
-}
-
-.item.active .description {
-  display: block;
 }
 
 .description::before {
@@ -301,13 +313,17 @@ body {
   margin-bottom: 5px;
 }
 
-/* POSICIONES IRREGULARES DE LOS SIETE OBJETOS */
+.item.active .description {
+  display: block;
+}
+
+/* POSICIONES IRREGULARES */
 
 /* 1. ALTAVOZ */
 
 .speaker {
-  top: 2%;
-  left: 7%;
+  top: 4%;
+  left: 5%;
   transform: rotate(-7deg);
 }
 
@@ -316,11 +332,11 @@ body {
   left: 0;
 }
 
-/* 2. CAMISETA LAS PALMAS */
+/* 2. LAS PALMAS */
 
 .laspalmas {
-  top: 5%;
-  right: 9%;
+  top: 4%;
+  right: 5%;
   transform: rotate(5deg);
 }
 
@@ -329,37 +345,37 @@ body {
   right: 0;
 }
 
-/* 3. CAMISETA REAL MADRID */
+/* 3. REAL MADRID */
 
 .realmadrid {
-  top: 36%;
+  top: 38%;
   left: 0;
   transform: rotate(4deg);
 }
 
 .realmadrid .description {
-  top: 15%;
+  top: 10%;
   left: 105%;
 }
 
 /* 4. PLAYSTATION */
 
 .playstation {
-  top: 37%;
+  top: 38%;
   right: 0;
-  transform: rotate(-6deg);
+  transform: rotate(-5deg);
 }
 
 .playstation .description {
-  top: 15%;
+  top: 10%;
   right: 105%;
 }
 
 /* 5. CERVEZA */
 
 .beer {
-  bottom: 0;
-  left: 12%;
+  bottom: 1%;
+  left: 10%;
   transform: rotate(-5deg);
 }
 
@@ -372,7 +388,7 @@ body {
 
 .hoodie {
   bottom: 1%;
-  right: 12%;
+  right: 10%;
   transform: rotate(6deg);
 }
 
@@ -385,7 +401,7 @@ body {
 
 .nba {
   top: 0;
-  left: 43%;
+  left: 42%;
   transform: rotate(3deg);
 }
 
@@ -395,19 +411,33 @@ body {
   transform: translateX(-50%);
 }
 
-/* PEQUEÑOS DETALLES */
+/* DECORACIÓN */
 
 .decoration {
   position: absolute;
   color: var(--gold);
-  font-size: 23px;
+  font-size: 25px;
   z-index: 1;
 }
 
-.d1 { top: 23%; left: 25%; }
-.d2 { top: 20%; right: 24%; }
-.d3 { bottom: 23%; left: 28%; }
-.d4 { bottom: 20%; right: 27%; }
+.d1 { top: 22%; left: 23%; }
+.d2 { top: 19%; right: 23%; }
+.d3 { bottom: 22%; left: 27%; }
+.d4 { bottom: 20%; right: 26%; }
+
+.d5 {
+  top: 10%;
+  left: 47%;
+  font-size: 15px;
+}
+
+.d6 {
+  bottom: 8%;
+  left: 49%;
+  font-size: 17px;
+}
+
+/* MÓVIL */
 
 @media (max-width: 700px) {
 
@@ -427,12 +457,10 @@ body {
 
   .scene {
     height: auto;
-    max-height: none;
-    min-height: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 22px 8px;
-    padding-top: 30px;
+    gap: 25px 8px;
+    padding-top: 25px;
   }
 
   .basket {
@@ -441,13 +469,13 @@ body {
     top: auto;
     grid-column: 1 / -1;
     width: min(85%, 360px);
-    height: 230px;
+    height: 220px;
     margin: 55px auto 35px;
     order: -1;
   }
 
   .basket-title span {
-    font-size: 30px;
+    font-size: 29px;
   }
 
   .item {
@@ -464,15 +492,18 @@ body {
   }
 
   .item-name {
-    font-size: 17px;
+    font-size: 18px;
+  }
+
+  .item-caption {
+    font-size: 14px;
   }
 
   .description {
-    position: relative !important;
-    inset: auto !important;
-    transform: none !important;
+    position: relative;
     width: 100%;
     margin-top: 10px;
+    transform: none !important;
   }
 
   .decoration {
@@ -492,7 +523,11 @@ body {
   }
 
   .item-name {
-    font-size: 15px;
+    font-size: 16px;
+  }
+
+  .item-caption {
+    font-size: 13px;
   }
 }
 </style>
@@ -513,10 +548,14 @@ body {
 
   <section class="scene">
 
+    <!-- DECORACIÓN -->
+
     <span class="decoration d1">✦</span>
     <span class="decoration d2">♡</span>
     <span class="decoration d3">✧</span>
     <span class="decoration d4">✦</span>
+    <span class="decoration d5">✧</span>
+    <span class="decoration d6">♡</span>
 
     <!-- CESTA CENTRAL -->
 
@@ -538,7 +577,7 @@ body {
           </div>
         </div>
         <span class="item-name">La música</span>
-        <span class="arrow">↘</span>
+        <p class="item-caption">Una parte de ti que siempre suena</p>
       </button>
       <div class="description">
         Aquí irá lo que quieras contar sobre su relación con la música.
@@ -556,7 +595,7 @@ body {
           </div>
         </div>
         <span class="item-name">Su equipo</span>
-        <span class="arrow">↙</span>
+        <p class="item-caption">La pasión por unos colores</p>
       </button>
       <div class="description">
         Aquí irá el mensaje relacionado con la UD Las Palmas.
@@ -574,7 +613,7 @@ body {
           </div>
         </div>
         <span class="item-name">El Real Madrid</span>
-        <span class="arrow">→</span>
+        <p class="item-caption">Otra manera de vivir el fútbol</p>
       </button>
       <div class="description">
         Aquí irá el mensaje relacionado con el Real Madrid.
@@ -592,7 +631,7 @@ body {
           </div>
         </div>
         <span class="item-name">PlayStation</span>
-        <span class="arrow">←</span>
+        <p class="item-caption">Tus ratitos de desconexión</p>
       </button>
       <div class="description">
         Aquí irá el mensaje relacionado con sus videojuegos.
@@ -610,7 +649,7 @@ body {
           </div>
         </div>
         <span class="item-name">Una cerveza</span>
-        <span class="arrow">↗</span>
+        <p class="item-caption">Porque siempre hay tiempo para una más</p>
       </button>
       <div class="description">
         Aquí irá el mensaje que quieras dedicarle relacionado con este objeto.
@@ -628,7 +667,7 @@ body {
           </div>
         </div>
         <span class="item-name">Su sudadera</span>
-        <span class="arrow">↖</span>
+        <p class="item-caption">Un poquito de su estilo</p>
       </button>
       <div class="description">
         Aquí irá el mensaje relacionado con su ropa o su estilo.
@@ -646,7 +685,7 @@ body {
           </div>
         </div>
         <span class="item-name">NBA</span>
-        <span class="arrow">↓</span>
+        <p class="item-caption">Baloncesto, estadísticas y pasión</p>
       </button>
       <div class="description">
         Aquí irá el mensaje relacionado con su afición a la NBA.
@@ -673,3 +712,4 @@ function toggleItem(button) {
 
 </body>
 </html>
+
