@@ -2,221 +2,302 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>24 días para ti ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24 días para ti</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap');
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Georgia, serif;
-      color: #f8eee4;
-      background: #381d25;
-      text-align: center;
-    }
+:root {
+  --green: #18372e;
+  --deep: #102820;
+  --red: #762e36;
+  --gold: #c9a76b;
+  --cream: #f3eddf;
+  --muted: #c6bda9;
+}
 
-    header {
-      padding: 55px 20px 30px;
-    }
+* { box-sizing: border-box; }
 
-    .subtitle {
-      color: #d9bcae;
-      font-size: 12px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--cream);
+  background:
+    radial-gradient(ellipse at 50% 0%, #29483b 0%, transparent 55%),
+    var(--deep);
+  font-family: 'DM Sans', sans-serif;
+  text-align: center;
+}
 
-    h1 {
-      font-size: clamp(38px, 8vw, 65px);
-      font-weight: normal;
-      margin: 18px 0;
-    }
+header {
+  padding: 65px 20px 30px;
+}
 
-    .intro {
-      color: #e3cfc3;
-      font-size: 16px;
-      line-height: 1.7;
-    }
+.topline {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
 
-    .decoration {
-      color: #d8ad8e;
-      font-size: 25px;
-      margin: 20px;
-    }
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(52px, 10vw, 88px);
+  line-height: 0.95;
+  margin: 27px 0 15px;
+}
 
-    .calendar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      width: min(90%, 650px);
-      margin: 30px auto 65px;
-    }
+h1 span {
+  color: var(--gold);
+  font-style: italic;
+}
 
-    .day {
-      aspect-ratio: 1;
-      border: 1px solid #bd947d;
-      border-radius: 5px;
-      background: #56303a;
-      color: #f8eee4;
-      font-family: Georgia, serif;
-      font-size: 25px;
-      cursor: pointer;
-      transition: 0.25s;
-    }
+.intro {
+  color: var(--muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  line-height: 1.5;
+  margin: 20px auto;
+}
 
-    .day:not(:disabled):hover {
-      background: #80505a;
-      transform: translateY(-4px);
-    }
+.ornament {
+  color: var(--gold);
+  letter-spacing: 8px;
+  margin: 24px;
+  font-size: 17px;
+}
 
-    .day:disabled {
-      opacity: 0.42;
-      cursor: not-allowed;
-    }
+.section-title {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 28px 0;
+}
 
-    .day.today {
-      background: #a56d65;
-      border: 2px solid #f0d1ae;
-    }
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 13px;
+  width: min(90%, 620px);
+  margin: 0 auto 65px;
+}
 
-    .day.opened {
-      background: #75513f;
-    }
+.day {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1 / 1.08;
+  background: rgba(243,237,223,0.045);
+  border: 1px solid rgba(201,167,107,0.55);
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
 
-    #surprise {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #381d25;
-      z-index: 10;
-      padding: 25px;
-      overflow-y: auto;
-    }
+.day .number {
+  display: block;
+  font-size: clamp(28px, 5vw, 39px);
+}
 
-    #surprise.visible {
-      display: block;
-    }
+.day .label {
+  display: block;
+  color: var(--gold);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 8px;
+  letter-spacing: 2px;
+  margin-top: 5px;
+}
 
-    .page {
-      max-width: 600px;
-      margin: 60px auto;
-    }
+.day:not(:disabled):hover {
+  background: var(--red);
+  border-color: var(--gold);
+  transform: translateY(-5px);
+}
 
-    .page h2 {
-      font-size: 38px;
-      font-weight: normal;
-    }
+.day:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
 
-    .close {
-      background: transparent;
-      color: #f8eee4;
-      border: 1px solid #bd947d;
-      padding: 12px 24px;
-      cursor: pointer;
-      font-family: Georgia, serif;
-      margin-top: 30px;
-    }
+.day.today {
+  background: var(--red);
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 22px rgba(201,167,107,0.16);
+}
 
-    footer {
-      padding: 20px;
-      color: #c9aa9d;
-      font-size: 13px;
-    }
+.day.opened {
+  background: rgba(201,167,107,0.12);
+}
 
-    @media (max-width: 400px) {
-      .calendar {
-        gap: 8px;
-      }
+.day.opened .number {
+  color: var(--gold);
+}
 
-      .day {
-        font-size: 21px;
-      }
-    }
-  </style>
+footer {
+  border-top: 1px solid rgba(201,167,107,0.25);
+  padding: 25px;
+  color: var(--muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+}
+
+#surprise {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--deep);
+  overflow-y: auto;
+  padding: 25px;
+}
+
+#surprise.visible { display: block; }
+
+.page {
+  max-width: 650px;
+  margin: 55px auto;
+  padding: 40px 25px;
+  border: 1px solid var(--gold);
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page .eyebrow {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.page h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 8vw, 65px);
+  font-weight: 400;
+  margin: 22px 0;
+}
+
+.page p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.close {
+  align-self: center;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--cream);
+  padding: 13px 25px;
+  margin-top: 35px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.close:hover { background: var(--red); }
+
+@media (max-width: 420px) {
+  header { padding-top: 48px; }
+  .calendar { gap: 8px; width: 92%; }
+  .day .label { letter-spacing: 1px; font-size: 7px; }
+  .page { padding: 30px 18px; }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="subtitle">Una pequeña sorpresa para ti</div>
-    <h1>24 días para ti</h1>
-    <div class="decoration">✳ ♡ ✳</div>
-    <p class="intro">
-      He preparado algo especial para ti.<br>
-      Cada día encontrarás una nueva sorpresa.<br>
-      ¿Preparado?
-    </p>
-  </header>
+<header>
+  <div class="topline">A little Christmas collection · 2026</div>
 
-  <main>
-    <div class="calendar" id="calendar"></div>
-  </main>
+  <h1>24 días <span>para ti</span></h1>
 
-  <div id="surprise">
-    <div class="page">
-      <div class="decoration">♡</div>
-      <p class="subtitle" id="dayNumber"></p>
-      <h2 id="dayTitle"></h2>
-      <p id="dayMessage">
-        Aquí aparecerá la sorpresa que he preparado para ti.
-      </p>
-      <button class="close" onclick="closeSurprise()">
-        Volver al calendario
-      </button>
-    </div>
+  <div class="ornament">✦ ───── ♡ ───── ✦</div>
+
+  <p class="intro">
+    Diciembre tiene 24 pequeñas historias.<br>
+    Y todas tienen algo que ver contigo.
+  </p>
+</header>
+
+<main>
+  <div class="section-title">Your December collection</div>
+  <div class="calendar" id="calendar"></div>
+</main>
+
+<footer>
+  Made with love, just for you · Christmas 2026
+</footer>
+
+<div id="surprise">
+  <div class="page">
+    <div class="eyebrow" id="dayNumber"></div>
+    <h2 id="dayTitle"></h2>
+    <div class="ornament">✦ ♡ ✦</div>
+    <p id="dayMessage"></p>
+    <button class="close" onclick="closeSurprise()">
+      Volver a diciembre
+    </button>
   </div>
+</div>
 
-  <footer>
-    Hecho con mucho cariño ♡
-  </footer>
+<script>
+const year = 2026;
+const calendar = document.getElementById("calendar");
 
-  <script>
-    const year = 2026;
-    const calendar = document.getElementById("calendar");
+for (let i = 1; i <= 24; i++) {
+  const button = document.createElement("button");
+  const date = new Date(year, 11, i);
+  const today = new Date();
 
-    for (let i = 1; i <= 24; i++) {
-      const button = document.createElement("button");
-      const date = new Date(year, 11, i);
-      const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-      today.setHours(0, 0, 0, 0);
+  button.className = "day";
+  button.innerHTML = `
+    <span class="number">${String(i).padStart(2, "0")}</span>
+    <span class="label">${date > today ? "LOCKED" : "OPEN"}</span>
+  `;
 
-      button.className = "day";
-      button.textContent = i;
+  if (date > today) {
+    button.disabled = true;
+  } else {
+    button.onclick = () => openSurprise(i);
+  }
 
-      if (date > today) {
-        button.disabled = true;
-        button.textContent = i + " 🔒";
-      } else {
-        button.onclick = () => openSurprise(i);
-      }
+  if (date.toDateString() === today.toDateString()) {
+    button.classList.add("today");
+  }
 
-      if (date.toDateString() === today.toDateString()) {
-        button.classList.add("today");
-      }
+  calendar.appendChild(button);
+}
 
-      calendar.appendChild(button);
-    }
+function openSurprise(day) {
+  document.getElementById("dayNumber").textContent =
+    "DECEMBER · DAY " + day;
 
-    function openSurprise(day) {
-      document.getElementById("dayNumber").textContent =
-        "DÍA " + day + " · DICIEMBRE";
+  document.getElementById("dayTitle").textContent =
+    "Una historia para ti";
 
-      document.getElementById("dayTitle").textContent =
-        "Tu sorpresa del día " + day;
+  document.getElementById("dayMessage").textContent =
+    "Aquí empieza tu sorpresa. Pronto encontrarás algo especial en esta página.";
 
-      document.getElementById("surprise").classList.add("visible");
-    }
+  document.getElementById("surprise").classList.add("visible");
+}
 
-    function closeSurprise() {
-      document.getElementById("surprise").classList.remove("visible");
-    }
-  </script>
+function closeSurprise() {
+  document.getElementById("surprise").classList.remove("visible");
+}
+</script>
 
 </body>
 </html>
+
