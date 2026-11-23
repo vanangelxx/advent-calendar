@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24 días para ti ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, serif;
+      color: #f8eee4;
+      background: #381d25;
+      text-align: center;
+    }
+
+    header {
+      padding: 55px 20px 30px;
+    }
+
+    .subtitle {
+      color: #d9bcae;
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(38px, 8vw, 65px);
+      font-weight: normal;
+      margin: 18px 0;
+    }
+
+    .intro {
+      color: #e3cfc3;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .decoration {
+      color: #d8ad8e;
+      font-size: 25px;
+      margin: 20px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      width: min(90%, 650px);
+      margin: 30px auto 65px;
+    }
+
+    .day {
+      aspect-ratio: 1;
+      border: 1px solid #bd947d;
+      border-radius: 5px;
+      background: #56303a;
+      color: #f8eee4;
+      font-family: Georgia, serif;
+      font-size: 25px;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .day:not(:disabled):hover {
+      background: #80505a;
+      transform: translateY(-4px);
+    }
+
+    .day:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+    }
+
+    .day.today {
+      background: #a56d65;
+      border: 2px solid #f0d1ae;
+    }
+
+    .day.opened {
+      background: #75513f;
+    }
+
+    #surprise {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #381d25;
+      z-index: 10;
+      padding: 25px;
+      overflow-y: auto;
+    }
+
+    #surprise.visible {
+      display: block;
+    }
+
+    .page {
+      max-width: 600px;
+      margin: 60px auto;
+    }
+
+    .page h2 {
+      font-size: 38px;
+      font-weight: normal;
+    }
+
+    .close {
+      background: transparent;
+      color: #f8eee4;
+      border: 1px solid #bd947d;
+      padding: 12px 24px;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      margin-top: 30px;
+    }
+
+    footer {
+      padding: 20px;
+      color: #c9aa9d;
+      font-size: 13px;
+    }
+
+    @media (max-width: 400px) {
+      .calendar {
+        gap: 8px;
+      }
+
+      .day {
+        font-size: 21px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="subtitle">Una pequeña sorpresa para ti</div>
+    <h1>24 días para ti</h1>
+    <div class="decoration">✳ ♡ ✳</div>
+    <p class="intro">
+      He preparado algo especial para ti.<br>
+      Cada día encontrarás una nueva sorpresa.<br>
+      ¿Preparado?
+    </p>
+  </header>
+
+  <main>
+    <div class="calendar" id="calendar"></div>
+  </main>
+
+  <div id="surprise">
+    <div class="page">
+      <div class="decoration">♡</div>
+      <p class="subtitle" id="dayNumber"></p>
+      <h2 id="dayTitle"></h2>
+      <p id="dayMessage">
+        Aquí aparecerá la sorpresa que he preparado para ti.
+      </p>
+      <button class="close" onclick="closeSurprise()">
+        Volver al calendario
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    Hecho con mucho cariño ♡
+  </footer>
+
+  <script>
+    const year = 2026;
+    const calendar = document.getElementById("calendar");
+
+    for (let i = 1; i <= 24; i++) {
+      const button = document.createElement("button");
+      const date = new Date(year, 11, i);
+      const today = new Date();
+
+      today.setHours(0, 0, 0, 0);
+
+      button.className = "day";
+      button.textContent = i;
+
+      if (date > today) {
+        button.disabled = true;
+        button.textContent = i + " 🔒";
+      } else {
+        button.onclick = () => openSurprise(i);
+      }
+
+      if (date.toDateString() === today.toDateString()) {
+        button.classList.add("today");
+      }
+
+      calendar.appendChild(button);
+    }
+
+    function openSurprise(day) {
+      document.getElementById("dayNumber").textContent =
+        "DÍA " + day + " · DICIEMBRE";
+
+      document.getElementById("dayTitle").textContent =
+        "Tu sorpresa del día " + day;
+
+      document.getElementById("surprise").classList.add("visible");
+    }
+
+    function closeSurprise() {
+      document.getElementById("surprise").classList.remove("visible");
+    }
+  </script>
+
+</body>
+</html>
