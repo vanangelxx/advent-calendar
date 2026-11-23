@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historias de nuestra vida</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #F2E9D8;
+      --burgundy: #762E36;
+      --dark-red: #4B252A;
+      --green: #18372E;
+      --gold: #C9A76B;
+      --paper: #FFFFFF;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 45px 20px;
+      background: var(--cream);
+      color: var(--dark-red);
+      font-family: "Cormorant Garamond", serif;
+    }
+
+    /* REVISTA ABIERTA */
+    .magazine {
+      position: relative;
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: 0 15px 45px rgba(65, 42, 31, 0.16);
+      overflow: hidden;
+    }
+
+    /* Unión central muy discreta */
+    .magazine::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 18px;
+      transform: translateX(-50%);
+      pointer-events: none;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0),
+        rgba(0,0,0,0.035),
+        rgba(0,0,0,0)
+      );
+    }
+
+    /* TÍTULO QUE CRUZA LAS DOS PÁGINAS */
+    .title-area {
+      position: relative;
+      z-index: 1;
+      padding: 45px 55px 12px;
+      text-align: center;
+    }
+
+    .main-title {
+      margin: 0;
+      color: var(--burgundy);
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(75px, 10vw, 132px);
+      font-weight: 400;
+      line-height: 0.82;
+      letter-spacing: -2px;
+    }
+
+    .main-title span {
+      display: block;
+    }
+
+    .subtitle {
+      margin-top: 22px;
+      color: var(--green);
+      font-family: "DM Sans", sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    /* CONTENIDO DE LAS DOS MITADES */
+    .spread {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+
+    .left-page,
+    .right-page {
+      min-width: 0;
+      padding: 25px 42px 55px;
+    }
+
+    .left-page {
+      padding-right: 35px;
+    }
+
+    .right-page {
+      padding-left: 35px;
+    }
+
+    /* PEQUEÑOS TEXTOS EDITORIALES */
+    .eyebrow {
+      margin: 0 0 15px;
+      color: var(--gold);
+      font-family: "DM Sans", sans-serif;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .intro-text {
+      max-width: 390px;
+      margin: 0 0 22px;
+      font-size: 21px;
+      line-height: 1.45;
+    }
+
+    /* ESPACIOS PARA LAS FOTOGRAFÍAS */
+    .photo-placeholder {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 150px;
+      background: #F7F2E9;
+      border: 1px dashed var(--gold);
+      color: #A18B70;
+      font-family: "DM Sans", sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .photo-placeholder::before {
+      content: "＋";
+      display: block;
+      margin-right: 7px;
+      color: var(--gold);
+      font-size: 18px;
+    }
+
+    .main-photo {
+      width: 100%;
+      aspect-ratio: 1.45 / 1;
+      margin: 12px 0 25px;
+    }
+
+    /* CORAZÓN DECORATIVO */
+    .heart {
+      display: block;
+      width: 105px;
+      height: 100px;
+      margin: 5px auto 12px;
+      color: var(--burgundy);
+    }
+
+    .heart svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .heart path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .left-bottom-text {
+      font-size: 19px;
+      line-height: 1.55;
+      text-align: left;
+    }
+
+    .small-quote {
+      margin-top: 25px;
+      color: var(--green);
+      font-size: 23px;
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* FOTOGRAFÍAS DERECHA: TRES PAREJAS DESPLAZADAS */
+    .photo-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-top: 8px;
+    }
+
+    .photo-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+      align-items: start;
+    }
+
+    .photo-row .photo-placeholder {
+      aspect-ratio: 0.92 / 1;
+      min-height: 145px;
+    }
+
+    /* Primera pareja: segundo elemento ligeramente más bajo */
+    .photo-row:nth-child(1) .photo-placeholder:nth-child(2) {
+      margin-top: 18px;
+    }
+
+    /* Segunda pareja: toda la fila algo más baja */
+    .photo-row:nth-child(2) {
+      margin-top: 16px;
+    }
+
+    .photo-row:nth-child(2) .photo-placeholder:nth-child(1) {
+      margin-top: 15px;
+    }
+
+    /* Tercera pareja: vuelve a cambiar el ritmo */
+    .photo-row:nth-child(3) {
+      margin-top: 5px;
+    }
+
+    .photo-row:nth-child(3) .photo-placeholder:nth-child(2) {
+      margin-top: 22px;
+    }
+
+    .right-text {
+      max-width: 390px;
+      margin: 30px 0 10px;
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .closing-line {
+      margin-top: 35px;
+      color: var(--burgundy);
+      font-family: "Great Vibes", cursive;
+      font-size: 39px;
+      text-align: right;
+    }
+
+    .back-link {
+      display: block;
+      width: fit-content;
+      margin: 30px auto 0;
+      color: var(--green);
+      font-family: "DM Sans", sans-serif;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .back-link:hover {
+      color: var(--burgundy);
+    }
+
+    /* ADAPTACIÓN A MÓVILES */
+    @media (max-width: 700px) {
+      body {
+        padding: 18px 10px;
+      }
+
+      .title-area {
+        padding: 38px 15px 12px;
+      }
+
+      .main-title {
+        font-size: clamp(58px, 13vw, 88px);
+        line-height: 0.9;
+      }
+
+      .subtitle {
+        font-size: 8px;
+        letter-spacing: 2px;
+      }
+
+      .spread {
+        grid-template-columns: 1fr;
+      }
+
+      .magazine::after {
+        display: none;
+      }
+
+      .left-page,
+      .right-page {
+        padding: 25px 25px 35px;
+      }
+
+      .right-page {
+        padding-top: 10px;
+      }
+
+      .left-page {
+        border-bottom: 1px solid rgba(201, 167, 107, 0.25);
+      }
+
+      .intro-text,
+      .right-text {
+        font-size: 19px;
+      }
+
+      .photo-row {
+        gap: 10px;
+      }
+
+      .photo-row .photo-placeholder {
+        min-height: 125px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .left-page,
+      .right-page {
+        padding-left: 17px;
+        padding-right: 17px;
+      }
+
+      .main-title {
+        font-size: 55px;
+      }
+
+      .photo-groups {
+        gap: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="magazine">
+
+    <!-- TÍTULO: OCUPA EL ANCHO DE LAS DOS PÁGINAS -->
+    <header class="title-area">
+      <h1 class="main-title">
+        <span>Historias</span>
+        <span>de nuestra vida</span>
+      </h1>
+      <div class="subtitle">Un pequeño álbum de nuestros recuerdos</div>
+    </header>
+
+    <section class="spread">
+
+      <!-- PÁGINA IZQUIERDA -->
+      <article class="left-page">
+
+        <p class="eyebrow">Capítulo uno · Nosotros</p>
+
+        <p class="intro-text">
+          Hay momentos que parecen pequeños cuando los vivimos,
+          pero que con el tiempo se convierten en nuestros recuerdos favoritos.
+        </p>
+
+        <!-- FOTO 1: SUSTITUYE ESTE BLOQUE POR TU FOTOGRAFÍA -->
+        <div class="photo-placeholder main-photo">
+          Foto 1
+        </div>
+
+        <!-- CORAZÓN DIBUJADO -->
+        <div class="heart">
+          <svg viewBox="0 0 120 110" aria-hidden="true">
+            <path d="M60 91
+              C45 77 15 61 18 37
+              C21 14 49 14 60 37
+              C72 13 101 16 103 39
+              C105 59 79 78 60 91
+              C49 101 38 103 31 96
+              C24 89 34 83 42 89
+              C49 95 57 101 67 105" />
+          </svg>
+        </div>
+
+        <p class="left-bottom-text">
+          Me gusta pensar en todas las cosas que hemos vivido,
+          en las veces que nos hemos reído sin parar y en esos
+          instantes que, sin darnos cuenta, se han quedado para siempre.
+        </p>
+
+        <p class="small-quote">
+          Lo bonito es que todavía nos quedan muchísimos recuerdos por crear.
+        </p>
+
+      </article>
+
+      <!-- PÁGINA DERECHA -->
+      <article class="right-page">
+
+        <p class="eyebrow">Pequeños instantes · Grandes recuerdos</p>
+
+        <!-- FOTOS 2 Y 3 -->
+        <div class="photo-groups">
+
+          <div class="photo-row">
+            <div class="photo-placeholder">Foto 2</div>
+            <div class="photo-placeholder">Foto 3</div>
+          </div>
+
+          <!-- FOTOS 4 Y 5 -->
+          <div class="photo-row">
+            <div class="photo-placeholder">Foto 4</div>
+            <div class="photo-placeholder">Foto 5</div>
+          </div>
+
+          <!-- FOTOS 6 Y 7 -->
+          <div class="photo-row">
+            <div class="photo-placeholder">Foto 6</div>
+            <div class="photo-placeholder">Foto 7</div>
+          </div>
+
+        </div>
+
+        <p class="right-text">
+          Cada fotografía guarda una historia: un lugar, una fecha,
+          una mirada o una tontería que probablemente solo nosotros
+          entendemos. Y eso es precisamente lo que las hace tan especiales.
+        </p>
+
+        <p class="closing-line">Y los que nos quedan…</p>
+
+      </article>
+
+    </section>
+  </main>
+
+  <a class="back-link" href="../index.html">← Volver al calendario</a>
+
+</body>
+</html>
