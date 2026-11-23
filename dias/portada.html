@@ -2,538 +2,675 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dear Love | December</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Dear Love | December</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <style>
-    :root {
-      --cream: #F2E9D8;
-      --burgundy: #762E36;
-      --dark-red: #4B252A;
-      --green: #18372E;
-      --gold: #C9A76B;
-      --paper: #F8F0E2;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
 
-    body {
-      min-height: 100vh;
-      font-family: 'DM Sans', sans-serif;
-      background: var(--cream);
-    }
+/* =========================
+   COLOURS AND GENERAL STYLE
+========================= */
 
-    .page {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    /* LEFT SIDE */
-
-    .left {
-      background: var(--cream);
-      color: var(--burgundy);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 55px 35px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .left-content {
-      width: 100%;
-      max-width: 520px;
-      text-align: center;
-    }
-
-    .top-label {
-      font-size: 10px;
-      letter-spacing: 4px;
-      margin-bottom: 55px;
-      color: #98736B;
-    }
-
-    .main-phrase {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(38px, 5vw, 65px);
-      line-height: 1.05;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .main-phrase .script {
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.35em;
-      font-weight: 400;
-      text-transform: none;
-      letter-spacing: 0;
-      display: inline-block;
-      line-height: 0.9;
-    }
-
-    .main-phrase .small-line {
-      display: block;
-      font-size: 0.72em;
-      letter-spacing: 4px;
-      margin: 12px 0;
-    }
-
-    .left-decoration {
-      width: 65px;
-      height: 1px;
-      background: var(--gold);
-      margin: 45px auto 25px;
-    }
-
-    .left-subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px;
-      font-style: italic;
-      color: #8D6660;
-      letter-spacing: 1px;
-    }
-
-    .year-label {
-      position: absolute;
-      bottom: 25px;
-      font-size: 9px;
-      letter-spacing: 3px;
-      color: #A88B7B;
-    }
-
-    /* RIGHT SIDE */
-
-    .right {
-      min-height: 100vh;
-      background: var(--burgundy);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 35px 25px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .intro-scene {
-      width: 100%;
-      max-width: 500px;
-      min-height: 740px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .intro-hint {
-      position: absolute;
-      top: 65px;
-      color: #E8D8B9;
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-align: center;
-    }
-
-    .intro-bottom {
-      position: absolute;
-      bottom: 55px;
-      color: #E8D8B9;
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-align: center;
-      transition: opacity 0.4s ease;
-    }
-
-    /* ENVELOPE */
-
-    .intro-envelope {
-      width: min(340px, 85%);
-      height: 210px;
-      position: absolute;
-      top: 56%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      perspective: 1000px;
-    }
-
-    .intro-pocket {
-      position: absolute;
-      inset: 0;
-      background: #4B252A;
-      border-radius: 3px;
-      z-index: 3;
-      clip-path: polygon(
-        0 0,
-        50% 58%,
-        100% 0,
-        100% 100%,
-        0 100%
-      );
-      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
-    }
-
-    .intro-flap {
-      position: absolute;
-      inset: 0;
-      background: #91434A;
-      clip-path: polygon(0 0, 100% 0, 50% 65%);
-      transform-origin: top center;
-      transition: transform 0.8s ease, opacity 0.5s ease;
-      z-index: 4;
-      backface-visibility: hidden;
-    }
-
-    /* LETTER */
-
-    .intro-letter {
-  position: absolute;
-  width: 90%;
-  left: 5%;
-  bottom: 25px;
-  background: var(--paper);
-  color: var(--dark-red);
-  padding: 30px 25px;
-  text-align: center;
-  z-index: 2;
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    transform 1s ease 0.5s,
-    opacity 0.6s ease 0.5s;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  border: 1px solid #D8C7A9;
-  outline: 1px dashed #C9A76B;
-  outline-offset: -8px;
-  max-height: 75vh;
-  overflow-y: auto;
+:root {
+  --cream: #F2E9D8;
+  --burgundy: #762E36;
+  --dark-red: #4B252A;
+  --green: #18372E;
+  --gold: #C9A76B;
+  --paper: #F8F0E2;
 }
 
-    .letter-small {
-      display: block;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 9px;
-      letter-spacing: 2px;
-      color: #9B7770;
-      margin-bottom: 13px;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    .intro-letter h2 {
-      font-family: 'Great Vibes', cursive;
-      font-size: 39px;
-      font-weight: 400;
-      color: var(--burgundy);
-      margin-bottom: 16px;
-    }
+body {
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+}
 
-    .intro-letter p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 16px;
-      line-height: 1.45;
-      color: #563B37;
-    }
+/* =========================
+   MAIN LAYOUT
+========================= */
 
-    .intro-letter strong {
-      color: var(--burgundy);
-      font-weight: 700;
-    }
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 
-    .letter-signature {
-      display: block;
-      font-family: 'Great Vibes', cursive;
-      font-size: 27px;
-      color: var(--burgundy);
-      margin-top: 18px;
-    }
+/* =========================
+   LEFT SIDE
+========================= */
 
-    /* WAX SEAL */
+.left {
+  background: var(--cream);
+  color: var(--burgundy);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 55px 35px;
+  position: relative;
+  overflow: hidden;
+}
 
-    .intro-seal {
-      position: absolute;
-      z-index: 5;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      border: 2px solid #B86B65;
-      background: #963C43;
-      color: var(--cream);
-      font-size: 27px;
-      cursor: pointer;
-      box-shadow:
-        0 4px 12px rgba(0,0,0,0.3),
-        inset 0 0 0 4px rgba(255,255,255,0.08);
-      transition:
-        transform 0.4s ease,
-        opacity 0.4s ease;
-    }
+.left-content {
+  width: 100%;
+  max-width: 520px;
+  text-align: center;
+}
 
-    .intro-seal:hover {
-      transform: translate(-50%, -50%) scale(1.1);
-    }
+.top-label {
+  color: #98736B;
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin-bottom: 55px;
+}
 
-    /* OPEN ANIMATION */
+.main-phrase {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5vw, 65px);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 
-    .intro-envelope.is-open .intro-flap {
-      transform: rotateX(180deg);
-      opacity: 0;
-    }
+.main-phrase .script {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.35em;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  display: inline-block;
+  line-height: 0.9;
+}
 
-    .intro-envelope.is-open .intro-letter {
-      opacity: 1;
-      transform: translateY(-65px);
-      z-index: 6;
-    }
+.main-phrase .small-line {
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 4px;
+  margin: 12px 0;
+}
 
-    .intro-envelope.is-open .intro-seal {
-      opacity: 0;
-      pointer-events: none;
-      transform: translate(-50%, -50%) scale(0.4);
-    }
+.left-decoration {
+  width: 65px;
+  height: 1px;
+  background: var(--gold);
+  margin: 45px auto 25px;
+}
 
-    .intro-scene.is-open .intro-bottom {
-      opacity: 0;
-    }
+.left-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: #8D6660;
+  letter-spacing: 1px;
+}
 
-    /* BACK TO CALENDAR */
+.year-label {
+  position: absolute;
+  bottom: 25px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #A88B7B;
+}
 
-    .back-link {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      z-index: 10;
-      color: var(--burgundy);
-      text-decoration: none;
-      font-size: 10px;
-      letter-spacing: 2px;
-      background: rgba(242,233,216,0.85);
-      padding: 10px 14px;
-    }
+/* =========================
+   RIGHT SIDE
+========================= */
 
-    .back-link:hover {
-      color: var(--dark-red);
-    }
+.right {
+  min-height: 100vh;
+  background: var(--burgundy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 25px;
+  position: relative;
+  overflow: hidden;
+}
 
-    /* MOBILE */
+.intro-scene {
+  width: 100%;
+  max-width: 500px;
+  min-height: 740px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
-    @media (max-width: 700px) {
-      .page {
-        grid-template-columns: 1fr;
-      }
+.intro-hint {
+  position: absolute;
+  top: 65px;
+  color: #E8D8B9;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-align: center;
+}
 
-      .left {
-        min-height: 480px;
-        padding: 65px 25px;
-      }
+.intro-bottom {
+  position: absolute;
+  bottom: 55px;
+  color: #E8D8B9;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-align: center;
+}
 
-      .top-label {
-        margin-bottom: 40px;
-      }
+/* =========================
+   ENVELOPE
+========================= */
 
-      .main-phrase {
-        font-size: clamp(38px, 10vw, 58px);
-      }
+.intro-envelope {
+  width: min(340px, 85%);
+  height: 210px;
+  position: relative;
+  margin-top: 35px;
+}
 
-      .right {
-        min-height: 780px;
-        padding: 20px 15px;
-      }
+.intro-pocket {
+  position: absolute;
+  inset: 0;
+  background: var(--dark-red);
+  border-radius: 3px;
+  z-index: 3;
+  clip-path: polygon(
+    0 0,
+    50% 58%,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
 
-      .intro-scene {
-        min-height: 740px;
-      }
+.intro-flap {
+  position: absolute;
+  inset: 0;
+  background: #91434A;
+  clip-path: polygon(0 0, 100% 0, 50% 65%);
+  transform-origin: top center;
+  transition: transform 0.8s ease;
+  z-index: 4;
+}
 
-      .intro-hint {
-        top: 50px;
-      }
+/* =========================
+   WAX SEAL
+========================= */
 
-      .intro-bottom {
-        bottom: 40px;
-      }
+.intro-seal {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 2px solid #B86B65;
+  background: #963C43;
+  color: var(--cream);
+  font-size: 27px;
+  cursor: pointer;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.3),
+    inset 0 0 0 4px rgba(255,255,255,0.08);
+  transition: transform 0.3s ease;
+}
 
-      .intro-envelope {
-        width: min(330px, 88%);
-      }
+.intro-seal:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
 
-      .intro-letter {
-        padding: 27px 20px;
-      }
+/* =========================
+   LETTER OVERLAY
+========================= */
 
-      .intro-letter p {
-        font-size: 15px;
-      }
+.letter-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(30, 12, 15, 0.88);
 
-      .intro-envelope.is-open .intro-letter {
-        transform: translateY(-80px);
-      }
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    @media (max-width: 380px) {
-      .intro-letter {
-        padding: 23px 17px;
-      }
+  padding: 20px;
 
-      .intro-letter p {
-        font-size: 14px;
-      }
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 
-      .intro-envelope.is-open .intro-letter {
-        transform: translateY(-80px);
-      }
-    }
-  </style>
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+}
+
+.letter-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* THE LETTER ITSELF */
+
+.intro-letter {
+  width: min(480px, 100%);
+  max-height: 85vh;
+  overflow-y: auto;
+
+  background: var(--paper);
+  color: var(--dark-red);
+
+  padding: 42px 38px;
+  text-align: center;
+
+  border: 1px solid #D8C7A9;
+  outline: 1px dashed var(--gold);
+  outline-offset: -10px;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+
+  transform: translateY(25px) scale(0.97);
+  transition: transform 0.6s ease;
+}
+
+.letter-overlay.active .intro-letter {
+  transform: translateY(0) scale(1);
+}
+
+.letter-small {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #9B7770;
+  margin-bottom: 22px;
+}
+
+.intro-letter h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--burgundy);
+  margin-bottom: 22px;
+}
+
+.intro-letter p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  line-height: 1.55;
+  color: #563B37;
+}
+
+.intro-letter strong {
+  color: var(--burgundy);
+  font-weight: 700;
+}
+
+.letter-signature {
+  display: block;
+  font-family: 'Great Vibes', cursive;
+  font-size: 32px;
+  color: var(--burgundy);
+  margin-top: 25px;
+}
+
+/* CLOSE BUTTON */
+
+.close-letter {
+  margin-top: 30px;
+  padding: 12px 25px;
+
+  border: 1px solid var(--burgundy);
+  background: transparent;
+  color: var(--burgundy);
+
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2px;
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.close-letter:hover {
+  background: var(--burgundy);
+  color: var(--cream);
+}
+
+/* =========================
+   BACK TO CALENDAR
+========================= */
+
+.back-link {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 60;
+
+  color: var(--burgundy);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 2px;
+
+  background: rgba(242,233,216,0.9);
+  padding: 10px 14px;
+}
+
+.back-link:hover {
+  color: var(--dark-red);
+}
+
+/* =========================
+   MOBILE VERSION
+========================= */
+
+@media (max-width: 700px) {
+
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .left {
+    min-height: 480px;
+    padding: 65px 25px;
+  }
+
+  .top-label {
+    margin-bottom: 40px;
+  }
+
+  .main-phrase {
+    font-size: clamp(38px, 10vw, 58px);
+  }
+
+  .right {
+    min-height: 650px;
+    padding: 20px 15px;
+  }
+
+  .intro-scene {
+    min-height: 620px;
+  }
+
+  .intro-hint {
+    top: 45px;
+  }
+
+  .intro-bottom {
+    bottom: 35px;
+  }
+
+  .intro-envelope {
+    width: min(330px, 88%);
+  }
+
+  .intro-letter {
+    padding: 35px 25px;
+  }
+
+  .intro-letter h2 {
+    font-size: 43px;
+  }
+
+  .intro-letter p {
+    font-size: 17px;
+  }
+
+  .letter-overlay {
+    padding: 15px;
+  }
+
+  .intro-letter {
+    max-height: 88vh;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .intro-letter {
+    padding: 30px 20px;
+  }
+
+  .intro-letter p {
+    font-size: 16px;
+  }
+
+  .intro-letter h2 {
+    font-size: 39px;
+  }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
-  <main class="page">
+<main class="page">
 
-    <!-- LEFT HALF -->
+  <!-- LEFT HALF -->
 
-    <section class="left">
-      <div class="left-content">
+  <section class="left">
 
-        <p class="top-label">A LITTLE CHRISTMAS SURPRISE</p>
+    <div class="left-content">
 
-        <h1 class="main-phrase">
-          <span class="script">All</span>
-          <span class="small-line">BECAUSE</span>
-          TWO PEOPLE
-          <span class="small-line">FELL IN</span>
-          <span class="script">Love</span>
-        </h1>
+      <p class="top-label">
+        A LITTLE CHRISTMAS SURPRISE
+      </p>
 
-        <div class="left-decoration"></div>
+      <h1 class="main-phrase">
 
-        <p class="left-subtitle">
-          A story made of little moments
-        </p>
+        <span class="script">All</span>
 
-      </div>
+        <span class="small-line">BECAUSE</span>
 
-      <span class="year-label">DECEMBER 2026</span>
-    </section>
+        TWO PEOPLE
+
+        <span class="small-line">FELL IN</span>
+
+        <span class="script">Love</span>
+
+      </h1>
+
+      <div class="left-decoration"></div>
+
+      <p class="left-subtitle">
+        A story made of little moments
+      </p>
+
+    </div>
+
+    <span class="year-label">
+      DECEMBER 2026
+    </span>
+
+  </section>
 
 
-    <!-- RIGHT HALF -->
+  <!-- RIGHT HALF -->
 
-    <section class="right">
+  <section class="right">
 
-      <div class="intro-scene" id="introScene">
+    <div class="intro-scene">
 
-        <p class="intro-hint">
-          A LITTLE SURPRISE FOR YOU
-        </p>
+      <p class="intro-hint">
+        A LITTLE SURPRISE FOR YOU
+      </p>
 
-        <div class="intro-envelope" id="introEnvelope">
+      <div class="intro-envelope">
 
-          <!-- THE LETTER -->
+        <div class="intro-flap"></div>
 
-          <div class="intro-letter">
+        <div class="intro-pocket"></div>
 
-            <span class="letter-small">
-              DECEMBER · 24 DAYS
-            </span>
-
-            <h2>Dear Love,</h2>
-
-            <p>
-              This December, I have prepared something special for you.
-
-              <br><br>
-
-              Behind each little door, you will find a memory,
-              a surprise or a little piece of our story.
-
-              <br><br>
-
-              There will be photographs, videos, games,
-              moments to remember and many reasons to smile.
-
-              <br><br>
-
-              One day at a time, for 24 days,
-              I hope to remind you how special you are to me.
-
-              <br><br>
-
-              So, open each day with curiosity...
-
-              <br><br>
-
-              <strong>
-                Everything is made with love, just for you.
-              </strong>
-            </p>
-
-            <span class="letter-signature">
-              With all my love ♡
-            </span>
-
-          </div>
-
-          <!-- ENVELOPE -->
-
-          <div class="intro-flap"></div>
-          <div class="intro-pocket"></div>
-
-          <!-- WAX SEAL -->
-
-          <button
-            class="intro-seal"
-            id="introSeal"
-            aria-label="Open the letter"
-          >
-            🌹
-          </button>
-
-        </div>
-
-        <p class="intro-bottom">
-          CLICK THE SEAL TO OPEN
-        </p>
+        <button
+          class="intro-seal"
+          id="introSeal"
+          aria-label="Open the letter"
+        >
+          🌹
+        </button>
 
       </div>
 
-    </section>
+      <p class="intro-bottom">
+        CLICK THE SEAL TO OPEN
+      </p>
 
-  </main>
+    </div>
+
+  </section>
+
+</main>
 
 
-  <!-- BACK TO CALENDAR -->
+<!-- LETTER OVERLAY -->
 
-  <a href="../index.html" class="back-link">
-    ← DECEMBER
-  </a>
+<div
+  class="letter-overlay"
+  id="letterOverlay"
+  aria-hidden="true"
+>
+
+  <div
+    class="intro-letter"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="letterTitle"
+  >
+
+    <span class="letter-small">
+      DECEMBER · 24 DAYS
+    </span>
+
+    <h2 id="letterTitle">
+      Dear Love,
+    </h2>
+
+    <p>
+      This December, I have prepared something special for you.
+
+      <br><br>
+
+      Behind each little door, you will find a memory,
+      a surprise or a little piece of our story.
+
+      <br><br>
+
+      There will be photographs, videos, games,
+      moments to remember and many reasons to smile.
+
+      <br><br>
+
+      One day at a time, for 24 days,
+      I hope to remind you how special you are to me.
+
+      <br><br>
+
+      So, open each day with curiosity...
+
+      <br><br>
+
+      <strong>
+        Everything is made with love, just for you.
+      </strong>
+    </p>
+
+    <span class="letter-signature">
+      With all my love ♡
+    </span>
+
+    <button
+      class="close-letter"
+      id="closeLetter"
+    >
+      CLOSE LETTER
+    </button>
+
+  </div>
+
+</div>
 
 
-  <!-- INTERACTION -->
+<!-- BACK TO CALENDAR -->
 
-  <script>
-    const seal = document.getElementById("introSeal");
-    const envelope = document.getElementById("introEnvelope");
-    const scene = document.getElementById("introScene");
+<a href="../index.html" class="back-link">
+  ← DECEMBER
+</a>
 
-    seal.addEventListener("click", function() {
-      envelope.classList.add("is-open");
-      scene.classList.add("is-open");
-    });
-  </script>
+
+<!-- INTERACTION -->
+
+<script>
+
+const seal = document.getElementById("introSeal");
+const overlay = document.getElementById("letterOverlay");
+const closeButton = document.getElementById("closeLetter");
+
+/* OPEN LETTER */
+
+function openLetter() {
+  overlay.classList.add("active");
+  overlay.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+/* CLOSE LETTER */
+
+function closeLetter() {
+  overlay.classList.remove("active");
+  overlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+/* BUTTON EVENTS */
+
+seal.addEventListener("click", openLetter);
+
+closeButton.addEventListener("click", closeLetter);
+
+/* CLICK OUTSIDE THE LETTER */
+
+overlay.addEventListener("click", function(event) {
+  if (event.target === overlay) {
+    closeLetter();
+  }
+});
+
+/* ESCAPE KEY */
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") {
+    closeLetter();
+  }
+});
+
+</script>
 
 </body>
 </html>
