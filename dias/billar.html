@@ -1,37 +1,328 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Día 08 · Billar</title>
-  <link rel="stylesheet" href="dias.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día 08 · Billar</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --cream: #F2E9D8;
+    --burgundy: #762E36;
+    --dark-red: #4B252A;
+    --green: #18372E;
+    --gold: #C9A76B;
+    --paper: #F8F0E2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--cream);
+    color: var(--dark-red);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "DM Sans", sans-serif;
+}
+
+/* PÁGINA (igual que el día 03) */
+
+.magazine {
+    position: relative;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow: 0 12px 40px rgba(50, 30, 20, 0.15);
+}
+
+.magazine::after {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgba(118, 46, 54, 0.12);
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* CAPA DE COMPOSICIÓN: ocupa toda la página y escala los tamaños */
+
+.billar-layout {
+    position: absolute;
+    inset: 0;
+    container-type: inline-size;
+}
+
+/* BOLAS */
+
+.ball {
+    position: absolute;
+    aspect-ratio: 1;
+    z-index: 3;
+}
+
+.ball svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.ball-red    { left: -5%; top: -3%; width: 26%; }
+.ball-yellow { left: 22%; top: -3%; width: 26%; }
+.ball-brown  { left: 4%;  top: 22%; width: 30%; }
+.ball-white  { left: 4%;  top: 45%; width: 30%; }
+
+/* TACO */
+
+.cue {
+    position: absolute;
+    left: 16%;
+    top: 67%;
+    width: 6%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.cue-tip     { height: 5%; background: #8fd3e8; border-radius: 6px 6px 0 0; border: 1.5px solid var(--dark-red); }
+.cue-ferrule { height: 9%; background: #b9c4c8; border: 1.5px solid var(--dark-red); border-top: none; }
+.cue-wood    { flex: 1;   background: #f0dc8a; border: 1.5px solid var(--dark-red); border-top: none; }
+
+/* TEXTOS (mismas fuentes que el resto de días) */
+
+.title {
+    position: absolute;
+    left: 46%;
+    top: 14%;
+    font-family: "Great Vibes", cursive;
+    font-size: 13cqw;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--burgundy);
+    z-index: 4;
+}
+
+.subtitle {
+    position: absolute;
+    left: 46%;
+    top: 26%;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 6cqw;
+    line-height: 1.1;
+    color: var(--green);
+    z-index: 4;
+}
+
+/* PORTAPAPELES */
+
+.clipboard {
+    position: absolute;
+    left: 40%;
+    top: 49%;
+    width: 56%;
+    height: 46%;
+    transform: rotate(-6deg);
+    z-index: 3;
+}
+
+.board {
+    position: absolute;
+    inset: 0;
+    background-color: var(--green);
+    background-image: radial-gradient(rgba(0, 0, 0, .35) 1.4px, transparent 1.6px);
+    background-size: 6px 6px;
+    border: 3px solid #0f2b22;
+    border-radius: 10px;
+}
+
+.clip {
+    position: absolute;
+    left: 28%;
+    top: -3%;
+    width: 44%;
+    height: 9%;
+    background: linear-gradient(#cfc8b8, var(--gold));
+    border: 2.5px solid #0f2b22;
+    border-radius: 6px;
+    z-index: 3;
+}
+
+.sheet-back {
+    position: absolute;
+    left: 10%;
+    right: 2%;
+    top: 9%;
+    bottom: 5%;
+    background: #ece4d2;
+    border: 1.5px solid #0f2b22;
+    transform: rotate(2deg);
+    z-index: 1;
+}
+
+.sheet {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: 9%;
+    bottom: 6%;
+    background: #fffaf0;
+    border: 1.5px solid #0f2b22;
+    z-index: 2;
+    padding: 6% 5% 0;
+}
+
+.sheet::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4%;
+    border-top: 2px solid var(--green);
+}
+
+/* MARCADOR */
+
+.score {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8%;
+    font-family: "DM Sans", sans-serif;
+    font-size: 4cqw;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--dark-red);
+}
+
+.score td {
+    padding: 3% 4%;
+}
+
+.score .name {
+    border-right: 3px solid var(--dark-red);
+    text-align: left;
+}
+
+.score .points {
+    border-right: 1px solid var(--dark-red);
+    text-align: center;
+    width: 17%;
+}
+</style>
+
+<link rel="stylesheet" href="dias.css">
 </head>
-<body class="day-body day-body--template">
-  <main class="day-frame day-template">
-    <div class="template-content">
-      <header class="template-heading">
-        <p class="template-eyebrow">Día 08 · Adviento 2026</p>
-        <h1>Billar</h1>
-        <p class="template-intro">Reserva este espacio para fotos, partidas y anotaciones.</p>
-      </header>
-      <div class="template-sections">
-        <section class="template-card">
-          <h2>Partidas</h2>
-          <p>Anota fechas, puntuaciones u otros detalles.</p>
-          <textarea class="template-input template-input--large" aria-label="Detalles de las partidas de billar"></textarea>
-        </section>
-        <section class="template-card">
-          <h2>Fotos</h2>
-          <p>Añade imágenes y pies de foto.</p>
-          <div class="template-photos">
-            <figure class="template-photo"><div class="template-photo__placeholder">Añade una foto</div><textarea class="template-photo__caption" aria-label="Pie de foto 1"></textarea></figure>
-            <figure class="template-photo"><div class="template-photo__placeholder">Añade una foto</div><textarea class="template-photo__caption" aria-label="Pie de foto 2"></textarea></figure>
-            <figure class="template-photo"><div class="template-photo__placeholder">Añade una foto</div><textarea class="template-photo__caption" aria-label="Pie de foto 3"></textarea></figure>
-          </div>
-        </section>
-      </div>
+
+<body class="day-body day-body--magazine">
+
+<main class="magazine day-frame">
+
+    <!-- VOLVER AL CALENDARIO -->
+    <a href="../index.html" class="back-link">
+        ← Volver al calendario
+    </a>
+
+    <div class="billar-layout">
+
+        <!-- BOLA ROJA 11 -->
+        <div class="ball ball-red">
+            <svg viewBox="0 0 100 100">
+                <defs><clipPath id="c11"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <g clip-path="url(#c11)">
+                    <circle cx="50" cy="50" r="48" fill="#c62a2f"/>
+                    <rect x="0" y="76" width="100" height="30" fill="#fff"/>
+                </g>
+                <circle cx="50" cy="50" r="48" fill="none" stroke="#4B252A" stroke-width="2.5"/>
+                <circle cx="50" cy="50" r="22" fill="#fff" stroke="#4B252A" stroke-width="1.5"/>
+                <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+                      font-family="DM Sans, sans-serif" font-weight="700" font-size="24"
+                      transform="rotate(180 50 50)">11</text>
+                <ellipse cx="29" cy="25" rx="9" ry="5" fill="#fff" opacity=".85" transform="rotate(-35 29 25)"/>
+            </svg>
+        </div>
+
+        <!-- BOLA AMARILLA 6 -->
+        <div class="ball ball-yellow">
+            <svg viewBox="0 0 100 100">
+                <defs><clipPath id="c6"><circle cx="50" cy="50" r="48"/></clipPath></defs>
+                <g clip-path="url(#c6)">
+                    <circle cx="50" cy="50" r="48" fill="#f2c230"/>
+                    <rect x="0" y="76" width="100" height="30" fill="#fff"/>
+                </g>
+                <circle cx="50" cy="50" r="48" fill="none" stroke="#4B252A" stroke-width="2.5"/>
+                <circle cx="50" cy="50" r="22" fill="#fff" stroke="#4B252A" stroke-width="1.5"/>
+                <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+                      font-family="DM Sans, sans-serif" font-weight="700" font-size="26"
+                      transform="rotate(180 50 50)">6</text>
+                <ellipse cx="29" cy="25" rx="9" ry="5" fill="#fff" opacity=".85" transform="rotate(-35 29 25)"/>
+            </svg>
+        </div>
+
+        <!-- BOLA MARRÓN 7 -->
+        <div class="ball ball-brown">
+            <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="48" fill="#7a4a2a" stroke="#4B252A" stroke-width="2.5"/>
+                <circle cx="50" cy="50" r="22" fill="#fff" stroke="#4B252A" stroke-width="1.5"/>
+                <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+                      font-family="DM Sans, sans-serif" font-weight="700" font-size="26"
+                      transform="rotate(180 50 50)">7</text>
+                <ellipse cx="71" cy="75" rx="9" ry="5" fill="#fff" opacity=".85" transform="rotate(-35 71 75)"/>
+            </svg>
+        </div>
+
+        <!-- BOLA BLANCA -->
+        <div class="ball ball-white">
+            <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="48" fill="#fff" stroke="#4B252A" stroke-width="2.5"/>
+                <ellipse cx="29" cy="25" rx="9" ry="5" fill="#e6e6e6" transform="rotate(-35 29 25)"/>
+            </svg>
+        </div>
+
+        <!-- TACO -->
+        <div class="cue">
+            <div class="cue-tip"></div>
+            <div class="cue-ferrule"></div>
+            <div class="cue-wood"></div>
+        </div>
+
+        <!-- TEXTOS -->
+        <h1 class="title">Título</h1>
+        <p class="subtitle">Subtítulo</p>
+
+        <!-- PORTAPAPELES -->
+        <div class="clipboard">
+            <div class="board"></div>
+            <div class="clip"></div>
+            <div class="sheet-back"></div>
+            <div class="sheet">
+                <table class="score">
+                    <tr>
+                        <td class="name">Alvaro</td>
+                        <td class="points">12</td>
+                        <td class="points">5</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Clara</td>
+                        <td class="points">1</td>
+                        <td class="points">4</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
     </div>
-  </main>
-  <a href="../index.html" class="back-link">← Volver al calendario</a>
+
+</main>
+
 </body>
 </html>
