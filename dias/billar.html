@@ -53,58 +53,65 @@ body {
     z-index: 20;
 }
 
-/* CAPA DE COMPOSICIÓN: ocupa toda la página y escala los tamaños */
-
-.billar-layout {
-    position: absolute;
-    inset: 0;
-    container-type: inline-size;
-}
-
-/* BOLAS */
+/* BOLAS (PNG) */
 
 .ball {
     position: absolute;
-    aspect-ratio: 1;
     z-index: 3;
 }
 
-.ball svg {
+.ball img {
     width: 100%;
     height: 100%;
+    object-fit: contain;
     display: block;
 }
 
-.ball-red    { left: -5%; top: -3%; width: 26%; }
-.ball-yellow { left: 22%; top: -3%; width: 26%; }
-.ball-brown  { left: 4%;  top: 22%; width: 30%; }
-.ball-white  { left: 4%;  top: 45%; width: 30%; }
+/* Si todavía no has subido el PNG, se ve un recuadro de ayuda */
+.ball.missing {
+    border: 1px dashed var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 10px;
+    color: var(--green);
+}
+
+.ball.missing img {
+    display: none;
+}
+
+.ball-red    { left: 2%;  top: 2%;  width: 16%; height: 24%; }
+.ball-yellow { left: 20%; top: 2%;  width: 16%; height: 24%; }
+.ball-brown  { left: 4%;  top: 28%; width: 16%; height: 24%; }
+.ball-white  { left: 4%;  top: 54%; width: 16%; height: 24%; }
 
 /* TACO */
 
 .cue {
     position: absolute;
-    left: 16%;
-    top: 67%;
-    width: 6%;
-    height: 40%;
+    left: 10%;
+    top: 80%;
+    width: 3.5%;
+    height: 25%;
     display: flex;
     flex-direction: column;
     z-index: 2;
 }
 
-.cue-tip     { height: 5%; background: #8fd3e8; border-radius: 6px 6px 0 0; border: 1.5px solid var(--dark-red); }
-.cue-ferrule { height: 9%; background: #b9c4c8; border: 1.5px solid var(--dark-red); border-top: none; }
-.cue-wood    { flex: 1;   background: #f0dc8a; border: 1.5px solid var(--dark-red); border-top: none; }
+.cue-tip     { height: 6%; background: #8fd3e8; border: 1.5px solid var(--dark-red); border-radius: 6px 6px 0 0; }
+.cue-ferrule { height: 10%; background: #b9c4c8; border: 1.5px solid var(--dark-red); border-top: none; }
+.cue-wood    { flex: 1; background: #f0dc8a; border: 1.5px solid var(--dark-red); border-top: none; }
 
-/* TEXTOS (mismas fuentes que el resto de días) */
+/* TEXTOS */
 
 .title {
     position: absolute;
     left: 46%;
-    top: 14%;
+    top: 10%;
     font-family: "Great Vibes", cursive;
-    font-size: 13cqw;
+    font-size: clamp(38px, 6vw, 80px);
     font-weight: 400;
     line-height: 1.1;
     color: var(--burgundy);
@@ -114,10 +121,10 @@ body {
 .subtitle {
     position: absolute;
     left: 46%;
-    top: 26%;
+    top: 27%;
     font-family: "Cormorant Garamond", serif;
     font-style: italic;
-    font-size: 6cqw;
+    font-size: clamp(18px, 2.4vw, 30px);
     line-height: 1.1;
     color: var(--green);
     z-index: 4;
@@ -127,10 +134,10 @@ body {
 
 .clipboard {
     position: absolute;
-    left: 40%;
-    top: 49%;
-    width: 56%;
-    height: 46%;
+    left: 45%;
+    top: 46%;
+    width: 50%;
+    height: 48%;
     transform: rotate(-6deg);
     z-index: 3;
 }
@@ -178,7 +185,7 @@ body {
     background: #fffaf0;
     border: 1.5px solid #0f2b22;
     z-index: 2;
-    padding: 6% 5% 0;
+    padding: 8% 5% 0;
 }
 
 .sheet::before {
@@ -186,7 +193,7 @@ body {
     position: absolute;
     left: 0;
     right: 0;
-    top: 4%;
+    top: 5%;
     border-top: 2px solid var(--green);
 }
 
@@ -195,9 +202,8 @@ body {
 .score {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 8%;
     font-family: "DM Sans", sans-serif;
-    font-size: 4cqw;
+    font-size: clamp(11px, 1.5vw, 18px);
     font-weight: 700;
     letter-spacing: .5px;
     text-transform: uppercase;
@@ -205,7 +211,7 @@ body {
 }
 
 .score td {
-    padding: 3% 4%;
+    padding: 6px 8px;
 }
 
 .score .name {
@@ -217,6 +223,27 @@ body {
     border-right: 1px solid var(--dark-red);
     text-align: center;
     width: 17%;
+}
+
+/* MÓVIL */
+
+@media (max-width: 600px) {
+
+    .title {
+        font-size: clamp(30px, 9vw, 46px);
+    }
+
+    .subtitle {
+        font-size: clamp(14px, 4vw, 20px);
+    }
+
+    .score {
+        font-size: 9px;
+    }
+
+    .score td {
+        padding: 3px 4px;
+    }
 }
 </style>
 
@@ -232,94 +259,58 @@ body {
         ← Volver al calendario
     </a>
 
-    <div class="billar-layout">
+    <!-- BOLAS: pon aquí tus PNG -->
+    <div class="ball ball-red">
+        <img src="../imagenes/bola-11.png" alt="Bola roja 11"
+             onerror="this.parentElement.classList.add('missing')">
+        <span class="ph" style="display:none"></span>
+    </div>
 
-        <!-- BOLA ROJA 11 -->
-        <div class="ball ball-red">
-            <svg viewBox="0 0 100 100">
-                <defs><clipPath id="c11"><circle cx="50" cy="50" r="48"/></clipPath></defs>
-                <g clip-path="url(#c11)">
-                    <circle cx="50" cy="50" r="48" fill="#c62a2f"/>
-                    <rect x="0" y="76" width="100" height="30" fill="#fff"/>
-                </g>
-                <circle cx="50" cy="50" r="48" fill="none" stroke="#4B252A" stroke-width="2.5"/>
-                <circle cx="50" cy="50" r="22" fill="#fff" stroke="#4B252A" stroke-width="1.5"/>
-                <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
-                      font-family="DM Sans, sans-serif" font-weight="700" font-size="24"
-                      transform="rotate(180 50 50)">11</text>
-                <ellipse cx="29" cy="25" rx="9" ry="5" fill="#fff" opacity=".85" transform="rotate(-35 29 25)"/>
-            </svg>
+    <div class="ball ball-yellow">
+        <img src="../imagenes/bola-6.png" alt="Bola amarilla 6"
+             onerror="this.parentElement.classList.add('missing')">
+    </div>
+
+    <div class="ball ball-brown">
+        <img src="../imagenes/bola-7.png" alt="Bola marrón 7"
+             onerror="this.parentElement.classList.add('missing')">
+    </div>
+
+    <div class="ball ball-white">
+        <img src="../imagenes/bola-blanca.png" alt="Bola blanca"
+             onerror="this.parentElement.classList.add('missing')">
+    </div>
+
+    <!-- TACO -->
+    <div class="cue">
+        <div class="cue-tip"></div>
+        <div class="cue-ferrule"></div>
+        <div class="cue-wood"></div>
+    </div>
+
+    <!-- TEXTOS -->
+    <h1 class="title">Título</h1>
+    <p class="subtitle">Subtítulo</p>
+
+    <!-- PORTAPAPELES -->
+    <div class="clipboard">
+        <div class="board"></div>
+        <div class="clip"></div>
+        <div class="sheet-back"></div>
+        <div class="sheet">
+            <table class="score">
+                <tr>
+                    <td class="name">Alvaro</td>
+                    <td class="points">12</td>
+                    <td class="points">5</td>
+                </tr>
+                <tr>
+                    <td class="name">Clara</td>
+                    <td class="points">1</td>
+                    <td class="points">4</td>
+                </tr>
+            </table>
         </div>
-
-        <!-- BOLA AMARILLA 6 -->
-        <div class="ball ball-yellow">
-            <svg viewBox="0 0 100 100">
-                <defs><clipPath id="c6"><circle cx="50" cy="50" r="48"/></clipPath></defs>
-                <g clip-path="url(#c6)">
-                    <circle cx="50" cy="50" r="48" fill="#f2c230"/>
-                    <rect x="0" y="76" width="100" height="30" fill="#fff"/>
-                </g>
-                <circle cx="50" cy="50" r="48" fill="none" stroke="#4B252A" stroke-width="2.5"/>
-                <circle cx="50" cy="50" r="22" fill="#fff" stroke="#4B252A" stroke-width="1.5"/>
-                <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
-                      font-family="DM Sans, sans-serif" font-weight="700" font-size="26"
-                      transform="rotate(180 50 50)">6</text>
-                <ellipse cx="29" cy="25" rx="9" ry="5" fill="#fff" opacity=".85" transform="rotate(-35 29 25)"/>
-            </svg>
-        </div>
-
-        <!-- BOLA MARRÓN 7 -->
-        <div class="ball ball-brown">
-            <svg viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="48" fill="#7a4a2a" stroke="#4B252A" stroke-width="2.5"/>
-                <circle cx="50" cy="50" r="22" fill="#fff" stroke="#4B252A" stroke-width="1.5"/>
-                <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
-                      font-family="DM Sans, sans-serif" font-weight="700" font-size="26"
-                      transform="rotate(180 50 50)">7</text>
-                <ellipse cx="71" cy="75" rx="9" ry="5" fill="#fff" opacity=".85" transform="rotate(-35 71 75)"/>
-            </svg>
-        </div>
-
-        <!-- BOLA BLANCA -->
-        <div class="ball ball-white">
-            <svg viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="48" fill="#fff" stroke="#4B252A" stroke-width="2.5"/>
-                <ellipse cx="29" cy="25" rx="9" ry="5" fill="#e6e6e6" transform="rotate(-35 29 25)"/>
-            </svg>
-        </div>
-
-        <!-- TACO -->
-        <div class="cue">
-            <div class="cue-tip"></div>
-            <div class="cue-ferrule"></div>
-            <div class="cue-wood"></div>
-        </div>
-
-        <!-- TEXTOS -->
-        <h1 class="title">Título</h1>
-        <p class="subtitle">Subtítulo</p>
-
-        <!-- PORTAPAPELES -->
-        <div class="clipboard">
-            <div class="board"></div>
-            <div class="clip"></div>
-            <div class="sheet-back"></div>
-            <div class="sheet">
-                <table class="score">
-                    <tr>
-                        <td class="name">Alvaro</td>
-                        <td class="points">12</td>
-                        <td class="points">5</td>
-                    </tr>
-                    <tr>
-                        <td class="name">Clara</td>
-                        <td class="points">1</td>
-                        <td class="points">4</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
     </div>
 
 </main>
