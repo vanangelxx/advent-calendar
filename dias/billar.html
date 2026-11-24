@@ -67,9 +67,9 @@ body {
     display: block;
 }
 
-.ball-red    { left: 2%;  top: 2%;  width: 16%; height: 24%; rotation: 5% }
-.ball-yellow { left: 20%; top: 2%;  width: 16%; height: 24%; rotation: 50%}
-.ball-brown  { left: 4%;  top: 28%; width: 16%; height: 24%; rotation: 25%}
+.ball-red    { left: 2%;  top: 2%;  width: 16%; height: 24%; }
+.ball-yellow { left: 20%; top: 2%;  width: 16%; height: 24%; }
+.ball-brown  { left: 4%;  top: 28%; width: 16%; height: 24%; }
 .ball-white  { left: 4%;  top: 54%; width: 16%; height: 24%; }
 
 /* TACO (PNG) */
@@ -91,65 +91,64 @@ body {
     display: block;
 }
 
-/* TEXTOS */
-
-.title {
-    position: absolute;
-    left: 46%;
-    top: 10%;
-    font-family: "Great Vibes", cursive;
-    font-size: clamp(38px, 6vw, 80px);
-    font-weight: 400;
-    line-height: 1.1;
-    color: var(--burgundy);
-    z-index: 4;
-}
-
-.subtitle {
-    position: absolute;
-    left: 46%;
-    top: 27%;
-    font-family: "Cormorant Garamond", serif;
-    font-style: italic;
-    font-size: clamp(18px, 2.4vw, 30px);
-    line-height: 1.1;
-    color: var(--green);
-    z-index: 4;
-}
-
-/* PORTAPAPELES (PNG) + MARCADOR ENCIMA */
+/* PORTAPAPELES: centrado en la mitad derecha y girado 45º.
+   Imagen y textos van dentro del mismo bloque, así giran juntos. */
 
 .clipboard {
     position: absolute;
-    left: 42%;
-    top: 46%;
-    width: 100%;
-    height: 100%;
+    left: 75%;                 /* centro de la mitad derecha */
+    top: 50%;
+    width: 30%;                /* ← tamaño del portapapeles */
+    aspect-ratio: 3 / 4;       /* ← proporción de tu PNG (ancho / alto) */
+    transform: translate(-50%, -50%) rotate(-45deg);   /* ← 45deg gira al otro lado */
+    container-type: inline-size;
     z-index: 3;
 }
 
-.clipboard img {
+.clipboard > img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
     display: block;
 }
 
-/* Capa del marcador: colócala sobre la zona blanca del papel */
-.score-overlay {
+/* Contenido sobre el papel (posiciones en % del portapapeles) */
+
+.clipboard-content {
     position: absolute;
-    left: 20%;      /* ← mueve a izquierda/derecha */
-    top: 26%;       /* ← mueve arriba/abajo */
-    width: 62%;     /* ← ancho de la tabla */
-    transform: rotate(-6deg);   /* ← pon la misma inclinación que tu PNG (0deg si está recto) */
-    transform-origin: top left;
+    left: 16%;                 /* ← ajusta para centrar sobre la hoja blanca */
+    top: 20%;
+    width: 68%;
+    z-index: 2;
 }
+
+.title {
+    font-family: "Great Vibes", cursive;
+    font-size: 13cqw;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--burgundy);
+}
+
+.subtitle {
+    margin-top: 2cqw;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 6cqw;
+    line-height: 1.1;
+    color: var(--green);
+}
+
+/* MARCADOR */
 
 .score {
     width: 100%;
+    margin-top: 8cqw;
     border-collapse: collapse;
     font-family: "DM Sans", sans-serif;
-    font-size: clamp(11px, 1.5vw, 18px);
+    font-size: 5cqw;
     font-weight: 700;
     letter-spacing: .5px;
     text-transform: uppercase;
@@ -157,7 +156,7 @@ body {
 }
 
 .score td {
-    padding: 6px 8px;
+    padding: 1.6cqw 2cqw;
 }
 
 .score .name {
@@ -169,27 +168,6 @@ body {
     border-right: 1px solid #000;
     text-align: center;
     width: 17%;
-}
-
-/* MÓVIL */
-
-@media (max-width: 600px) {
-
-    .title {
-        font-size: clamp(30px, 9vw, 46px);
-    }
-
-    .subtitle {
-        font-size: clamp(14px, 4vw, 20px);
-    }
-
-    .score {
-        font-size: 9px;
-    }
-
-    .score td {
-        padding: 3px 4px;
-    }
 }
 </style>
 
@@ -227,15 +205,14 @@ body {
         <img src="../imagenes/taco.png" alt="Taco de billar">
     </div>
 
-    <!-- TEXTOS -->
-    <h1 class="title">Título</h1>
-    <p class="subtitle">Subtítulo</p>
-
-    <!-- PORTAPAPELES CON MARCADOR -->
+    <!-- PORTAPAPELES (título, subtítulo y marcador dentro) -->
     <div class="clipboard">
         <img src="../imagenes/portapapeles.png" alt="Portapapeles con papel">
 
-        <div class="score-overlay">
+        <div class="clipboard-content">
+            <h1 class="title">Título</h1>
+            <p class="subtitle">Subtítulo</p>
+
             <table class="score">
                 <tr>
                     <td class="name">Alvaro</td>
