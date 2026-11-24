@@ -91,13 +91,13 @@ body {
     display: block;
 }
 
-/* PORTAPAPELES: centrado en la mitad derecha y girado 45º.
+/* PORTAPAPELES: mitad derecha, girado 45º, al doble de tamaño.
    Imagen y textos van dentro del mismo bloque, así giran juntos. */
 
 .clipboard {
     position: absolute;
-    left: 75%;                 /* centro de la mitad derecha */
-    top: 50%;
+    left: 75%;                 /* ← posición horizontal (centro del bloque) */
+    top: 50%;                  /* ← posición vertical */
     width: 60%;                /* ← tamaño del portapapeles */
     aspect-ratio: 3 / 4;       /* ← proporción de tu PNG (ancho / alto) */
     transform: translate(-50%, -50%) rotate(-45deg);   /* ← 45deg gira al otro lado */
@@ -126,17 +126,17 @@ body {
 
 .title {
     font-family: "Great Vibes", cursive;
-    font-size: 13cqw;
+    font-size: 6.5cqw;
     font-weight: 400;
     line-height: 1.1;
     color: var(--burgundy);
 }
 
 .subtitle {
-    margin-top: 2cqw;
+    margin-top: 1cqw;
     font-family: "Cormorant Garamond", serif;
     font-style: italic;
-    font-size: 6cqw;
+    font-size: 3cqw;
     line-height: 1.1;
     color: var(--green);
 }
@@ -145,10 +145,10 @@ body {
 
 .score {
     width: 100%;
-    margin-top: 8cqw;
+    margin-top: 4cqw;
     border-collapse: collapse;
     font-family: "DM Sans", sans-serif;
-    font-size: 5cqw;
+    font-size: 2.5cqw;
     font-weight: 700;
     letter-spacing: .5px;
     text-transform: uppercase;
@@ -156,7 +156,7 @@ body {
 }
 
 .score td {
-    padding: 1.6cqw 2cqw;
+    padding: 0.8cqw 1cqw;
 }
 
 .score .name {
