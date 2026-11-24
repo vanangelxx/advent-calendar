@@ -67,42 +67,29 @@ body {
     display: block;
 }
 
-/* Si todavía no has subido el PNG, se ve un recuadro de ayuda */
-.ball.missing {
-    border: 1px dashed var(--gold);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 10px;
-    color: var(--green);
-}
-
-.ball.missing img {
-    display: none;
-}
-
 .ball-red    { left: 2%;  top: 2%;  width: 16%; height: 24%; }
 .ball-yellow { left: 20%; top: 2%;  width: 16%; height: 24%; }
 .ball-brown  { left: 4%;  top: 28%; width: 16%; height: 24%; }
 .ball-white  { left: 4%;  top: 54%; width: 16%; height: 24%; }
 
-/* TACO */
+/* TACO (PNG) */
 
 .cue {
     position: absolute;
-    left: 10%;
-    top: 80%;
-    width: 3.5%;
-    height: 25%;
-    display: flex;
-    flex-direction: column;
+    left: 7%;
+    top: 78%;
+    width: 10%;
+    height: 27%;
     z-index: 2;
 }
 
-.cue-tip     { height: 6%; background: #8fd3e8; border: 1.5px solid var(--dark-red); border-radius: 6px 6px 0 0; }
-.cue-ferrule { height: 10%; background: #b9c4c8; border: 1.5px solid var(--dark-red); border-top: none; }
-.cue-wood    { flex: 1; background: #f0dc8a; border: 1.5px solid var(--dark-red); border-top: none; }
+.cue img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: top center;
+    display: block;
+}
 
 /* TEXTOS */
 
@@ -130,74 +117,33 @@ body {
     z-index: 4;
 }
 
-/* PORTAPAPELES */
+/* PORTAPAPELES (PNG) + MARCADOR ENCIMA */
 
 .clipboard {
     position: absolute;
-    left: 45%;
+    left: 42%;
     top: 46%;
-    width: 50%;
-    height: 48%;
-    transform: rotate(-6deg);
+    width: 54%;
+    height: 50%;
     z-index: 3;
 }
 
-.board {
-    position: absolute;
-    inset: 0;
-    background-color: var(--green);
-    background-image: radial-gradient(rgba(0, 0, 0, .35) 1.4px, transparent 1.6px);
-    background-size: 6px 6px;
-    border: 3px solid #0f2b22;
-    border-radius: 10px;
+.clipboard img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
-.clip {
+/* Capa del marcador: colócala sobre la zona blanca del papel */
+.score-overlay {
     position: absolute;
-    left: 28%;
-    top: -3%;
-    width: 44%;
-    height: 9%;
-    background: linear-gradient(#cfc8b8, var(--gold));
-    border: 2.5px solid #0f2b22;
-    border-radius: 6px;
-    z-index: 3;
+    left: 20%;      /* ← mueve a izquierda/derecha */
+    top: 26%;       /* ← mueve arriba/abajo */
+    width: 62%;     /* ← ancho de la tabla */
+    transform: rotate(-6deg);   /* ← pon la misma inclinación que tu PNG (0deg si está recto) */
+    transform-origin: top left;
 }
-
-.sheet-back {
-    position: absolute;
-    left: 10%;
-    right: 2%;
-    top: 9%;
-    bottom: 5%;
-    background: #ece4d2;
-    border: 1.5px solid #0f2b22;
-    transform: rotate(2deg);
-    z-index: 1;
-}
-
-.sheet {
-    position: absolute;
-    left: 8%;
-    right: 8%;
-    top: 9%;
-    bottom: 6%;
-    background: #fffaf0;
-    border: 1.5px solid #0f2b22;
-    z-index: 2;
-    padding: 8% 5% 0;
-}
-
-.sheet::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 5%;
-    border-top: 2px solid var(--green);
-}
-
-/* MARCADOR */
 
 .score {
     width: 100%;
@@ -207,7 +153,7 @@ body {
     font-weight: 700;
     letter-spacing: .5px;
     text-transform: uppercase;
-    color: var(--dark-red);
+    color: #000;
 }
 
 .score td {
@@ -215,12 +161,12 @@ body {
 }
 
 .score .name {
-    border-right: 3px solid var(--dark-red);
+    border-right: 3px solid #000;
     text-align: left;
 }
 
 .score .points {
-    border-right: 1px solid var(--dark-red);
+    border-right: 1px solid #000;
     text-align: center;
     width: 17%;
 }
@@ -259,45 +205,37 @@ body {
         ← Volver al calendario
     </a>
 
-    <!-- BOLAS: pon aquí tus PNG -->
+    <!-- BOLAS -->
     <div class="ball ball-red">
-        <img src="../imagenes/bola-11.png" alt="Bola roja 11"
-             onerror="this.parentElement.classList.add('missing')">
-        <span class="ph" style="display:none"></span>
+        <img src="../imagenes/bola-11.png" alt="Bola roja 11">
     </div>
 
     <div class="ball ball-yellow">
-        <img src="../imagenes/bola-6.png" alt="Bola amarilla 6"
-             onerror="this.parentElement.classList.add('missing')">
+        <img src="../imagenes/bola-6.png" alt="Bola amarilla 6">
     </div>
 
     <div class="ball ball-brown">
-        <img src="../imagenes/bola-7.png" alt="Bola marrón 7"
-             onerror="this.parentElement.classList.add('missing')">
+        <img src="../imagenes/bola-7.png" alt="Bola marrón 7">
     </div>
 
     <div class="ball ball-white">
-        <img src="../imagenes/bola-blanca.png" alt="Bola blanca"
-             onerror="this.parentElement.classList.add('missing')">
+        <img src="../imagenes/bola-blanca.png" alt="Bola blanca">
     </div>
 
     <!-- TACO -->
     <div class="cue">
-        <div class="cue-tip"></div>
-        <div class="cue-ferrule"></div>
-        <div class="cue-wood"></div>
+        <img src="../imagenes/taco.png" alt="Taco de billar">
     </div>
 
     <!-- TEXTOS -->
     <h1 class="title">Título</h1>
     <p class="subtitle">Subtítulo</p>
 
-    <!-- PORTAPAPELES -->
+    <!-- PORTAPAPELES CON MARCADOR -->
     <div class="clipboard">
-        <div class="board"></div>
-        <div class="clip"></div>
-        <div class="sheet-back"></div>
-        <div class="sheet">
+        <img src="../imagenes/portapapeles.png" alt="Portapapeles con papel">
+
+        <div class="score-overlay">
             <table class="score">
                 <tr>
                     <td class="name">Alvaro</td>
@@ -312,6 +250,11 @@ body {
             </table>
         </div>
     </div>
+
+</main>
+
+</body>
+</html>
 
 </main>
 
