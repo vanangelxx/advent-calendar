@@ -7,6 +7,25 @@
   <link rel="stylesheet" href="dias.css">
 
   <style>
+    /* TÍTULO DEL VÍDEO (encima de la tele) */
+
+    .video-title {
+      margin: 0 0 18px;
+      min-height: 1.2em;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--burgundy, #762E36);
+      transition: opacity .25s ease;
+    }
+
+    .video-title.fade {
+      opacity: 0;
+    }
+
     /* TELE + BOTONES */
 
     .tv-layout {
@@ -29,14 +48,13 @@
       height: auto;
     }
 
-    /* Pantalla: el vídeo se coloca sobre el cristal de la tele.
-       Ajusta left, top, width y height hasta que encaje con tu PNG. */
+    /* Pantalla: ajusta left, top, width y height hasta que encaje con tu PNG. */
     .tv-screen {
       position: absolute;
-      left: 9%;      /* ← distancia desde el borde izquierdo de la tele */
-      top: 12%;      /* ← distancia desde arriba */
-      width: 70%;    /* ← ancho de la pantalla */
-      height: 66%;   /* ← alto de la pantalla */
+      left: 9%;
+      top: 12%;
+      width: 70%;
+      height: 66%;
       background: #000;
       object-fit: cover;
       border-radius: 4px;
@@ -99,6 +117,9 @@
         <p class="template-intro">Elige un número y mira el vídeo en la tele.</p>
       </header>
 
+      <!-- TÍTULO QUE CAMBIA SEGÚN EL VÍDEO -->
+      <h2 class="video-title" id="video-title">Título del vídeo 1</h2>
+
       <div class="tv-layout">
 
         <!-- TELEVISIÓN -->
@@ -108,13 +129,13 @@
                  src="../videos/video-1.mp4"></video>
         </div>
 
-        <!-- BOTONES -->
+        <!-- BOTONES: cambia data-title por el título de cada vídeo -->
         <div class="tv-buttons">
-          <button class="tv-button active" data-video="../videos/video-1.mp4" aria-label="Vídeo 1">1</button>
-          <button class="tv-button" data-video="../videos/video-2.mp4" aria-label="Vídeo 2">2</button>
-          <button class="tv-button" data-video="../videos/video-3.mp4" aria-label="Vídeo 3">3</button>
-          <button class="tv-button" data-video="../videos/video-4.mp4" aria-label="Vídeo 4">4</button>
-          <button class="tv-button" data-video="../videos/video-5.mp4" aria-label="Vídeo 5">5</button>
+          <button class="tv-button active" data-video="../videos/video-1.mp4" data-title="Título del vídeo 1" aria-label="Vídeo 1">1</button>
+          <button class="tv-button" data-video="../videos/video-2.mp4" data-title="Título del vídeo 2" aria-label="Vídeo 2">2</button>
+          <button class="tv-button" data-video="../videos/video-3.mp4" data-title="Título del vídeo 3" aria-label="Vídeo 3">3</button>
+          <button class="tv-button" data-video="../videos/video-4.mp4" data-title="Título del vídeo 4" aria-label="Vídeo 4">4</button>
+          <button class="tv-button" data-video="../videos/video-5.mp4" data-title="Título del vídeo 5" aria-label="Vídeo 5">5</button>
         </div>
 
       </div>
@@ -126,6 +147,7 @@
 
   <script>
     const video = document.getElementById("tv-video");
+    const videoTitle = document.getElementById("video-title");
     const buttons = document.querySelectorAll(".tv-button");
 
     buttons.forEach(button => {
@@ -133,8 +155,16 @@
         buttons.forEach(b => b.classList.remove("active"));
         button.classList.add("active");
 
+        // Cambia el vídeo
         video.src = button.dataset.video;
         video.play();
+
+        // Cambia el título con un pequeño fundido
+        videoTitle.classList.add("fade");
+        setTimeout(() => {
+          videoTitle.textContent = button.dataset.title;
+          videoTitle.classList.remove("fade");
+        }, 250);
       });
     });
   </script>
