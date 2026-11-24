@@ -32,14 +32,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 25px;
 }
 
 /* PÁGINA */
 
 .magazine {
-    width: min(100%, 1100px);
-    aspect-ratio: 4 / 3;
     position: relative;
     overflow: hidden;
     background: var(--paper);
@@ -53,30 +50,6 @@ body {
     border: 1px solid rgba(118, 46, 54, 0.12);
     pointer-events: none;
     z-index: 20;
-}
-
-/* VOLVER AL CALENDARIO */
-
-.back-link {
-      position: fixed;
-      bottom: 18px;
-      left: 22px;
-      z-index: 10;
-      color: var(--burgundy);
-      text-decoration: none;
-      font-family: "DM Sans", sans-serif;
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      background: var(--cream);
-      padding: 9px 13px;
-      border: 1px solid var(--gold);
-    }
-
-    .back-link:hover {
-      background: var(--burgundy);
-      color: var(--cream);
-    }
 }
 
 /* CESTA CENTRAL */
@@ -353,26 +326,6 @@ body {
 
 @media (max-width: 600px) {
 
-    body {
-        padding: 8px;
-    }
-
-    .magazine {
-        width: 100%;
-        aspect-ratio: 4 / 3;
-    }
-
-    .back {
-        bottom: 3%;
-        left: 3%;
-        font-size: 8px;
-        gap: 3px;
-    }
-
-    .back .arrow {
-        font-size: 17px;
-    }
-
     .basket-area {
         left: 29%;
         top: 29%;
@@ -472,15 +425,16 @@ body {
 }
 
 </style>
+<link rel="stylesheet" href="dias.css">
 </head>
 
-<body>
+<body class="day-body day-body--magazine">
 
-<main class="magazine">
+<main class="magazine day-frame">
 
     <!-- VOLVER AL CALENDARIO -->
     <a href="../index.html" class="back-link">
-    ← Volver al calendario
+        ← Volver al calendario
   </a>
 
     <!-- CESTA CENTRAL -->
