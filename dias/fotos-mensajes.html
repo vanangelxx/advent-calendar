@@ -385,3 +385,158 @@ body {
                         </div>
                     </div>
                     <div class="flip-back">
+                        <p class="message">Hay momentos que parecen pequeños cuando suceden, pero que con el tiempo se convierten en algunos de nuestros recuerdos favoritos.</p>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <p class="page-text">
+            Escribe aquí un pequeño texto sobre vuestros recuerdos, como el párrafo que va debajo de la foto grande.
+        </p>
+
+    </section>
+
+    <!-- PÁGINA DERECHA -->
+    <section class="right">
+
+        <div class="collage">
+
+            <!-- FOTO 2 -->
+            <div class="c2">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 2" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="photo-placeholder">
+                                <img src="../imagenes/historias-2.jpg" alt="Fotografía 2"
+                                     onerror="this.parentElement.classList.add('missing')">
+                                <span class="number">02</span>
+                                <span class="hint">Pulsa para descubrir</span>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Me encanta poder mirar atrás y ver todo lo que hemos vivido juntos.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- FOTO 3 -->
+            <div class="c3">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 3" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="photo-placeholder">
+                                <img src="../imagenes/historias-3.jpg" alt="Fotografía 3"
+                                     onerror="this.parentElement.classList.add('missing')">
+                                <span class="number">03</span>
+                                <span class="hint">Pulsa para descubrir</span>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Contigo, hasta los planes más sencillos terminan siendo especiales.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- FOTO 4 -->
+            <div class="c4">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 4" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="photo-placeholder">
+                                <img src="../imagenes/historias-4.jpg" alt="Fotografía 4"
+                                     onerror="this.parentElement.classList.add('missing')">
+                                <span class="number">04</span>
+                                <span class="hint">Pulsa para descubrir</span>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Gracias por todas las risas, las aventuras y las historias que todavía nos quedan por vivir.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- FOTO 5 -->
+            <div class="c5">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 5" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="photo-placeholder">
+                                <img src="../imagenes/historias-5.jpg" alt="Fotografía 5"
+                                     onerror="this.parentElement.classList.add('missing')">
+                                <span class="number">05</span>
+                                <span class="hint">Pulsa para descubrir</span>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Qué suerte haber coincidido y poder construir tantos recuerdos contigo.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- FOTO 6 -->
+            <div class="c6">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 6" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="photo-placeholder">
+                                <img src="../imagenes/historias-6.jpg" alt="Fotografía 6"
+                                     onerror="this.parentElement.classList.add('missing')">
+                                <span class="number">06</span>
+                                <span class="hint">Pulsa para descubrir</span>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Si pudiera repetir algunos días de mi vida, muchos de ellos serían a tu lado.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- FOTO 7 -->
+            <div class="c7">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje de la fotografía 7" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="photo-placeholder">
+                                <img src="../imagenes/historias-7.jpg" alt="Fotografía 7"
+                                     onerror="this.parentElement.classList.add('missing')">
+                                <span class="number">07</span>
+                                <span class="hint">Pulsa para descubrir</span>
+                            </div>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Y lo mejor de nuestra historia es que todavía nos quedan muchísimas páginas por escribir.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+        </div>
+
+        <p class="page-text">
+            Escribe aquí otro pequeño texto, como el párrafo que va debajo del collage de la página derecha.
+        </p>
+
+    </section>
+
+</main>
+
+<!-- VOLVER AL CALENDARIO -->
+<a href="../index.html" class="back-link">← Volver al calendario</a>
+
+<script>
+    document.querySelectorAll(".flip-card").forEach(function (card) {
+        card.addEventListener("click", function () {
+            card.classList.toggle("flipped");
+            card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+        });
+    });
+</script>
+
+</body>
+</html>
