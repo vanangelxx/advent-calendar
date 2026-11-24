@@ -91,16 +91,15 @@ body {
     display: block;
 }
 
-/* PORTAPAPELES: mitad derecha, girado 45º, al doble de tamaño.
-   Imagen y textos van dentro del mismo bloque, así giran juntos. */
+/* PORTAPAPELES: ligeramente más centrado en la página, girado. */
 
 .clipboard {
     position: absolute;
-    left: 75%;                 /* ← posición horizontal (centro del bloque) */
-    top: 50%;                  /* ← posición vertical */
-    width: 60%;                /* ← tamaño del portapapeles */
-    aspect-ratio: 3 / 4;       /* ← proporción de tu PNG (ancho / alto) */
-    transform: translate(-50%, -50%) rotate(-25deg);   /* ← 45deg gira al otro lado */
+    left: 65%;
+    top: 50%;
+    width: 60%;
+    aspect-ratio: 3 / 4;
+    transform: translate(-50%, -50%) rotate(-25deg);
     container-type: inline-size;
     z-index: 3;
 }
@@ -118,7 +117,7 @@ body {
 
 .clipboard-content {
     position: absolute;
-    left: 16%;                 /* ← ajusta para centrar sobre la hoja blanca */
+    left: 16%;
     top: 20%;
     width: 68%;
     z-index: 2;
