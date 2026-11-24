@@ -3,35 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Día 04 · Mis videos favoritos</title>
+  <title>Día 04 · Mis vídeos favoritos</title>
   <link rel="stylesheet" href="dias.css">
+
+  <style>
+    /* TELE + BOTONES */
+
+    .tv-layout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(12px, 3vw, 36px);
+      width: 100%;
+    }
+
+    .tv {
+      position: relative;
+      flex: 1;
+      max-width: 760px;
+    }
+
+    .tv-image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Pantalla: el vídeo se coloca sobre el cristal de la tele.
+       Ajusta left, top, width y height hasta que encaje con tu PNG. */
+    .tv-screen {
+      position: absolute;
+      left: 9%;      /* ← distancia desde el borde izquierdo de la tele */
+      top: 12%;      /* ← distancia desde arriba */
+      width: 70%;    /* ← ancho de la pantalla */
+      height: 66%;   /* ← alto de la pantalla */
+      background: #000;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    /* BOTONES */
+
+    .tv-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(10px, 2vw, 18px);
+    }
+
+    .tv-button {
+      width: clamp(44px, 6vw, 64px);
+      height: clamp(44px, 6vw, 64px);
+      border: 1px solid var(--gold, #C9A76B);
+      border-radius: 50%;
+      background: var(--paper, #F8F0E2);
+      color: var(--burgundy, #762E36);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, color .2s ease;
+    }
+
+    .tv-button:hover {
+      transform: scale(1.08);
+    }
+
+    .tv-button.active {
+      background: var(--burgundy, #762E36);
+      color: var(--cream, #F2E9D8);
+    }
+
+    /* MÓVIL: los botones pasan debajo de la tele, en fila */
+
+    @media (max-width: 600px) {
+      .tv-layout {
+        flex-direction: column;
+      }
+
+      .tv {
+        width: 100%;
+      }
+
+      .tv-buttons {
+        flex-direction: row;
+      }
+    }
+  </style>
 </head>
 <body class="day-body day-body--template">
   <main class="day-frame day-template">
     <div class="template-content">
+
       <header class="template-heading">
         <p class="template-eyebrow">Día 04 · Adviento 2026</p>
-        <h1>Mis videos favoritos</h1>
-        <p class="template-intro">Añade los vídeos que quieras compartir y el espacio para tus comentarios.</p>
+        <h1>Mis vídeos favoritos</h1>
+        <p class="template-intro">Elige un número y mira el vídeo en la tele.</p>
       </header>
-      <div class="template-sections">
-        <section class="template-card">
-          <h2>Vídeos</h2>
-          <p>Escribe un título o enlace para cada vídeo.</p>
-          <ol class="template-list">
-            <li><textarea class="template-input" aria-label="Vídeo 1"></textarea></li>
-            <li><textarea class="template-input" aria-label="Vídeo 2"></textarea></li>
-            <li><textarea class="template-input" aria-label="Vídeo 3"></textarea></li>
-          </ol>
-        </section>
-        <section class="template-card">
-          <h2>Notas</h2>
-          <p>Completa este espacio con tus comentarios.</p>
-          <textarea class="template-input template-input--large" aria-label="Notas sobre mis vídeos favoritos"></textarea>
-        </section>
+
+      <div class="tv-layout">
+
+        <!-- TELEVISIÓN -->
+        <div class="tv">
+          <img class="tv-image" src="../imagenes/television.png" alt="Televisión">
+          <video class="tv-screen" id="tv-video" controls playsinline preload="metadata"
+                 src="../videos/video-1.mp4"></video>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="tv-buttons">
+          <button class="tv-button active" data-video="../videos/video-1.mp4" aria-label="Vídeo 1">1</button>
+          <button class="tv-button" data-video="../videos/video-2.mp4" aria-label="Vídeo 2">2</button>
+          <button class="tv-button" data-video="../videos/video-3.mp4" aria-label="Vídeo 3">3</button>
+          <button class="tv-button" data-video="../videos/video-4.mp4" aria-label="Vídeo 4">4</button>
+          <button class="tv-button" data-video="../videos/video-5.mp4" aria-label="Vídeo 5">5</button>
+        </div>
+
       </div>
+
     </div>
   </main>
+
   <a href="../index.html" class="back-link">← Volver al calendario</a>
+
+  <script>
+    const video = document.getElementById("tv-video");
+    const buttons = document.querySelectorAll(".tv-button");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        button.classList.add("active");
+
+        video.src = button.dataset.video;
+        video.play();
+      });
+    });
+  </script>
 </body>
 </html>
