@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -145,57 +144,213 @@ footer {
   font-size: 17px;
 }
 
-#surprise {
-  display: none;
+/* ============ PANTALLA DEL REGALO ============ */
+
+#gift-screen {
   position: fixed;
   inset: 0;
-  z-index: 10;
-  background: var(--deep);
-  overflow-y: auto;
-  padding: 25px;
-}
-
-#surprise.visible { display: block; }
-
-.page {
-  max-width: 650px;
-  margin: 55px auto;
-  padding: 40px 25px;
-  border: 1px solid var(--gold);
-  min-height: 65vh;
+  z-index: 50;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  padding: 20px;
+  background:
+    radial-gradient(ellipse at 50% 0%, #29483b 0%, transparent 55%),
+    var(--deep);
+  transition: opacity 0.9s ease;
 }
 
-.page .eyebrow {
-  color: var(--gold);
-  font-size: 10px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
+#gift-screen.hide {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.page h2 {
+.gift-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(40px, 8vw, 65px);
+  font-size: clamp(30px, 6vw, 46px);
   font-weight: 400;
-  margin: 22px 0;
+  margin: 22px 0 6px;
 }
 
-.page p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 21px;
-  line-height: 1.6;
+.gift-hint {
   color: var(--muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  margin: 0;
 }
 
-.close {
-  align-self: center;
-  background: transparent;
+/* Caja de regalo dibujada con CSS */
+
+.gift {
+  position: relative;
+  width: 200px;
+  height: 190px;
+  margin: 40px 0 20px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  animation: wiggle 3s ease-in-out infinite;
+}
+
+.gift:hover {
+  animation: wiggle-fast 0.6s ease-in-out infinite;
+}
+
+.gift.open,
+.gift.asking {
+  animation: none;
+  cursor: default;
+}
+
+@keyframes wiggle {
+  0%, 80%, 100% { transform: rotate(0deg); }
+  85% { transform: rotate(-4deg); }
+  90% { transform: rotate(4deg); }
+  95% { transform: rotate(-3deg); }
+}
+
+@keyframes wiggle-fast {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.gift-box {
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 120px;
+  background: var(--red);
   border: 1px solid var(--gold);
+}
+
+.gift-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 28px;
+  transform: translateX(-50%);
+  background: var(--gold);
+}
+
+.gift-lid {
+  position: absolute;
+  bottom: 112px;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: #8a3640;
+  border: 1px solid var(--gold);
+  transform-origin: left bottom;
+  transition: transform 0.8s ease;
+  z-index: 2;
+}
+
+.gift-lid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 28px;
+  transform: translateX(-50%);
+  background: var(--gold);
+}
+
+/* Lazo */
+.bow {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+.bow::before,
+.bow::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  width: 44px;
+  height: 34px;
+  border: 6px solid var(--gold);
+  border-radius: 50%;
+  background: transparent;
+}
+
+.bow::before {
+  left: -48px;
+  transform: rotate(-22deg);
+}
+
+.bow::after {
+  left: 4px;
+  transform: rotate(22deg);
+}
+
+.gift.open .gift-lid {
+  transform: translateY(-70px) rotate(-22deg);
+}
+
+/* Formulario de la contraseña */
+
+#password-form {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+#password-form.visible {
+  display: flex;
+  animation: fade-in 0.6s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#password-input {
+  width: min(280px, 80vw);
+  padding: 13px 16px;
+  border: 1px solid var(--gold);
+  background: rgba(243,237,223,0.06);
   color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 3px;
+  outline: none;
+}
+
+#password-input:focus {
+  background: rgba(243,237,223,0.12);
+}
+
+#password-input.error {
+  animation: shake 0.4s ease;
+  border-color: #e8a0a0;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+.password-button {
   padding: 13px 25px;
-  margin-top: 35px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--cream);
   font-family: 'DM Sans', sans-serif;
   font-size: 10px;
   letter-spacing: 2px;
@@ -203,80 +358,214 @@ footer {
   cursor: pointer;
 }
 
-.close:hover { background: var(--red); }
+.password-button:hover {
+  background: var(--red);
+}
+
+#password-error {
+  min-height: 20px;
+  margin: 0;
+  color: #e8a0a0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+}
+
+/* El calendario está oculto hasta abrir el regalo */
+
+#calendar-view {
+  display: none;
+}
+
+#calendar-view.visible {
+  display: block;
+  animation: fade-in 1s ease;
+}
 
 @media (max-width: 420px) {
   header { padding-top: 48px; }
   .calendar { gap: 8px; width: 92%; }
   .day .label { letter-spacing: 1px; font-size: 7px; }
-  .page { padding: 30px 18px; }
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<!-- ============ PANTALLA DEL REGALO ============ -->
+<section id="gift-screen">
+
   <div class="topline">Un pequeño regalo · 2026</div>
 
-  <h1>24 días <span>para ti</span></h1>
+  <button class="gift" id="gift" type="button" aria-label="Abrir el regalo">
+    <div class="gift-lid"><span class="bow"></span></div>
+    <div class="gift-box"></div>
+  </button>
 
-  <div class="ornament">✦ ───── ♡ ───── ✦</div>
+  <h2 class="gift-title" id="gift-title">Tienes un regalo</h2>
+  <p class="gift-hint" id="gift-hint">Púlsalo para abrirlo</p>
 
-  <p class="intro">
-    Diciembre tiene 24 días.<br>
-    Y todos tienen algo para ti.
-  </p>
-</header>
+  <form id="password-form" autocomplete="off">
+    <input type="password" id="password-input" placeholder="Contraseña" aria-label="Contraseña">
+    <button type="submit" class="password-button">Abrir</button>
+    <p id="password-error"></p>
+  </form>
 
-<main>
-  <div class="section-title">Coleccion de diciembre</div>
-  <div class="calendar" id="calendar"></div>
-</main>
+</section>
 
-<footer>
-  De Clarita para ti · Navidades 2026
-</footer>
+<!-- ============ CALENDARIO ============ -->
+<div id="calendar-view">
 
-<div id="surprise">
-  <div class="page">
-    <div class="eyebrow" id="dayNumber"></div>
-    <h2 id="dayTitle"></h2>
-    <div class="ornament">✦ ♡ ✦</div>
-    <p id="dayMessage"></p>
-    <button class="close" onclick="closeSurprise()">
-      Volver a diciembre
-    </button>
-  </div>
+  <header>
+    <div class="topline">Un pequeño regalo · 2026</div>
+
+    <h1>24 días <span>para ti</span></h1>
+
+    <div class="ornament">✦ ───── ♡ ───── ✦</div>
+
+    <p class="intro">
+      Diciembre tiene 24 días.<br>
+      Y todos tienen algo para ti.
+    </p>
+  </header>
+
+  <main>
+    <div class="section-title">Coleccion de diciembre</div>
+    <div class="calendar" id="calendar"></div>
+  </main>
+
+  <footer>
+    De Clarita para ti · Navidades 2026
+  </footer>
+
 </div>
-
 
 <script src="orden.js"></script>
 
 <script>
+/* ============================================================
+   AJUSTES (lo único que tienes que tocar)
+   ============================================================ */
+
+/* true  = MODO PRUEBA: todos los días desbloqueados.
+   false = MODO REAL: cada día se abre solo en su fecha. */
+const MODO_PRUEBA = true;
+
+/* Para simular otra fecha y comprobar qué días se abrirían.
+   Ejemplo: "2026-12-05". Déjalo en null para usar la fecha real.
+   Solo funciona con MODO_PRUEBA = false. */
+const FECHA_SIMULADA = null;
+
+/* Contraseña: navidad2026 (guardada como código, no en texto) */
+const HASH_CONTRASENA = "eb75d1288917be867ef113a5fc8f9cdee42feec65e211eb43ce34d281c9e1e44";
+
+/* ============================================================
+   REGALO Y CONTRASEÑA
+   ============================================================ */
+
+const giftScreen = document.getElementById("gift-screen");
+const gift = document.getElementById("gift");
+const giftTitle = document.getElementById("gift-title");
+const giftHint = document.getElementById("gift-hint");
+const form = document.getElementById("password-form");
+const input = document.getElementById("password-input");
+const errorText = document.getElementById("password-error");
+const calendarView = document.getElementById("calendar-view");
+
+async function sha256(texto) {
+  const datos = new TextEncoder().encode(texto);
+  const resultado = await crypto.subtle.digest("SHA-256", datos);
+  return Array.from(new Uint8Array(resultado))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+function showCalendar() {
+  giftScreen.classList.add("hide");
+  calendarView.classList.add("visible");
+  window.scrollTo(0, 0);
+  setTimeout(() => { giftScreen.style.display = "none"; }, 900);
+}
+
+/* Si ya ha entrado en esta sesión (por ejemplo al volver desde un día),
+   se salta el regalo. Al cerrar la pestaña vuelve a pedirlo. */
+if (sessionStorage.getItem("regaloAbierto") === "si") {
+  giftScreen.style.display = "none";
+  calendarView.classList.add("visible");
+}
+
+gift.addEventListener("click", () => {
+  if (gift.classList.contains("asking") || gift.classList.contains("open")) return;
+
+  gift.classList.add("asking");
+  giftTitle.textContent = "Antes de abrirlo...";
+  giftHint.textContent = "Escribe la contraseña";
+  form.classList.add("visible");
+  input.focus();
+});
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  errorText.textContent = "";
+
+  const intento = input.value.trim().toLowerCase();
+
+  let hash;
+  try {
+    hash = await sha256(intento);
+  } catch (e) {
+    errorText.textContent = "Abre la página desde su enlace de GitHub Pages (https).";
+    return;
+  }
+
+  if (hash === HASH_CONTRASENA) {
+    sessionStorage.setItem("regaloAbierto", "si");
+    form.classList.remove("visible");
+    giftTitle.textContent = "¡Feliz Navidad!";
+    giftHint.textContent = "";
+    gift.classList.remove("asking");
+    gift.classList.add("open");
+    setTimeout(showCalendar, 1300);
+  } else {
+    errorText.textContent = "Esa no es la contraseña";
+    input.classList.remove("error");
+    void input.offsetWidth;
+    input.classList.add("error");
+    input.select();
+  }
+});
+
+/* ============================================================
+   CALENDARIO
+   ============================================================ */
+
 const year = 2026;
 const calendar = document.getElementById("calendar");
+
+const today = FECHA_SIMULADA
+  ? new Date(FECHA_SIMULADA + "T00:00:00")
+  : new Date();
+
+today.setHours(0, 0, 0, 0);
 
 for (let i = 1; i <= 24; i++) {
   const button = document.createElement("button");
   const date = new Date(year, 11, i);
-  const today = new Date();
 
-  today.setHours(0, 0, 0, 0);
+  const locked = !MODO_PRUEBA && date > today;
 
   button.className = "day";
   button.innerHTML = `
     <span class="number">${String(i).padStart(2, "0")}</span>
-    <span class="label">${date > today ? "LOCKED" : "OPEN"}</span>
+    <span class="label">${locked ? "LOCKED" : "OPEN"}</span>
   `;
 
-  if (date > today) {
+  if (locked) {
     button.disabled = true;
   } else {
     button.onclick = () => openSurprise(i);
   }
 
-  if (date.toDateString() === today.toDateString()) {
+  if (!MODO_PRUEBA && date.toDateString() === today.toDateString()) {
     button.classList.add("today");
   }
 
@@ -287,10 +576,6 @@ function openSurprise(day) {
   const pagina = ordenDias[day - 1];
 
   window.location.href = "dias/" + pagina + ".html";
-}
-
-function closeSurprise() {
-  document.getElementById("surprise").classList.remove("visible");
 }
 </script>
 
