@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Great+Vibes&display=swap');
+
 .day-body {
   min-height: 100vh;
   min-height: 100dvh;
@@ -29,7 +31,30 @@
   margin: 0;
   background: var(--cream, #F2E9D8);
   color: var(--dark-red, #4B252A);
-  font-family: Arial, sans-serif;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.day-indicator,
+.template-eyebrow {
+  color: #98736B;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.title-area .day-indicator {
+  margin-bottom: 8px;
+}
+
+.basket-area .day-indicator {
+  position: absolute;
+  top: 31%;
+  left: 50%;
+  z-index: 4;
+  width: 100%;
+  transform: translateX(-50%);
+  text-align: center;
 }
 
 .day-template {
@@ -49,17 +74,10 @@
   text-align: center;
 }
 
-.template-eyebrow {
-  color: var(--green, #18372E);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
 .template-heading h1 {
   margin: 12px 0;
   color: var(--burgundy, #762E36);
-  font-family: Georgia, serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2.4rem, 7vw, 4.5rem);
   font-weight: 400;
   line-height: 1.05;
@@ -89,7 +107,7 @@
 .template-card h2 {
   margin: 0 0 8px;
   color: var(--burgundy, #762E36);
-  font-family: Georgia, serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.5rem;
   font-weight: 400;
 }
