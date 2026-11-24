@@ -21,22 +21,21 @@
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background: var(--cream);
     min-height: 100vh;
+    background: var(--cream);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     padding: 25px;
-    color: var(--green);
 }
 
-/* PÁGINA DE REVISTA */
+/* PÁGINA */
 
 .magazine {
     width: min(100%, 1100px);
@@ -44,42 +43,40 @@ body {
     position: relative;
     overflow: hidden;
     background: var(--paper);
-    box-shadow: 0 12px 40px rgba(50, 30, 20, 0.16);
+    box-shadow: 0 12px 40px rgba(50, 30, 20, 0.15);
 }
 
-/* TEXTURA DECORATIVA */
-
-.magazine::before {
+.magazine::after {
     content: "";
     position: absolute;
-    inset: 0;
-    border: 1px solid rgba(118, 46, 54, 0.15);
+    inset: 10px;
+    border: 1px solid rgba(118, 46, 54, 0.12);
     pointer-events: none;
-    z-index: 10;
+    z-index: 20;
 }
 
-/* VOLVER AL CALENDARIO */
+/* VOLVER */
 
 .back {
     position: absolute;
     top: 3.5%;
-    left: 3.5%;
-    z-index: 20;
+    left: 4%;
+    z-index: 25;
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
     color: var(--burgundy);
     text-decoration: none;
     font-family: "DM Sans", sans-serif;
     font-size: clamp(10px, 1.2vw, 13px);
-    transition: transform 0.25s ease;
+    transition: transform .25s;
 }
 
 .back:hover {
-    transform: translateX(-5px);
+    transform: translateX(-4px);
 }
 
-.back span:first-child {
+.back .arrow {
     font-size: 23px;
     line-height: 1;
 }
@@ -88,202 +85,245 @@ body {
 
 .page-title {
     position: absolute;
-    z-index: 5;
-    top: 9%;
+    top: 4%;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%;
-    text-align: center;
-    color: var(--burgundy);
+    z-index: 5;
     font-family: "Great Vibes", cursive;
-    font-size: clamp(35px, 5.3vw, 65px);
-    font-weight: 400;
+    font-size: clamp(35px, 4.5vw, 55px);
+    color: var(--burgundy);
+    white-space: nowrap;
 }
 
 /* CESTA CENTRAL */
 
 .basket-area {
     position: absolute;
+    left: 31%;
+    top: 27%;
     width: 38%;
     height: 48%;
-    left: 31%;
-    top: 29%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 2;
+    align-items: center;
+    z-index: 3;
 }
 
 .basket-image {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
-    position: relative;
-    z-index: 2;
-}
-
-/* HUECOS DE IMÁGENES */
-
-.placeholder {
-    display: none;
-    width: 100%;
-    height: 100%;
-    border: 1px dashed rgba(118, 46, 54, 0.55);
-    border-radius: 8px;
-    color: var(--burgundy);
-    background: rgba(201, 167, 107, 0.08);
-    font-family: "DM Sans", sans-serif;
-    font-size: 11px;
-    text-align: center;
-    place-items: center;
-    padding: 8px;
+    z-index: 1;
 }
 
 .basket-placeholder {
-    display: grid;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 20px;
-    letter-spacing: 2px;
-    color: var(--green);
-}
-
-.basket-image:not([src]),
-.basket-image[src=""] {
     display: none;
+    width: 85%;
+    height: 85%;
+    border: 1px dashed var(--gold);
+    color: var(--green);
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    text-align: center;
+    place-items: center;
 }
 
-/* OBJETOS FLOTANTES */
+/* TEXTO DENTRO DE LA CESTA */
+
+.basket-title {
+    position: absolute;
+    z-index: 4;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    text-align: center;
+    font-family: "Great Vibes", cursive;
+    font-size: clamp(27px, 4vw, 48px);
+    color: var(--burgundy);
+    text-shadow:
+        1px 1px 0 var(--paper),
+        -1px -1px 0 var(--paper),
+        0 2px 5px rgba(248, 240, 226, 0.5);
+    pointer-events: none;
+}
+
+/* CONECTORES CURVOS */
+
+.connectors {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.connector {
+    fill: none;
+    stroke: var(--burgundy);
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-dasharray: 2 5;
+    opacity: .8;
+}
+
+.connector.gold {
+    stroke: var(--gold);
+    stroke-width: 2;
+    stroke-dasharray: none;
+}
+
+.connector-dot {
+    fill: var(--gold);
+}
+
+/* OBJETOS */
 
 .object {
     position: absolute;
-    z-index: 4;
+    z-index: 5;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    border: none;
+    gap: 3px;
     background: transparent;
+    border: none;
     cursor: pointer;
-    padding: 5px;
-    transition: transform 0.3s ease;
+    color: var(--green);
+    text-align: center;
+    font-family: "Cormorant Garamond", serif;
+    transition: transform .3s ease;
 }
 
 .object:hover {
-    transform: scale(1.09) rotate(0deg) !important;
+    transform: scale(1.07) rotate(0deg) !important;
     z-index: 8;
 }
 
 .object img {
     width: 100%;
     height: 100%;
+    max-height: 100%;
     object-fit: contain;
-    filter: drop-shadow(3px 7px 5px rgba(0,0,0,0.15));
+    filter: drop-shadow(3px 5px 4px rgba(0,0,0,.15));
 }
 
-.object .placeholder {
-    height: 100%;
+.object-name {
+    font-family: "DM Sans", sans-serif;
+    font-size: clamp(8px, .9vw, 11px);
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    font-weight: 600;
 }
 
-/* POSICIONES INDIVIDUALES */
+.object-description {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: clamp(11px, 1.3vw, 15px);
+    line-height: 1.1;
+    max-width: 145px;
+    color: var(--green);
+}
+
+/* POSICIONES DE LOS SIETE OBJETOS */
+
+/* ALTAVOZ */
 
 .speaker {
-    width: 16%;
-    height: 21%;
-    top: 23%;
-    left: 8%;
-    transform: rotate(-12deg);
+    left: 5%;
+    top: 19%;
+    width: 15%;
+    height: 22%;
+    transform: rotate(-11deg);
 }
+
+/* LAS PALMAS */
 
 .laspalmas {
-    width: 17%;
-    height: 22%;
-    top: 17%;
-    right: 9%;
-    transform: rotate(10deg);
+    right: 5%;
+    top: 16%;
+    width: 16%;
+    height: 23%;
+    transform: rotate(9deg);
 }
 
+/* REAL MADRID */
+
 .realmadrid {
+    left: 4%;
+    bottom: 10%;
     width: 16%;
-    height: 22%;
-    bottom: 13%;
-    left: 7%;
+    height: 24%;
     transform: rotate(8deg);
 }
 
+/* PLAYSTATION */
+
 .playstation {
+    right: 4%;
+    bottom: 9%;
     width: 19%;
-    height: 18%;
-    bottom: 10%;
-    right: 7%;
-    transform: rotate(-9deg);
+    height: 21%;
+    transform: rotate(-8deg);
 }
+
+/* CERVEZA */
 
 .beer {
-    width: 10%;
-    height: 20%;
+    left: 18%;
     top: 45%;
-    left: 5%;
-    transform: rotate(-14deg);
+    width: 11%;
+    height: 22%;
+    transform: rotate(-10deg);
 }
+
+/* SUDADERA */
 
 .hoodie {
-    width: 17%;
-    height: 20%;
-    top: 46%;
-    right: 5%;
-    transform: rotate(12deg);
+    right: 17%;
+    top: 45%;
+    width: 14%;
+    height: 22%;
+    transform: rotate(10deg);
 }
+
+/* NBA */
 
 .nba {
-    width: 12%;
-    height: 18%;
-    bottom: 4%;
     left: 43%;
-    transform: rotate(5deg);
+    bottom: 3%;
+    width: 14%;
+    height: 19%;
+    transform: rotate(4deg);
 }
 
-/* PEQUEÑOS DETALLES */
+/* DETALLES DECORATIVOS */
 
-.decoration {
+.star {
     position: absolute;
     color: var(--gold);
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(16px, 2vw, 25px);
-    z-index: 1;
+    z-index: 2;
+    font-size: clamp(14px, 2vw, 23px);
 }
 
-.star-one {
-    top: 23%;
-    left: 42%;
-}
+.star-1 { top: 18%; left: 27%; }
+.star-2 { top: 26%; right: 27%; }
+.star-3 { bottom: 27%; left: 26%; }
+.star-4 { bottom: 22%; right: 27%; }
+.star-5 { top: 52%; left: 32%; }
 
-.star-two {
-    top: 55%;
-    right: 29%;
-}
-
-.star-three {
-    bottom: 17%;
-    right: 38%;
-}
-
-.small-note {
-    position: absolute;
-    bottom: 3%;
-    right: 4%;
-    font-family: "Cormorant Garamond", serif;
-    font-style: italic;
-    color: var(--burgundy);
-    font-size: clamp(10px, 1.2vw, 14px);
-    opacity: 0.75;
-}
-
-/* VENTANA DE EXPLICACIÓN */
+/* VENTANA AL PULSAR UN OBJETO */
 
 .explanation {
     position: absolute;
     inset: 0;
     z-index: 15;
-    background: rgba(24, 55, 46, 0.38);
+    background: rgba(24, 55, 46, .42);
     display: none;
     align-items: center;
     justify-content: center;
@@ -296,13 +336,13 @@ body {
 
 .explanation-card {
     position: relative;
-    background: var(--paper);
-    border: 1px solid var(--gold);
     width: min(75%, 420px);
     padding: 35px 30px;
+    background: var(--paper);
+    border: 1px solid var(--gold);
     text-align: center;
-    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
-    animation: appear 0.3s ease;
+    box-shadow: 0 10px 35px rgba(0,0,0,.2);
+    animation: appear .3s ease;
 }
 
 @keyframes appear {
@@ -318,27 +358,27 @@ body {
 
 .explanation-card h2 {
     font-family: "Great Vibes", cursive;
-    color: var(--burgundy);
     font-size: 38px;
     font-weight: 400;
-    margin-bottom: 15px;
+    color: var(--burgundy);
+    margin-bottom: 12px;
 }
 
 .explanation-card p {
     font-family: "Cormorant Garamond", serif;
     font-size: 21px;
-    line-height: 1.45;
+    line-height: 1.4;
     color: var(--green);
 }
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 14px;
-    border: none;
+    top: 8px;
+    right: 13px;
     background: none;
-    color: var(--burgundy);
+    border: none;
     font-size: 25px;
+    color: var(--burgundy);
     cursor: pointer;
 }
 
@@ -346,7 +386,7 @@ body {
 
 @media (max-width: 600px) {
     body {
-        padding: 10px;
+        padding: 8px;
     }
 
     .magazine {
@@ -355,75 +395,88 @@ body {
     }
 
     .page-title {
-        top: 10%;
-        font-size: clamp(30px, 8vw, 43px);
+        top: 5%;
+        font-size: clamp(29px, 7vw, 39px);
     }
 
     .back {
         top: 3%;
         left: 3%;
-        font-size: 9px;
-        gap: 4px;
+        font-size: 8px;
+        gap: 3px;
     }
 
-    .back span:first-child {
-        font-size: 18px;
+    .back .arrow {
+        font-size: 17px;
     }
 
     .basket-area {
+        left: 29%;
+        top: 30%;
         width: 42%;
         height: 43%;
-        left: 29%;
-        top: 32%;
+    }
+
+    .basket-title {
+        font-size: clamp(22px, 5vw, 30px);
     }
 
     .speaker {
-        width: 18%;
-        height: 18%;
-        top: 24%;
-        left: 5%;
+        left: 3%;
+        top: 20%;
+        width: 17%;
+        height: 19%;
     }
 
     .laspalmas {
-        width: 19%;
-        height: 19%;
-        top: 19%;
-        right: 4%;
+        right: 3%;
+        top: 18%;
+        width: 18%;
+        height: 20%;
     }
 
     .realmadrid {
+        left: 2%;
+        bottom: 10%;
         width: 18%;
-        height: 19%;
-        bottom: 14%;
-        left: 4%;
+        height: 21%;
     }
 
     .playstation {
+        right: 2%;
+        bottom: 9%;
         width: 20%;
-        height: 17%;
-        bottom: 12%;
-        right: 3%;
+        height: 18%;
     }
 
     .beer {
+        left: 16%;
+        top: 46%;
         width: 12%;
-        height: 18%;
-        top: 47%;
-        left: 2%;
+        height: 19%;
     }
 
     .hoodie {
-        width: 19%;
-        height: 18%;
-        top: 48%;
-        right: 2%;
+        right: 15%;
+        top: 46%;
+        width: 15%;
+        height: 19%;
     }
 
     .nba {
-        width: 14%;
-        height: 15%;
-        bottom: 3%;
-        left: 42%;
+        left: 41%;
+        bottom: 2%;
+        width: 16%;
+        height: 16%;
+    }
+
+    .object-description {
+        font-size: 9px;
+        max-width: 75px;
+    }
+
+    .object-name {
+        font-size: 7px;
     }
 
     .explanation-card {
@@ -438,6 +491,10 @@ body {
     .explanation-card p {
         font-size: 18px;
     }
+
+    .connector {
+        stroke-width: 1.5;
+    }
 }
 </style>
 </head>
@@ -446,140 +503,229 @@ body {
 
 <main class="magazine">
 
+    <!-- VOLVER AL CALENDARIO -->
     <a class="back" href="../index.html">
-        <span>←</span>
+        <span class="arrow">←</span>
         <span>Volver al calendario</span>
     </a>
 
-    <h1 class="page-title">Cómo te veo</h1>
+    <!-- TÍTULO SUPERIOR -->
+    <h1 class="page-title">Un poquito de todo lo que eres...</h1>
 
-    <!-- CESTA CENTRAL: CAMBIA cesta.png POR TU IMAGEN -->
+    <!-- CONECTORES CURVOS: SE DIBUJAN DETRÁS DE LOS OBJETOS -->
+    <svg class="connectors" viewBox="0 0 1100 825" preserveAspectRatio="none">
+
+        <!-- ALTAVOZ -->
+        <path class="connector"
+            d="M 170 245 C 205 220, 220 270, 275 290 S 315 315, 350 340"/>
+        <circle class="connector-dot" cx="350" cy="340" r="3"/>
+
+        <!-- LAS PALMAS -->
+        <path class="connector gold"
+            d="M 925 230 C 880 210, 900 270, 835 285 S 800 310, 760 340"/>
+        <circle class="connector-dot" cx="760" cy="340" r="3"/>
+
+        <!-- REAL MADRID -->
+        <path class="connector"
+            d="M 170 650 C 210 675, 230 620, 280 590 S 310 560, 350 535"/>
+        <circle class="connector-dot" cx="350" cy="535" r="3"/>
+
+        <!-- PLAYSTATION -->
+        <path class="connector gold"
+            d="M 920 650 C 875 675, 870 620, 820 590 S 790 565, 755 535"/>
+        <circle class="connector-dot" cx="755" cy="535" r="3"/>
+
+        <!-- CERVEZA -->
+        <path class="connector"
+            d="M 285 470 C 310 450, 285 420, 330 405 S 360 390, 385 380"/>
+        <circle class="connector-dot" cx="385" cy="380" r="3"/>
+
+        <!-- SUDADERA -->
+        <path class="connector gold"
+            d="M 815 470 C 785 450, 810 420, 770 405 S 745 390, 715 380"/>
+        <circle class="connector-dot" cx="715" cy="380" r="3"/>
+
+        <!-- NBA -->
+        <path class="connector"
+            d="M 550 690 C 520 660, 570 645, 550 610 S 550 585, 550 565"/>
+        <circle class="connector-dot" cx="550" cy="565" r="3"/>
+
+    </svg>
+
+    <!-- CESTA CENTRAL -->
     <div class="basket-area">
+
         <img
             class="basket-image"
             src="../imagenes/cesta.png"
-            alt="Nuestra cesta"
+            alt="Cesta de la compra"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
         >
-        <div class="placeholder basket-placeholder">
+
+        <div class="basket-placeholder">
             AQUÍ VA TU PNG<br>DE LA CESTA
         </div>
+
+        <!-- TÍTULO DENTRO DE LA CESTA -->
+        <h2 class="basket-title">Cómo te veo</h2>
+
     </div>
 
-    <!-- OBJETO 1: ALTAVOZ -->
+    <!-- ALTAVOZ -->
     <button class="object speaker"
-        onclick="showExplanation('Altavoz de música')"
-        aria-label="Altavoz de música">
-        <img src="../imagenes/altavoz.png" alt="Altavoz"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <span class="placeholder">PNG<br>ALTAVOZ</span>
+        onclick="showExplanation('Altavoz de música')">
+
+        <img src="../imagenes/altavoz.png"
+            alt="Altavoz"
+            onerror="this.style.display='none';">
+
+        <span class="object-name">Música</span>
+        <span class="object-description">
+            Aquí irá lo que representa para ti
+        </span>
     </button>
 
-    <!-- OBJETO 2: UD LAS PALMAS -->
+    <!-- LAS PALMAS -->
     <button class="object laspalmas"
-        onclick="showExplanation('Camiseta de la UD Las Palmas')"
-        aria-label="Camiseta de la UD Las Palmas">
-        <img src="../imagenes/las-palmas.png" alt="Camiseta UD Las Palmas"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <span class="placeholder">PNG<br>LAS PALMAS</span>
+        onclick="showExplanation('Camiseta de la UD Las Palmas')">
+
+        <img src="../imagenes/las-palmas.png"
+            alt="Camiseta de la UD Las Palmas"
+            onerror="this.style.display='none';">
+
+        <span class="object-name">UD Las Palmas</span>
+        <span class="object-description">
+            Aquí irá tu explicación
+        </span>
     </button>
 
-    <!-- OBJETO 3: REAL MADRID -->
+    <!-- REAL MADRID -->
     <button class="object realmadrid"
-        onclick="showExplanation('Camiseta del Real Madrid')"
-        aria-label="Camiseta del Real Madrid">
-        <img src="../imagenes/real-madrid.png" alt="Camiseta Real Madrid"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <span class="placeholder">PNG<br>REAL MADRID</span>
+        onclick="showExplanation('Camiseta del Real Madrid')">
+
+        <img src="../imagenes/real-madrid.png"
+            alt="Camiseta del Real Madrid"
+            onerror="this.style.display='none';">
+
+        <span class="object-name">Real Madrid</span>
+        <span class="object-description">
+            Aquí irá tu explicación
+        </span>
     </button>
 
-    <!-- OBJETO 4: PLAYSTATION -->
+    <!-- PLAYSTATION -->
     <button class="object playstation"
-        onclick="showExplanation('PlayStation')"
-        aria-label="PlayStation">
-        <img src="../imagenes/playstation.png" alt="PlayStation"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <span class="placeholder">PNG<br>PLAYSTATION</span>
+        onclick="showExplanation('PlayStation')">
+
+        <img src="../imagenes/playstation.png"
+            alt="PlayStation"
+            onerror="this.style.display='none';">
+
+        <span class="object-name">PlayStation</span>
+        <span class="object-description">
+            Aquí irá tu explicación
+        </span>
     </button>
 
-    <!-- OBJETO 5: CERVEZA -->
+    <!-- CERVEZA -->
     <button class="object beer"
-        onclick="showExplanation('Cerveza')"
-        aria-label="Cerveza">
-        <img src="../imagenes/cerveza.png" alt="Cerveza"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <span class="placeholder">PNG<br>CERVEZA</span>
+        onclick="showExplanation('Cerveza')">
+
+        <img src="../imagenes/cerveza.png"
+            alt="Cerveza"
+            onerror="this.style.display='none';">
+
+        <span class="object-name">Cerveza</span>
+        <span class="object-description">
+            Aquí irá tu explicación
+        </span>
     </button>
 
-    <!-- OBJETO 6: SUDADERA -->
+    <!-- SUDADERA -->
     <button class="object hoodie"
-        onclick="showExplanation('Sudadera')"
-        aria-label="Sudadera">
-        <img src="../imagenes/sudadera.png" alt="Sudadera"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <span class="placeholder">PNG<br>SUDADERA</span>
+        onclick="showExplanation('Sudadera')">
+
+        <img src="../imagenes/sudadera.png"
+            alt="Sudadera"
+            onerror="this.style.display='none';">
+
+        <span class="object-name">Sudadera</span>
+        <span class="object-description">
+            Aquí irá tu explicación
+        </span>
     </button>
 
-    <!-- OBJETO 7: NBA -->
+    <!-- NBA -->
     <button class="object nba"
-        onclick="showExplanation('NBA')"
-        aria-label="Símbolo NBA">
-        <img src="../imagenes/nba.png" alt="Símbolo NBA"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-        <span class="placeholder">PNG<br>NBA</span>
+        onclick="showExplanation('NBA')">
+
+        <img src="../imagenes/nba.png"
+            alt="Símbolo NBA"
+            onerror="this.style.display='none';">
+
+        <span class="object-name">NBA</span>
+        <span class="object-description">
+            Aquí irá tu explicación
+        </span>
     </button>
 
     <!-- DETALLES DECORATIVOS -->
-    <span class="decoration star-one">✳</span>
-    <span class="decoration star-two">✧</span>
-    <span class="decoration star-three">✳</span>
+    <span class="star star-1">✧</span>
+    <span class="star star-2">✳</span>
+    <span class="star star-3">✧</span>
+    <span class="star star-4">✳</span>
+    <span class="star star-5">·</span>
 
-    <p class="small-note">Un poquito de todo lo que eres...</p>
-
-    <!-- VENTANA DE EXPLICACIÓN -->
+    <!-- VENTANA AL PULSAR LOS OBJETOS -->
     <div class="explanation" id="explanation"
         onclick="closeExplanation(event)">
+
         <div class="explanation-card">
-            <button class="close" onclick="hideExplanation()">×</button>
-            <h2 id="explanation-title">Título</h2>
+
+            <button class="close"
+                onclick="hideExplanation()">×</button>
+
+            <h2 id="explanation-title"></h2>
             <p id="explanation-text"></p>
+
         </div>
     </div>
 
 </main>
 
 <script>
-/* 
-   AQUÍ PUEDES CAMBIAR LOS MENSAJES.
-   Sustituye cada texto provisional por el significado
-   que quieras darle a cada objeto.
-*/
+
+/* CAMBIA AQUÍ LOS MENSAJES QUE APARECEN AL PULSAR */
 
 const explanations = {
+
     "Altavoz de música":
-        "Aquí irá lo que representa la música para mí cuando pienso en ti.",
+        "Aquí escribe por qué has elegido la música para describirle.",
 
     "Camiseta de la UD Las Palmas":
-        "Aquí irá por qué este equipo forma parte de ti.",
+        "Aquí escribe qué representa este equipo para él.",
 
     "Camiseta del Real Madrid":
-        "Aquí irá lo que representa el Real Madrid para ti.",
+        "Aquí escribe qué significa el Real Madrid para él.",
 
     "PlayStation":
-        "Aquí irá lo que representa tu lado más gamer.",
+        "Aquí escribe por qué has elegido la PlayStation.",
 
     "Cerveza":
-        "Aquí irá lo que representa este pequeño placer.",
+        "Aquí escribe qué representa este objeto para él.",
 
     "Sudadera":
-        "Aquí irá por qué he elegido esta prenda para describirte.",
+        "Aquí escribe por qué has elegido esta sudadera.",
 
     "NBA":
-        "Aquí irá lo que representa tu pasión por el baloncesto."
+        "Aquí escribe qué representa el baloncesto para él."
+
 };
 
 function showExplanation(object) {
+
     document.getElementById("explanation-title").textContent = object;
+
     document.getElementById("explanation-text").textContent =
         explanations[object];
 
@@ -587,20 +733,25 @@ function showExplanation(object) {
 }
 
 function hideExplanation() {
+
     document.getElementById("explanation").classList.remove("active");
 }
 
 function closeExplanation(event) {
+
     if (event.target.id === "explanation") {
         hideExplanation();
     }
 }
 
 document.addEventListener("keydown", function(event) {
+
     if (event.key === "Escape") {
         hideExplanation();
     }
+
 });
+
 </script>
 
 </body>
