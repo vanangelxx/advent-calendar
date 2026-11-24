@@ -4,712 +4,604 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cómo te veo | Día 3</title>
+<title>Cómo te veo</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --cream: #F2E9D8;
-  --burgundy: #762E36;
-  --dark-red: #4B252A;
-  --green: #18372E;
-  --gold: #C9A76B;
-  --paper: #F8F0E2;
-  --basket: #C49A6C;
+    --cream: #F2E9D8;
+    --burgundy: #762E36;
+    --dark-red: #4B252A;
+    --green: #18372E;
+    --gold: #C9A76B;
+    --paper: #F8F0E2;
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  background: var(--cream);
-  color: var(--dark-red);
-  font-family: 'DM Sans', sans-serif;
-  min-height: 100vh;
+    background: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    color: var(--green);
 }
 
-/* FONDO DE PAPEL */
+/* PÁGINA DE REVISTA */
 
-.page {
-  min-height: 100vh;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-  padding: 25px 30px 45px;
-
-  background-color: var(--cream);
-  background-image:
-    radial-gradient(rgba(118,46,54,.07) .7px, transparent .7px),
-    radial-gradient(rgba(201,167,107,.12) .6px, transparent .6px);
-  background-size: 7px 7px, 11px 11px;
+.magazine {
+    width: min(100%, 1100px);
+    aspect-ratio: 4 / 3;
+    position: relative;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow: 0 12px 40px rgba(50, 30, 20, 0.16);
 }
 
-/* VOLVER */
+/* TEXTURA DECORATIVA */
 
-.back-link {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 30;
-  color: var(--burgundy);
-  text-decoration: none;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 11px 14px;
-  background: var(--cream);
-  border: 1px solid var(--gold);
-  transition: .3s;
+.magazine::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(118, 46, 54, 0.15);
+    pointer-events: none;
+    z-index: 10;
 }
 
-.back-link:hover {
-  background: var(--burgundy);
-  color: var(--cream);
+/* VOLVER AL CALENDARIO */
+
+.back {
+    position: absolute;
+    top: 3.5%;
+    left: 3.5%;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--burgundy);
+    text-decoration: none;
+    font-family: "DM Sans", sans-serif;
+    font-size: clamp(10px, 1.2vw, 13px);
+    transition: transform 0.25s ease;
 }
 
-/* ENCABEZADO */
-
-.header {
-  text-align: center;
-  position: relative;
-  z-index: 5;
-  margin: 0 auto 5px;
+.back:hover {
+    transform: translateX(-5px);
 }
 
-.header h1 {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(55px, 7vw, 82px);
-  font-weight: 400;
-  color: var(--burgundy);
-  line-height: 1.05;
+.back span:first-child {
+    font-size: 23px;
+    line-height: 1;
 }
 
-.header p {
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--green);
-  font-size: 16px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-top: -2px;
-}
+/* TÍTULO */
 
-/* ESCENA */
-
-.scene {
-  position: relative;
-  width: min(1200px, 100%);
-  height: 750px;
-  margin: 0 auto;
+.page-title {
+    position: absolute;
+    z-index: 5;
+    top: 9%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75%;
+    text-align: center;
+    color: var(--burgundy);
+    font-family: "Great Vibes", cursive;
+    font-size: clamp(35px, 5.3vw, 65px);
+    font-weight: 400;
 }
 
 /* CESTA CENTRAL */
 
-.basket {
-  position: absolute;
-  width: 39%;
-  height: 42%;
-  left: 30.5%;
-  top: 29%;
-  z-index: 2;
-
-  border: 11px solid #A77C55;
-  border-radius: 42% 42% 35% 35%;
-
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 17px,
-      rgba(100,62,35,.35) 18px,
-      rgba(100,62,35,.35) 21px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent 19px,
-      rgba(100,62,35,.30) 20px,
-      rgba(100,62,35,.30) 23px
-    ),
-    #D6B68D;
-
-  box-shadow:
-    inset 0 0 25px rgba(75,37,42,.16),
-    0 12px 25px rgba(75,37,42,.15);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: rotate(-2deg);
+.basket-area {
+    position: absolute;
+    width: 38%;
+    height: 48%;
+    left: 31%;
+    top: 29%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
 }
 
-/* ASA */
-
-.basket::before {
-  content: "";
-  position: absolute;
-  width: 65%;
-  height: 35%;
-  border: 9px solid #A77C55;
-  border-bottom: none;
-  border-radius: 100px 100px 0 0;
-  top: -30%;
-  left: 17%;
-  z-index: -1;
+.basket-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
 }
 
-/* TÍTULO DENTRO DE LA CESTA */
+/* HUECOS DE IMÁGENES */
 
-.basket-title {
-  width: 78%;
-  padding: 20px 10px;
-  background: var(--cream);
-  border: 1px solid var(--gold);
-  outline: 1px dashed var(--burgundy);
-  outline-offset: -6px;
-  text-align: center;
-  transform: rotate(2deg);
-  box-shadow: 0 5px 12px rgba(75,37,42,.15);
+.placeholder {
+    display: none;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed rgba(118, 46, 54, 0.55);
+    border-radius: 8px;
+    color: var(--burgundy);
+    background: rgba(201, 167, 107, 0.08);
+    font-family: "DM Sans", sans-serif;
+    font-size: 11px;
+    text-align: center;
+    place-items: center;
+    padding: 8px;
 }
 
-.basket-title span {
-  display: block;
-  color: var(--burgundy);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(23px, 3vw, 39px);
-  font-weight: 600;
-  letter-spacing: 2px;
+.basket-placeholder {
+    display: grid;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--green);
 }
 
-.basket-title small {
-  display: block;
-  color: var(--green);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: 3px;
-  margin-top: 7px;
+.basket-image:not([src]),
+.basket-image[src=""] {
+    display: none;
 }
 
-/* OBJETOS */
+/* OBJETOS FLOTANTES */
 
-.item {
-  position: absolute;
-  width: 175px;
-  text-align: center;
-  z-index: 4;
-  transition: transform .3s ease;
+.object {
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.3s ease;
 }
 
-.item-button {
-  border: none;
-  background: transparent;
-  width: 100%;
-  cursor: pointer;
-  display: block;
-  color: inherit;
-  font-family: inherit;
+.object:hover {
+    transform: scale(1.09) rotate(0deg) !important;
+    z-index: 8;
 }
 
-.image-space {
-  width: 155px;
-  height: 125px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform .35s ease;
+.object img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(3px 7px 5px rgba(0,0,0,0.15));
 }
 
-.item-button:hover .image-space {
-  transform: scale(1.09) rotate(-3deg);
+.object .placeholder {
+    height: 100%;
 }
 
-/* ESPACIO PNG */
-
-.image-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  color: rgba(118,46,54,.55);
-  border: 1px dashed rgba(118,46,54,.25);
-  background: rgba(255,255,255,.12);
-}
-
-.image-placeholder strong {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 38px;
-  font-weight: 400;
-  color: var(--gold);
-}
-
-.image-placeholder span {
-  font-size: 8px;
-  letter-spacing: 2px;
-}
-
-/* IMÁGENES REALES */
-
-.item-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(2px 5px 4px rgba(75,37,42,.16));
-}
-
-/* TEXTO DE LOS OBJETOS */
-
-.item-name {
-  display: block;
-  color: var(--burgundy);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 5px;
-}
-
-.item-caption {
-  color: var(--green);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.15;
-  margin: 5px auto 0;
-  max-width: 170px;
-}
-
-/* EXPLICACIÓN AL PULSAR */
-
-.description {
-  display: none;
-  position: absolute;
-  width: 210px;
-  padding: 15px;
-  background: var(--paper);
-  border: 1px solid var(--gold);
-  color: var(--dark-red);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 17px;
-  line-height: 1.35;
-  text-align: center;
-  z-index: 15;
-  box-shadow: 0 6px 18px rgba(75,37,42,.16);
-}
-
-.description::before {
-  content: "♡";
-  display: block;
-  color: var(--burgundy);
-  font-size: 19px;
-  margin-bottom: 5px;
-}
-
-.item.active .description {
-  display: block;
-}
-
-/* POSICIONES IRREGULARES */
-
-/* 1. ALTAVOZ */
+/* POSICIONES INDIVIDUALES */
 
 .speaker {
-  top: 4%;
-  left: 5%;
-  transform: rotate(-7deg);
+    width: 16%;
+    height: 21%;
+    top: 23%;
+    left: 8%;
+    transform: rotate(-12deg);
 }
-
-.speaker .description {
-  top: 100%;
-  left: 0;
-}
-
-/* 2. LAS PALMAS */
 
 .laspalmas {
-  top: 4%;
-  right: 5%;
-  transform: rotate(5deg);
+    width: 17%;
+    height: 22%;
+    top: 17%;
+    right: 9%;
+    transform: rotate(10deg);
 }
-
-.laspalmas .description {
-  top: 100%;
-  right: 0;
-}
-
-/* 3. REAL MADRID */
 
 .realmadrid {
-  top: 38%;
-  left: 0;
-  transform: rotate(4deg);
+    width: 16%;
+    height: 22%;
+    bottom: 13%;
+    left: 7%;
+    transform: rotate(8deg);
 }
-
-.realmadrid .description {
-  top: 10%;
-  left: 105%;
-}
-
-/* 4. PLAYSTATION */
 
 .playstation {
-  top: 38%;
-  right: 0;
-  transform: rotate(-5deg);
+    width: 19%;
+    height: 18%;
+    bottom: 10%;
+    right: 7%;
+    transform: rotate(-9deg);
 }
-
-.playstation .description {
-  top: 10%;
-  right: 105%;
-}
-
-/* 5. CERVEZA */
 
 .beer {
-  bottom: 1%;
-  left: 10%;
-  transform: rotate(-5deg);
+    width: 10%;
+    height: 20%;
+    top: 45%;
+    left: 5%;
+    transform: rotate(-14deg);
 }
-
-.beer .description {
-  bottom: 100%;
-  left: 0;
-}
-
-/* 6. SUDADERA */
 
 .hoodie {
-  bottom: 1%;
-  right: 10%;
-  transform: rotate(6deg);
+    width: 17%;
+    height: 20%;
+    top: 46%;
+    right: 5%;
+    transform: rotate(12deg);
 }
-
-.hoodie .description {
-  bottom: 100%;
-  right: 0;
-}
-
-/* 7. NBA */
 
 .nba {
-  top: 0;
-  left: 42%;
-  transform: rotate(3deg);
+    width: 12%;
+    height: 18%;
+    bottom: 4%;
+    left: 43%;
+    transform: rotate(5deg);
 }
 
-.nba .description {
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* DECORACIÓN */
+/* PEQUEÑOS DETALLES */
 
 .decoration {
-  position: absolute;
-  color: var(--gold);
-  font-size: 25px;
-  z-index: 1;
+    position: absolute;
+    color: var(--gold);
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(16px, 2vw, 25px);
+    z-index: 1;
 }
 
-.d1 { top: 22%; left: 23%; }
-.d2 { top: 19%; right: 23%; }
-.d3 { bottom: 22%; left: 27%; }
-.d4 { bottom: 20%; right: 26%; }
-
-.d5 {
-  top: 10%;
-  left: 47%;
-  font-size: 15px;
+.star-one {
+    top: 23%;
+    left: 42%;
 }
 
-.d6 {
-  bottom: 8%;
-  left: 49%;
-  font-size: 17px;
+.star-two {
+    top: 55%;
+    right: 29%;
+}
+
+.star-three {
+    bottom: 17%;
+    right: 38%;
+}
+
+.small-note {
+    position: absolute;
+    bottom: 3%;
+    right: 4%;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    color: var(--burgundy);
+    font-size: clamp(10px, 1.2vw, 14px);
+    opacity: 0.75;
+}
+
+/* VENTANA DE EXPLICACIÓN */
+
+.explanation {
+    position: absolute;
+    inset: 0;
+    z-index: 15;
+    background: rgba(24, 55, 46, 0.38);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.explanation.active {
+    display: flex;
+}
+
+.explanation-card {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--gold);
+    width: min(75%, 420px);
+    padding: 35px 30px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+    animation: appear 0.3s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.explanation-card h2 {
+    font-family: "Great Vibes", cursive;
+    color: var(--burgundy);
+    font-size: 38px;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.explanation-card p {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 21px;
+    line-height: 1.45;
+    color: var(--green);
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    border: none;
+    background: none;
+    color: var(--burgundy);
+    font-size: 25px;
+    cursor: pointer;
 }
 
 /* MÓVIL */
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
 
-  .page {
-    padding: 75px 12px 35px;
-    overflow: visible;
-  }
+    .magazine {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+    }
 
-  .header h1 {
-    font-size: 62px;
-  }
+    .page-title {
+        top: 10%;
+        font-size: clamp(30px, 8vw, 43px);
+    }
 
-  .header p {
-    font-size: 12px;
-    letter-spacing: 2px;
-  }
+    .back {
+        top: 3%;
+        left: 3%;
+        font-size: 9px;
+        gap: 4px;
+    }
 
-  .scene {
-    height: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px 8px;
-    padding-top: 25px;
-  }
+    .back span:first-child {
+        font-size: 18px;
+    }
 
-  .basket {
-    position: relative;
-    left: auto;
-    top: auto;
-    grid-column: 1 / -1;
-    width: min(85%, 360px);
-    height: 220px;
-    margin: 55px auto 35px;
-    order: -1;
-  }
+    .basket-area {
+        width: 42%;
+        height: 43%;
+        left: 29%;
+        top: 32%;
+    }
 
-  .basket-title span {
-    font-size: 29px;
-  }
+    .speaker {
+        width: 18%;
+        height: 18%;
+        top: 24%;
+        left: 5%;
+    }
 
-  .item {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    transform: none;
-    padding: 5px;
-  }
+    .laspalmas {
+        width: 19%;
+        height: 19%;
+        top: 19%;
+        right: 4%;
+    }
 
-  .image-space {
-    width: min(100%, 145px);
-    height: 115px;
-  }
+    .realmadrid {
+        width: 18%;
+        height: 19%;
+        bottom: 14%;
+        left: 4%;
+    }
 
-  .item-name {
-    font-size: 18px;
-  }
+    .playstation {
+        width: 20%;
+        height: 17%;
+        bottom: 12%;
+        right: 3%;
+    }
 
-  .item-caption {
-    font-size: 14px;
-  }
+    .beer {
+        width: 12%;
+        height: 18%;
+        top: 47%;
+        left: 2%;
+    }
 
-  .description {
-    position: relative;
-    width: 100%;
-    margin-top: 10px;
-    transform: none !important;
-  }
+    .hoodie {
+        width: 19%;
+        height: 18%;
+        top: 48%;
+        right: 2%;
+    }
 
-  .decoration {
-    display: none;
-  }
+    .nba {
+        width: 14%;
+        height: 15%;
+        bottom: 3%;
+        left: 42%;
+    }
 
-  .back-link {
-    top: 12px;
-    left: 10px;
-    font-size: 9px;
-  }
-}
+    .explanation-card {
+        width: 90%;
+        padding: 25px 20px;
+    }
 
-@media (max-width: 380px) {
-  .image-space {
-    height: 95px;
-  }
+    .explanation-card h2 {
+        font-size: 32px;
+    }
 
-  .item-name {
-    font-size: 16px;
-  }
-
-  .item-caption {
-    font-size: 13px;
-  }
+    .explanation-card p {
+        font-size: 18px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<a href="../index.html" class="back-link">
-  ← Volver al calendario
-</a>
+<main class="magazine">
 
-<main class="page">
+    <a class="back" href="../index.html">
+        <span>←</span>
+        <span>Volver al calendario</span>
+    </a>
 
-  <header class="header">
-    <h1>Cómo te veo</h1>
-    <p>Una pequeña colección de ti</p>
-  </header>
+    <h1 class="page-title">Cómo te veo</h1>
 
-  <section class="scene">
-
-    <!-- DECORACIÓN -->
-
-    <span class="decoration d1">✦</span>
-    <span class="decoration d2">♡</span>
-    <span class="decoration d3">✧</span>
-    <span class="decoration d4">✦</span>
-    <span class="decoration d5">✧</span>
-    <span class="decoration d6">♡</span>
-
-    <!-- CESTA CENTRAL -->
-
-    <div class="basket">
-      <div class="basket-title">
-        <span>CÓMO TE VEO</span>
-        <small>EDICIÓN ESPECIAL · Nº 03</small>
-      </div>
+    <!-- CESTA CENTRAL: CAMBIA cesta.png POR TU IMAGEN -->
+    <div class="basket-area">
+        <img
+            class="basket-image"
+            src="../imagenes/cesta.png"
+            alt="Nuestra cesta"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+        >
+        <div class="placeholder basket-placeholder">
+            AQUÍ VA TU PNG<br>DE LA CESTA
+        </div>
     </div>
 
-    <!-- 1. ALTAVOZ -->
+    <!-- OBJETO 1: ALTAVOZ -->
+    <button class="object speaker"
+        onclick="showExplanation('Altavoz de música')"
+        aria-label="Altavoz de música">
+        <img src="../imagenes/altavoz.png" alt="Altavoz"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <span class="placeholder">PNG<br>ALTAVOZ</span>
+    </button>
 
-    <article class="item speaker">
-      <button class="item-button" type="button" onclick="toggleItem(this)">
-        <div class="image-space">
-          <div class="image-placeholder">
-            <strong>01</strong>
-            <span>AÑADIR PNG</span>
-          </div>
+    <!-- OBJETO 2: UD LAS PALMAS -->
+    <button class="object laspalmas"
+        onclick="showExplanation('Camiseta de la UD Las Palmas')"
+        aria-label="Camiseta de la UD Las Palmas">
+        <img src="../imagenes/las-palmas.png" alt="Camiseta UD Las Palmas"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <span class="placeholder">PNG<br>LAS PALMAS</span>
+    </button>
+
+    <!-- OBJETO 3: REAL MADRID -->
+    <button class="object realmadrid"
+        onclick="showExplanation('Camiseta del Real Madrid')"
+        aria-label="Camiseta del Real Madrid">
+        <img src="../imagenes/real-madrid.png" alt="Camiseta Real Madrid"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <span class="placeholder">PNG<br>REAL MADRID</span>
+    </button>
+
+    <!-- OBJETO 4: PLAYSTATION -->
+    <button class="object playstation"
+        onclick="showExplanation('PlayStation')"
+        aria-label="PlayStation">
+        <img src="../imagenes/playstation.png" alt="PlayStation"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <span class="placeholder">PNG<br>PLAYSTATION</span>
+    </button>
+
+    <!-- OBJETO 5: CERVEZA -->
+    <button class="object beer"
+        onclick="showExplanation('Cerveza')"
+        aria-label="Cerveza">
+        <img src="../imagenes/cerveza.png" alt="Cerveza"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <span class="placeholder">PNG<br>CERVEZA</span>
+    </button>
+
+    <!-- OBJETO 6: SUDADERA -->
+    <button class="object hoodie"
+        onclick="showExplanation('Sudadera')"
+        aria-label="Sudadera">
+        <img src="../imagenes/sudadera.png" alt="Sudadera"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <span class="placeholder">PNG<br>SUDADERA</span>
+    </button>
+
+    <!-- OBJETO 7: NBA -->
+    <button class="object nba"
+        onclick="showExplanation('NBA')"
+        aria-label="Símbolo NBA">
+        <img src="../imagenes/nba.png" alt="Símbolo NBA"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <span class="placeholder">PNG<br>NBA</span>
+    </button>
+
+    <!-- DETALLES DECORATIVOS -->
+    <span class="decoration star-one">✳</span>
+    <span class="decoration star-two">✧</span>
+    <span class="decoration star-three">✳</span>
+
+    <p class="small-note">Un poquito de todo lo que eres...</p>
+
+    <!-- VENTANA DE EXPLICACIÓN -->
+    <div class="explanation" id="explanation"
+        onclick="closeExplanation(event)">
+        <div class="explanation-card">
+            <button class="close" onclick="hideExplanation()">×</button>
+            <h2 id="explanation-title">Título</h2>
+            <p id="explanation-text"></p>
         </div>
-        <span class="item-name">La música</span>
-        <p class="item-caption">Una parte de ti que siempre suena</p>
-      </button>
-      <div class="description">
-        Aquí irá lo que quieras contar sobre su relación con la música.
-      </div>
-    </article>
+    </div>
 
-    <!-- 2. LAS PALMAS -->
-
-    <article class="item laspalmas">
-      <button class="item-button" type="button" onclick="toggleItem(this)">
-        <div class="image-space">
-          <div class="image-placeholder">
-            <strong>02</strong>
-            <span>AÑADIR PNG</span>
-          </div>
-        </div>
-        <span class="item-name">Su equipo</span>
-        <p class="item-caption">La pasión por unos colores</p>
-      </button>
-      <div class="description">
-        Aquí irá el mensaje relacionado con la UD Las Palmas.
-      </div>
-    </article>
-
-    <!-- 3. REAL MADRID -->
-
-    <article class="item realmadrid">
-      <button class="item-button" type="button" onclick="toggleItem(this)">
-        <div class="image-space">
-          <div class="image-placeholder">
-            <strong>03</strong>
-            <span>AÑADIR PNG</span>
-          </div>
-        </div>
-        <span class="item-name">El Real Madrid</span>
-        <p class="item-caption">Otra manera de vivir el fútbol</p>
-      </button>
-      <div class="description">
-        Aquí irá el mensaje relacionado con el Real Madrid.
-      </div>
-    </article>
-
-    <!-- 4. PLAYSTATION -->
-
-    <article class="item playstation">
-      <button class="item-button" type="button" onclick="toggleItem(this)">
-        <div class="image-space">
-          <div class="image-placeholder">
-            <strong>04</strong>
-            <span>AÑADIR PNG</span>
-          </div>
-        </div>
-        <span class="item-name">PlayStation</span>
-        <p class="item-caption">Tus ratitos de desconexión</p>
-      </button>
-      <div class="description">
-        Aquí irá el mensaje relacionado con sus videojuegos.
-      </div>
-    </article>
-
-    <!-- 5. CERVEZA -->
-
-    <article class="item beer">
-      <button class="item-button" type="button" onclick="toggleItem(this)">
-        <div class="image-space">
-          <div class="image-placeholder">
-            <strong>05</strong>
-            <span>AÑADIR PNG</span>
-          </div>
-        </div>
-        <span class="item-name">Una cerveza</span>
-        <p class="item-caption">Porque siempre hay tiempo para una más</p>
-      </button>
-      <div class="description">
-        Aquí irá el mensaje que quieras dedicarle relacionado con este objeto.
-      </div>
-    </article>
-
-    <!-- 6. SUDADERA -->
-
-    <article class="item hoodie">
-      <button class="item-button" type="button" onclick="toggleItem(this)">
-        <div class="image-space">
-          <div class="image-placeholder">
-            <strong>06</strong>
-            <span>AÑADIR PNG</span>
-          </div>
-        </div>
-        <span class="item-name">Su sudadera</span>
-        <p class="item-caption">Un poquito de su estilo</p>
-      </button>
-      <div class="description">
-        Aquí irá el mensaje relacionado con su ropa o su estilo.
-      </div>
-    </article>
-
-    <!-- 7. NBA -->
-
-    <article class="item nba">
-      <button class="item-button" type="button" onclick="toggleItem(this)">
-        <div class="image-space">
-          <div class="image-placeholder">
-            <strong>07</strong>
-            <span>AÑADIR PNG</span>
-          </div>
-        </div>
-        <span class="item-name">NBA</span>
-        <p class="item-caption">Baloncesto, estadísticas y pasión</p>
-      </button>
-      <div class="description">
-        Aquí irá el mensaje relacionado con su afición a la NBA.
-      </div>
-    </article>
-
-  </section>
 </main>
 
 <script>
-function toggleItem(button) {
-  const item = button.closest(".item");
-  const wasActive = item.classList.contains("active");
+/* 
+   AQUÍ PUEDES CAMBIAR LOS MENSAJES.
+   Sustituye cada texto provisional por el significado
+   que quieras darle a cada objeto.
+*/
 
-  document.querySelectorAll(".item").forEach(function(element) {
-    element.classList.remove("active");
-  });
+const explanations = {
+    "Altavoz de música":
+        "Aquí irá lo que representa la música para mí cuando pienso en ti.",
 
-  if (!wasActive) {
-    item.classList.add("active");
-  }
+    "Camiseta de la UD Las Palmas":
+        "Aquí irá por qué este equipo forma parte de ti.",
+
+    "Camiseta del Real Madrid":
+        "Aquí irá lo que representa el Real Madrid para ti.",
+
+    "PlayStation":
+        "Aquí irá lo que representa tu lado más gamer.",
+
+    "Cerveza":
+        "Aquí irá lo que representa este pequeño placer.",
+
+    "Sudadera":
+        "Aquí irá por qué he elegido esta prenda para describirte.",
+
+    "NBA":
+        "Aquí irá lo que representa tu pasión por el baloncesto."
+};
+
+function showExplanation(object) {
+    document.getElementById("explanation-title").textContent = object;
+    document.getElementById("explanation-text").textContent =
+        explanations[object];
+
+    document.getElementById("explanation").classList.add("active");
 }
+
+function hideExplanation() {
+    document.getElementById("explanation").classList.remove("active");
+}
+
+function closeExplanation(event) {
+    if (event.target.id === "explanation") {
+        hideExplanation();
+    }
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        hideExplanation();
+    }
+});
 </script>
 
 </body>
 </html>
-
