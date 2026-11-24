@@ -96,10 +96,10 @@ body {
 .clipboard {
     position: absolute;
     left: 75%;                 /* ← posición horizontal */
-    top: 25%;                  /* ← posición vertical */
+    top: 50%;                  /* ← posición vertical */
     width: 60%;                /* ← tamaño */
     aspect-ratio: 3 / 4;       /* ← proporción de tu PNG */
-    transform: translate(-50%, -50%) rotate(-20deg);
+    transform: translate(-50%, -50%) rotate(-45deg);
     z-index: 3;
 }
 
@@ -146,4 +146,107 @@ body {
     border-collapse: collapse;
     font-family: "DM Sans", sans-serif;
     font-size: clamp(11px, 1.5vw, 18px);
-    font-weight:
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: #000;
+    z-index: 5;
+}
+
+.score td {
+    padding: 6px 8px;
+}
+
+.score .name {
+    border-right: 3px solid #000;
+    text-align: left;
+}
+
+.score .points {
+    border-right: 1px solid #000;
+    text-align: center;
+    width: 17%;
+}
+
+/* MÓVIL */
+
+@media (max-width: 600px) {
+
+    .title {
+        font-size: clamp(28px, 8vw, 42px);
+    }
+
+    .subtitle {
+        font-size: clamp(13px, 3.6vw, 18px);
+    }
+
+    .score {
+        font-size: 9px;
+    }
+
+    .score td {
+        padding: 3px 4px;
+    }
+}
+</style>
+
+<link rel="stylesheet" href="dias.css">
+</head>
+
+<body class="day-body day-body--magazine">
+
+<main class="magazine day-frame">
+
+    <!-- VOLVER AL CALENDARIO -->
+    <a href="../index.html" class="back-link">
+        ← Volver al calendario
+    </a>
+
+    <!-- BOLAS -->
+    <div class="ball ball-red">
+        <img src="../imagenes/bola-11.png" alt="Bola roja 11">
+    </div>
+
+    <div class="ball ball-yellow">
+        <img src="../imagenes/bola-6.png" alt="Bola amarilla 6">
+    </div>
+
+    <div class="ball ball-brown">
+        <img src="../imagenes/bola-7.png" alt="Bola marrón 7">
+    </div>
+
+    <div class="ball ball-white">
+        <img src="../imagenes/bola-blanca.png" alt="Bola blanca">
+    </div>
+
+    <!-- TACO -->
+    <div class="cue">
+        <img src="../imagenes/taco.png" alt="Taco de billar">
+    </div>
+
+    <!-- PORTAPAPELES (solo la imagen) -->
+    <div class="clipboard">
+        <img src="../imagenes/portapapeles.png" alt="Portapapeles con papel">
+    </div>
+
+    <!-- TEXTOS Y MARCADOR (fuera del portapapeles) -->
+    <h1 class="title">Título</h1>
+    <p class="subtitle">Subtítulo</p>
+
+    <table class="score">
+        <tr>
+            <td class="name">Alvaro</td>
+            <td class="points">12</td>
+            <td class="points">5</td>
+        </tr>
+        <tr>
+            <td class="name">Clara</td>
+            <td class="points">1</td>
+            <td class="points">4</td>
+        </tr>
+    </table>
+
+</main>
+
+</body>
+</html>
