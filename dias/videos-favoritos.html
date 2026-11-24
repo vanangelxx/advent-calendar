@@ -43,25 +43,22 @@
     }
 
     .tv-image {
-  position: relative;
-  z-index: 2;              /* la tele va por encima del vídeo */
-  display: block;
-  width: 100%;
-  height: auto;
-  pointer-events: none;    /* los clics atraviesan la imagen y llegan al vídeo */
-}
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
- .tv-screen {
-  position: absolute;
-  z-index: 1;              /* el vídeo va por detrás de la tele */
-  left: 9%;
-  top: 12%;
-  width: 80%;
-  height: 90%;
-  background: #000;
-  object-fit: cover;
-  border-radius: 4px;
-}
+    /* Pantalla: ajusta left, top, width y height hasta que encaje con tu PNG. */
+    .tv-screen {
+      position: absolute;
+      left: 9%;
+      top: 12%;
+      width: 70%;
+      height: 66%;
+      background: #000;
+      object-fit: cover;
+      border-radius: 4px;
+    }
 
     /* BOTONES */
 
