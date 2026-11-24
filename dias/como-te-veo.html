@@ -59,7 +59,7 @@ body {
 
 .back {
     position: absolute;
-    top: 3.5%;
+    bottom: 3.5%;
     left: 4%;
     z-index: 25;
     display: flex;
@@ -116,18 +116,18 @@ body {
     place-items: center;
 }
 
-/* TEXTO DENTRO DE LA CESTA */
+/* TÍTULO DENTRO DE LA CESTA */
 
 .basket-title {
     position: absolute;
     z-index: 4;
-    top: 43%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 75%;
+    width: 88%;
     text-align: center;
     font-family: "Great Vibes", cursive;
-    font-size: clamp(25px, 3.5vw, 43px);
+    font-size: clamp(32px, 4.5vw, 55px);
     line-height: 1.15;
     color: var(--burgundy);
     text-shadow:
@@ -157,7 +157,7 @@ body {
 }
 
 .object:hover {
-    transform: scale(1.08) rotate(0deg) !important;
+    transform: scale(1.08) rotate(0deg);
     z-index: 8;
 }
 
@@ -186,96 +186,87 @@ body {
     color: var(--green);
 }
 
-/* POSICIONES DE LOS NUEVE OBJETOS */
+/* DISTRIBUCIÓN DE LOS NUEVE OBJETOS */
 
 /* 1. ALTAVOZ */
 
 .speaker {
-    left: 5%;
-    top: 16%;
-    width: 15%;
-    height: 23%;
-    transform: rotate(-11deg);
+    left: 9%;
+    top: 12%;
+    width: 14%;
+    height: 22%;
 }
 
 /* 2. LAS PALMAS */
 
 .laspalmas {
-    right: 5%;
-    top: 14%;
-    width: 16%;
-    height: 23%;
-    transform: rotate(9deg);
+    left: 43%;
+    top: 8%;
+    width: 15%;
+    height: 21%;
 }
 
 /* 3. REAL MADRID */
 
 .realmadrid {
-    left: 4%;
-    bottom: 7%;
-    width: 16%;
-    height: 24%;
-    transform: rotate(8deg);
+    right: 7%;
+    top: 15%;
+    width: 15%;
+    height: 22%;
 }
 
 /* 4. PLAYSTATION */
 
 .playstation {
-    right: 4%;
-    bottom: 7%;
-    width: 18%;
-    height: 22%;
-    transform: rotate(-8deg);
+    right: 6%;
+    top: 43%;
+    width: 17%;
+    height: 21%;
 }
 
 /* 5. CERVEZA */
 
 .beer {
-    left: 17%;
-    top: 43%;
+    right: 13%;
+    bottom: 8%;
     width: 11%;
-    height: 22%;
-    transform: rotate(-10deg);
+    height: 21%;
 }
 
 /* 6. SUDADERA */
 
 .hoodie {
-    right: 16%;
-    top: 43%;
-    width: 14%;
-    height: 22%;
-    transform: rotate(10deg);
+    left: 43%;
+    bottom: 5%;
+    width: 15%;
+    height: 21%;
 }
 
 /* 7. NBA */
 
 .nba {
-    left: 43%;
-    bottom: 2%;
-    width: 14%;
-    height: 18%;
-    transform: rotate(4deg);
+    left: 9%;
+    bottom: 9%;
+    width: 13%;
+    height: 19%;
 }
 
 /* 8. OBJETO NUEVO */
 
 .extra-one {
-    left: 22%;
-    top: 15%;
-    width: 12%;
-    height: 18%;
-    transform: rotate(12deg);
+    left: 3%;
+    top: 43%;
+    width: 14%;
+    height: 21%;
 }
 
 /* 9. OBJETO NUEVO */
 
 .extra-two {
-    right: 22%;
-    bottom: 8%;
+    left: 25%;
+    bottom: 7%;
     width: 12%;
-    height: 18%;
-    transform: rotate(-12deg);
+    height: 19%;
 }
 
 /* DETALLES DECORATIVOS */
@@ -363,6 +354,7 @@ body {
 /* MÓVIL */
 
 @media (max-width: 600px) {
+
     body {
         padding: 8px;
     }
@@ -373,7 +365,7 @@ body {
     }
 
     .back {
-        top: 3%;
+        bottom: 3%;
         left: 3%;
         font-size: 8px;
         gap: 3px;
@@ -391,71 +383,71 @@ body {
     }
 
     .basket-title {
-        font-size: clamp(20px, 4.8vw, 29px);
-        width: 78%;
+        font-size: clamp(23px, 5vw, 34px);
+        width: 88%;
     }
 
     .speaker {
-        left: 2%;
-        top: 17%;
-        width: 17%;
+        left: 5%;
+        top: 13%;
+        width: 16%;
         height: 19%;
     }
 
     .laspalmas {
-        right: 2%;
-        top: 16%;
-        width: 18%;
-        height: 20%;
+        left: 42%;
+        top: 9%;
+        width: 16%;
+        height: 18%;
     }
 
     .realmadrid {
-        left: 2%;
-        bottom: 7%;
-        width: 18%;
-        height: 21%;
-    }
-
-    .playstation {
-        right: 2%;
-        bottom: 7%;
-        width: 19%;
+        right: 4%;
+        top: 15%;
+        width: 17%;
         height: 19%;
     }
 
+    .playstation {
+        right: 3%;
+        top: 43%;
+        width: 19%;
+        height: 18%;
+    }
+
     .beer {
-        left: 14%;
-        top: 44%;
+        right: 10%;
+        bottom: 8%;
         width: 12%;
         height: 18%;
     }
 
     .hoodie {
-        right: 13%;
-        top: 44%;
-        width: 15%;
+        left: 42%;
+        bottom: 4%;
+        width: 16%;
         height: 18%;
     }
 
     .nba {
-        left: 41%;
-        bottom: 1%;
-        width: 17%;
-        height: 16%;
+        left: 7%;
+        bottom: 8%;
+        width: 14%;
+        height: 17%;
     }
 
     .extra-one {
-        left: 21%;
-        top: 14%;
-        width: 13%;
-        height: 16%;
+        left: 2%;
+        top: 43%;
+        width: 15%;
+        height: 18%;
     }
 
     .extra-two {
-        right: 21%;
-        bottom: 6%;
+        left: 24%;
+        bottom: 7%;
         width: 13%;
-        height: 16%;
+        height: 17%;
     }
 
     .object-description {
@@ -480,6 +472,7 @@ body {
         font-size: 18px;
     }
 }
+
 </style>
 </head>
 
@@ -507,7 +500,7 @@ body {
             AQUÍ VA TU PNG<br>DE LA CESTA
         </div>
 
-        <!-- ÚNICO TÍTULO DE LA PÁGINA -->
+        <!-- TÍTULO DENTRO DE LA CESTA -->
         <h2 class="basket-title">
             Un poquito de<br>todo lo que eres
         </h2>
@@ -609,7 +602,7 @@ body {
 
 <script>
 
-/* CAMBIA AQUÍ LOS MENSAJES QUE APARECEN AL PULSAR */
+/* EXPLICACIONES DE CADA OBJETO */
 
 const explanations = {
 
@@ -642,6 +635,8 @@ const explanations = {
 
 };
 
+/* ABRIR EXPLICACIÓN */
+
 function showExplanation(object) {
 
     document.getElementById("explanation-title").textContent = object;
@@ -651,6 +646,8 @@ function showExplanation(object) {
 
     document.getElementById("explanation").classList.add("active");
 }
+
+/* CERRAR EXPLICACIÓN */
 
 function hideExplanation() {
 
@@ -664,11 +661,33 @@ function closeExplanation(event) {
     }
 }
 
+/* CERRAR CON ESCAPE */
+
 document.addEventListener("keydown", function(event) {
 
     if (event.key === "Escape") {
         hideExplanation();
     }
+
+});
+
+/* ROTACIÓN ALEATORIA DE LOS PNG */
+
+document.querySelectorAll(".object").forEach(object => {
+
+    const rotation = Math.floor(Math.random() * 25) - 12;
+
+    object.dataset.rotation = rotation;
+
+    object.style.transform = `rotate(${rotation}deg)`;
+
+    object.addEventListener("mouseenter", () => {
+        object.style.transform = "scale(1.08) rotate(0deg)";
+    });
+
+    object.addEventListener("mouseleave", () => {
+        object.style.transform = `rotate(${object.dataset.rotation}deg)`;
+    });
 
 });
 
