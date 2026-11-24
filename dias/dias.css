@@ -101,24 +101,28 @@
   line-height: 1.5;
 }
 
-.writing-area {
-  min-height: 7rem;
+.template-input {
+  display: block;
+  width: 100%;
+  min-height: 3rem;
   margin-top: 16px;
+  padding: 10px 12px;
   border: 1px dashed rgba(118, 46, 54, 0.45);
+  border-radius: 0;
   background: repeating-linear-gradient(
     to bottom,
-    transparent 0,
-    transparent 2rem,
+    rgba(255, 255, 255, 0.35) 0,
+    rgba(255, 255, 255, 0.35) 2rem,
     rgba(118, 46, 54, 0.12) 2rem,
     rgba(118, 46, 54, 0.12) calc(2rem + 1px)
   );
+  color: var(--dark-red, #4B252A);
+  font: inherit;
+  line-height: 2rem;
+  resize: vertical;
 }
 
-.writing-area--short {
-  min-height: 3rem;
-}
-
-.writing-area--large {
+.template-input--large {
   min-height: 14rem;
 }
 
@@ -138,26 +142,30 @@
   color: var(--burgundy, #762E36);
 }
 
-.template-list .writing-area {
-  min-height: 2rem;
-  margin-top: 0;
-}
-
-.template-grid {
-  display: grid;
+.template-grid-table {
   width: min(100%, 440px);
-  grid-template-columns: repeat(var(--grid-size), minmax(0, 1fr));
-  aspect-ratio: 1;
   margin: 18px auto 0;
-  border-top: 1px solid var(--dark-red, #4B252A);
-  border-left: 1px solid var(--dark-red, #4B252A);
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 
-.template-grid__cell {
-  min-width: 0;
-  min-height: 0;
-  border-right: 1px solid rgba(75, 37, 42, 0.65);
-  border-bottom: 1px solid rgba(75, 37, 42, 0.65);
+.template-grid-table td {
+  width: calc(100% / 12);
+  height: clamp(18px, 4vw, 34px);
+  padding: 0;
+  border: 1px solid rgba(75, 37, 42, 0.65);
+}
+
+.template-grid-table--sudoku td {
+  width: calc(100% / 9);
+}
+
+.template-grid-table--sudoku tr:nth-child(3n) td {
+  border-bottom-width: 2px;
+}
+
+.template-grid-table--sudoku td:nth-child(3n) {
+  border-right-width: 2px;
 }
 
 .template-photos {
@@ -187,6 +195,18 @@
   padding-top: 6px;
   color: var(--green, #18372E);
   font-size: 0.8rem;
+}
+
+.template-photo__caption {
+  width: 100%;
+  min-height: 2rem;
+  margin-top: 6px;
+  padding: 4px;
+  border: 0;
+  border-bottom: 1px dashed rgba(118, 46, 54, 0.45);
+  background: transparent;
+  color: var(--green, #18372E);
+  font: inherit;
 }
 
 .back-link {

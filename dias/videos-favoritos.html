@@ -6,11 +6,32 @@
   <title>Día 04 · Mis videos favoritos</title>
   <link rel="stylesheet" href="dias.css">
 </head>
-<body class="day-body day-body--template" data-day="4">
+<body class="day-body day-body--template">
   <main class="day-frame day-template">
-    <div class="template-content" id="day-content"></div>
+    <div class="template-content">
+      <header class="template-heading">
+        <p class="template-eyebrow">Día 04 · Adviento 2026</p>
+        <h1>Mis videos favoritos</h1>
+        <p class="template-intro">Añade los vídeos que quieras compartir y el espacio para tus comentarios.</p>
+      </header>
+      <div class="template-sections">
+        <section class="template-card">
+          <h2>Vídeos</h2>
+          <p>Escribe un título o enlace para cada vídeo.</p>
+          <ol class="template-list">
+            <li><textarea class="template-input" aria-label="Vídeo 1"></textarea></li>
+            <li><textarea class="template-input" aria-label="Vídeo 2"></textarea></li>
+            <li><textarea class="template-input" aria-label="Vídeo 3"></textarea></li>
+          </ol>
+        </section>
+        <section class="template-card">
+          <h2>Notas</h2>
+          <p>Completa este espacio con tus comentarios.</p>
+          <textarea class="template-input template-input--large" aria-label="Notas sobre mis vídeos favoritos"></textarea>
+        </section>
+      </div>
+    </div>
   </main>
   <a href="../index.html" class="back-link">← Volver al calendario</a>
-  <script src="plantilla-dia.js" defer></script>
 </body>
 </html>

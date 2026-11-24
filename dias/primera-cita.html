@@ -6,11 +6,32 @@
   <title>Día 05 · Nuestra primera cita</title>
   <link rel="stylesheet" href="dias.css">
 </head>
-<body class="day-body day-body--template" data-day="5">
+<body class="day-body day-body--template">
   <main class="day-frame day-template">
-    <div class="template-content" id="day-content"></div>
+    <div class="template-content">
+      <header class="template-heading">
+        <p class="template-eyebrow">Día 05 · Adviento 2026</p>
+        <h1>Nuestra primera cita</h1>
+        <p class="template-intro">Completa los detalles que quieras conservar de ese día.</p>
+      </header>
+      <div class="template-sections">
+        <section class="template-card">
+          <h2>Detalles</h2>
+          <p>Anota la fecha, el lugar y otros datos que quieras recordar.</p>
+          <textarea class="template-input template-input--large" aria-label="Detalles de nuestra primera cita"></textarea>
+        </section>
+        <section class="template-card">
+          <h2>Fotos y recuerdos</h2>
+          <p>Añade imágenes y escribe un pie para cada una.</p>
+          <div class="template-photos">
+            <figure class="template-photo"><div class="template-photo__placeholder">Añade una foto</div><textarea class="template-photo__caption" aria-label="Pie de foto 1"></textarea></figure>
+            <figure class="template-photo"><div class="template-photo__placeholder">Añade una foto</div><textarea class="template-photo__caption" aria-label="Pie de foto 2"></textarea></figure>
+            <figure class="template-photo"><div class="template-photo__placeholder">Añade una foto</div><textarea class="template-photo__caption" aria-label="Pie de foto 3"></textarea></figure>
+          </div>
+        </section>
+      </div>
+    </div>
   </main>
   <a href="../index.html" class="back-link">← Volver al calendario</a>
-  <script src="plantilla-dia.js" defer></script>
 </body>
 </html>
