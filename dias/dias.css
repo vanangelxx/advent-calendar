@@ -1,0 +1,212 @@
+.day-body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.day-frame {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.day-body--magazine {
+  padding: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.day-frame.magazine {
+  max-width: none;
+  aspect-ratio: auto;
+}
+
+.day-body--template,
+.day-body--template * {
+  box-sizing: border-box;
+}
+
+.day-body--template {
+  margin: 0;
+  background: var(--cream, #F2E9D8);
+  color: var(--dark-red, #4B252A);
+  font-family: Arial, sans-serif;
+}
+
+.day-template {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 6vw, 72px) 20px 88px;
+}
+
+.template-content {
+  width: min(100%, 980px);
+  margin: auto;
+}
+
+.template-heading {
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.template-eyebrow {
+  color: var(--green, #18372E);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.template-heading h1 {
+  margin: 12px 0;
+  color: var(--burgundy, #762E36);
+  font-family: Georgia, serif;
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.template-intro {
+  max-width: 650px;
+  margin: 0 auto;
+  color: var(--green, #18372E);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.template-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 18px;
+}
+
+.template-card {
+  min-width: 0;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--gold, #C9A76B);
+  background: rgba(248, 240, 226, 0.8);
+}
+
+.template-card h2 {
+  margin: 0 0 8px;
+  color: var(--burgundy, #762E36);
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.template-card p {
+  margin: 0;
+  color: var(--green, #18372E);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.writing-area {
+  min-height: 7rem;
+  margin-top: 16px;
+  border: 1px dashed rgba(118, 46, 54, 0.45);
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2rem,
+    rgba(118, 46, 54, 0.12) 2rem,
+    rgba(118, 46, 54, 0.12) calc(2rem + 1px)
+  );
+}
+
+.writing-area--short {
+  min-height: 3rem;
+}
+
+.writing-area--large {
+  min-height: 14rem;
+}
+
+.template-list {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding-left: 1.8rem;
+}
+
+.template-list li {
+  min-height: 2rem;
+  padding-left: 4px;
+}
+
+.template-list li::marker {
+  color: var(--burgundy, #762E36);
+}
+
+.template-list .writing-area {
+  min-height: 2rem;
+  margin-top: 0;
+}
+
+.template-grid {
+  display: grid;
+  width: min(100%, 440px);
+  grid-template-columns: repeat(var(--grid-size), minmax(0, 1fr));
+  aspect-ratio: 1;
+  margin: 18px auto 0;
+  border-top: 1px solid var(--dark-red, #4B252A);
+  border-left: 1px solid var(--dark-red, #4B252A);
+}
+
+.template-grid__cell {
+  min-width: 0;
+  min-height: 0;
+  border-right: 1px solid rgba(75, 37, 42, 0.65);
+  border-bottom: 1px solid rgba(75, 37, 42, 0.65);
+}
+
+.template-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.template-photo {
+  margin: 0;
+}
+
+.template-photo__placeholder {
+  display: grid;
+  min-height: 100px;
+  aspect-ratio: 4 / 3;
+  place-items: center;
+  border: 1px dashed rgba(118, 46, 54, 0.45);
+  color: var(--burgundy, #762E36);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.template-photo figcaption {
+  min-height: 2rem;
+  padding-top: 6px;
+  color: var(--green, #18372E);
+  font-size: 0.8rem;
+}
+
+.back-link {
+  position: fixed;
+  bottom: 18px;
+  left: 22px;
+  z-index: 60;
+  padding: 9px 13px;
+  border: 1px solid var(--gold, #C9A76B);
+  background: var(--cream, #F2E9D8);
+  color: var(--burgundy, #762E36);
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  background: var(--burgundy, #762E36);
+  color: var(--cream, #F2E9D8);
+}
