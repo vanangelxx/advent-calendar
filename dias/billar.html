@@ -67,9 +67,9 @@ body {
     display: block;
 }
 
-.ball-red    { left: 2%;  top: 2%;  width: 16%; height: 24%; }
-.ball-yellow { left: 20%; top: 2%;  width: 16%; height: 24%; }
-.ball-brown  { left: 4%;  top: 28%; width: 16%; height: 24%; }
+.ball-red    { left: 2%;  top: 2%;  width: 16%; height: 24%; rotation: 5% }
+.ball-yellow { left: 20%; top: 2%;  width: 16%; height: 24%; rotation: 25% }
+.ball-brown  { left: 4%;  top: 28%; width: 16%; height: 24%; rotation: 15% }
 .ball-white  { left: 4%;  top: 54%; width: 16%; height: 24%; }
 
 /* TACO (PNG) */
@@ -100,7 +100,7 @@ body {
     top: 50%;                  /* ← posición vertical */
     width: 60%;                /* ← tamaño del portapapeles */
     aspect-ratio: 3 / 4;       /* ← proporción de tu PNG (ancho / alto) */
-    transform: translate(-50%, -50%) rotate(-45deg);   /* ← 45deg gira al otro lado */
+    transform: translate(-50%, -50%) rotate(-25deg);   /* ← 45deg gira al otro lado */
     container-type: inline-size;
     z-index: 3;
 }
@@ -210,8 +210,8 @@ body {
         <img src="../imagenes/portapapeles.png" alt="Portapapeles con papel">
 
         <div class="clipboard-content">
-            <h1 class="title">Título</h1>
-            <p class="subtitle">Subtítulo</p>
+            <h1 class="title">BILLAR</h1>
+            <p class="subtitle">El resultado de nuestras jugadas</p>
 
             <table class="score">
                 <tr>
