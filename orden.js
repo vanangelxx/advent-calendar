@@ -19,7 +19,7 @@ const ordenDias = [
   "por-ti-soy",
   "gran-canaria",
   "cantantes",
-  "playlist erasmus",
+  "playlist",
   "fotos-especiales",
   "quiz",
   "navidad",
