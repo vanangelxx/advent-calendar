@@ -55,7 +55,7 @@ body {
     z-index: 20;
 }
 
-/* VOLVER */
+/* VOLVER AL CALENDARIO */
 
 .back {
     position: absolute;
@@ -81,28 +81,14 @@ body {
     line-height: 1;
 }
 
-/* TÍTULO */
-
-.page-title {
-    position: absolute;
-    top: 4%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
-    font-family: "Great Vibes", cursive;
-    font-size: clamp(35px, 4.5vw, 55px);
-    color: var(--burgundy);
-    white-space: nowrap;
-}
-
 /* CESTA CENTRAL */
 
 .basket-area {
     position: absolute;
     left: 31%;
-    top: 27%;
+    top: 24%;
     width: 38%;
-    height: 48%;
+    height: 53%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -141,7 +127,8 @@ body {
     width: 75%;
     text-align: center;
     font-family: "Great Vibes", cursive;
-    font-size: clamp(27px, 4vw, 48px);
+    font-size: clamp(25px, 3.5vw, 43px);
+    line-height: 1.15;
     color: var(--burgundy);
     text-shadow:
         1px 1px 0 var(--paper),
@@ -150,38 +137,7 @@ body {
     pointer-events: none;
 }
 
-/* CONECTORES CURVOS */
-
-.connectors {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    overflow: visible;
-    pointer-events: none;
-}
-
-.connector {
-    fill: none;
-    stroke: var(--burgundy);
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-dasharray: 2 5;
-    opacity: .8;
-}
-
-.connector.gold {
-    stroke: var(--gold);
-    stroke-width: 2;
-    stroke-dasharray: none;
-}
-
-.connector-dot {
-    fill: var(--gold);
-}
-
-/* OBJETOS */
+/* OBJETOS FLOTANTES */
 
 .object {
     position: absolute;
@@ -189,7 +145,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
+    justify-content: center;
+    gap: 4px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -200,14 +157,13 @@ body {
 }
 
 .object:hover {
-    transform: scale(1.07) rotate(0deg) !important;
+    transform: scale(1.08) rotate(0deg) !important;
     z-index: 8;
 }
 
 .object img {
     width: 100%;
-    height: 100%;
-    max-height: 100%;
+    height: 78%;
     object-fit: contain;
     filter: drop-shadow(3px 5px 4px rgba(0,0,0,.15));
 }
@@ -224,82 +180,102 @@ body {
 .object-description {
     font-family: "Cormorant Garamond", serif;
     font-style: italic;
-    font-size: clamp(11px, 1.3vw, 15px);
+    font-size: clamp(11px, 1.2vw, 14px);
     line-height: 1.1;
     max-width: 145px;
     color: var(--green);
 }
 
-/* POSICIONES DE LOS SIETE OBJETOS */
+/* POSICIONES DE LOS NUEVE OBJETOS */
 
-/* ALTAVOZ */
+/* 1. ALTAVOZ */
 
 .speaker {
     left: 5%;
-    top: 19%;
+    top: 16%;
     width: 15%;
-    height: 22%;
+    height: 23%;
     transform: rotate(-11deg);
 }
 
-/* LAS PALMAS */
+/* 2. LAS PALMAS */
 
 .laspalmas {
     right: 5%;
-    top: 16%;
+    top: 14%;
     width: 16%;
     height: 23%;
     transform: rotate(9deg);
 }
 
-/* REAL MADRID */
+/* 3. REAL MADRID */
 
 .realmadrid {
     left: 4%;
-    bottom: 10%;
+    bottom: 7%;
     width: 16%;
     height: 24%;
     transform: rotate(8deg);
 }
 
-/* PLAYSTATION */
+/* 4. PLAYSTATION */
 
 .playstation {
     right: 4%;
-    bottom: 9%;
-    width: 19%;
-    height: 21%;
+    bottom: 7%;
+    width: 18%;
+    height: 22%;
     transform: rotate(-8deg);
 }
 
-/* CERVEZA */
+/* 5. CERVEZA */
 
 .beer {
-    left: 18%;
-    top: 45%;
+    left: 17%;
+    top: 43%;
     width: 11%;
     height: 22%;
     transform: rotate(-10deg);
 }
 
-/* SUDADERA */
+/* 6. SUDADERA */
 
 .hoodie {
-    right: 17%;
-    top: 45%;
+    right: 16%;
+    top: 43%;
     width: 14%;
     height: 22%;
     transform: rotate(10deg);
 }
 
-/* NBA */
+/* 7. NBA */
 
 .nba {
     left: 43%;
-    bottom: 3%;
+    bottom: 2%;
     width: 14%;
-    height: 19%;
+    height: 18%;
     transform: rotate(4deg);
+}
+
+/* 8. OBJETO NUEVO */
+
+.extra-one {
+    left: 22%;
+    top: 15%;
+    width: 12%;
+    height: 18%;
+    transform: rotate(12deg);
+}
+
+/* 9. OBJETO NUEVO */
+
+.extra-two {
+    right: 22%;
+    bottom: 8%;
+    width: 12%;
+    height: 18%;
+    transform: rotate(-12deg);
 }
 
 /* DETALLES DECORATIVOS */
@@ -309,13 +285,15 @@ body {
     color: var(--gold);
     z-index: 2;
     font-size: clamp(14px, 2vw, 23px);
+    pointer-events: none;
 }
 
-.star-1 { top: 18%; left: 27%; }
-.star-2 { top: 26%; right: 27%; }
-.star-3 { bottom: 27%; left: 26%; }
-.star-4 { bottom: 22%; right: 27%; }
-.star-5 { top: 52%; left: 32%; }
+.star-1 { top: 18%; left: 39%; }
+.star-2 { top: 29%; right: 29%; }
+.star-3 { bottom: 28%; left: 27%; }
+.star-4 { bottom: 25%; right: 29%; }
+.star-5 { top: 55%; left: 29%; }
+.star-6 { top: 12%; right: 39%; }
 
 /* VENTANA AL PULSAR UN OBJETO */
 
@@ -394,11 +372,6 @@ body {
         aspect-ratio: 4 / 3;
     }
 
-    .page-title {
-        top: 5%;
-        font-size: clamp(29px, 7vw, 39px);
-    }
-
     .back {
         top: 3%;
         left: 3%;
@@ -412,61 +385,76 @@ body {
 
     .basket-area {
         left: 29%;
-        top: 30%;
+        top: 29%;
         width: 42%;
-        height: 43%;
+        height: 44%;
     }
 
     .basket-title {
-        font-size: clamp(22px, 5vw, 30px);
+        font-size: clamp(20px, 4.8vw, 29px);
+        width: 78%;
     }
 
     .speaker {
-        left: 3%;
-        top: 20%;
+        left: 2%;
+        top: 17%;
         width: 17%;
         height: 19%;
     }
 
     .laspalmas {
-        right: 3%;
-        top: 18%;
+        right: 2%;
+        top: 16%;
         width: 18%;
         height: 20%;
     }
 
     .realmadrid {
         left: 2%;
-        bottom: 10%;
+        bottom: 7%;
         width: 18%;
         height: 21%;
     }
 
     .playstation {
         right: 2%;
-        bottom: 9%;
-        width: 20%;
-        height: 18%;
+        bottom: 7%;
+        width: 19%;
+        height: 19%;
     }
 
     .beer {
-        left: 16%;
-        top: 46%;
+        left: 14%;
+        top: 44%;
         width: 12%;
-        height: 19%;
+        height: 18%;
     }
 
     .hoodie {
-        right: 15%;
-        top: 46%;
+        right: 13%;
+        top: 44%;
         width: 15%;
-        height: 19%;
+        height: 18%;
     }
 
     .nba {
         left: 41%;
-        bottom: 2%;
-        width: 16%;
+        bottom: 1%;
+        width: 17%;
+        height: 16%;
+    }
+
+    .extra-one {
+        left: 21%;
+        top: 14%;
+        width: 13%;
+        height: 16%;
+    }
+
+    .extra-two {
+        right: 21%;
+        bottom: 6%;
+        width: 13%;
         height: 16%;
     }
 
@@ -491,10 +479,6 @@ body {
     .explanation-card p {
         font-size: 18px;
     }
-
-    .connector {
-        stroke-width: 1.5;
-    }
 }
 </style>
 </head>
@@ -508,49 +492,6 @@ body {
         <span class="arrow">←</span>
         <span>Volver al calendario</span>
     </a>
-
-    <!-- TÍTULO SUPERIOR -->
-    <h1 class="page-title">Un poquito de todo lo que eres...</h1>
-
-    <!-- CONECTORES CURVOS: SE DIBUJAN DETRÁS DE LOS OBJETOS -->
-    <svg class="connectors" viewBox="0 0 1100 825" preserveAspectRatio="none">
-
-        <!-- ALTAVOZ -->
-        <path class="connector"
-            d="M 170 245 C 205 220, 220 270, 275 290 S 315 315, 350 340"/>
-        <circle class="connector-dot" cx="350" cy="340" r="3"/>
-
-        <!-- LAS PALMAS -->
-        <path class="connector gold"
-            d="M 925 230 C 880 210, 900 270, 835 285 S 800 310, 760 340"/>
-        <circle class="connector-dot" cx="760" cy="340" r="3"/>
-
-        <!-- REAL MADRID -->
-        <path class="connector"
-            d="M 170 650 C 210 675, 230 620, 280 590 S 310 560, 350 535"/>
-        <circle class="connector-dot" cx="350" cy="535" r="3"/>
-
-        <!-- PLAYSTATION -->
-        <path class="connector gold"
-            d="M 920 650 C 875 675, 870 620, 820 590 S 790 565, 755 535"/>
-        <circle class="connector-dot" cx="755" cy="535" r="3"/>
-
-        <!-- CERVEZA -->
-        <path class="connector"
-            d="M 285 470 C 310 450, 285 420, 330 405 S 360 390, 385 380"/>
-        <circle class="connector-dot" cx="385" cy="380" r="3"/>
-
-        <!-- SUDADERA -->
-        <path class="connector gold"
-            d="M 815 470 C 785 450, 810 420, 770 405 S 745 390, 715 380"/>
-        <circle class="connector-dot" cx="715" cy="380" r="3"/>
-
-        <!-- NBA -->
-        <path class="connector"
-            d="M 550 690 C 520 660, 570 645, 550 610 S 550 585, 550 565"/>
-        <circle class="connector-dot" cx="550" cy="565" r="3"/>
-
-    </svg>
 
     <!-- CESTA CENTRAL -->
     <div class="basket-area">
@@ -566,107 +507,83 @@ body {
             AQUÍ VA TU PNG<br>DE LA CESTA
         </div>
 
-        <!-- TÍTULO DENTRO DE LA CESTA -->
-        <h2 class="basket-title">Cómo te veo</h2>
+        <!-- ÚNICO TÍTULO DE LA PÁGINA -->
+        <h2 class="basket-title">
+            Un poquito de<br>todo lo que eres
+        </h2>
 
     </div>
 
-    <!-- ALTAVOZ -->
+    <!-- 1. ALTAVOZ -->
     <button class="object speaker"
         onclick="showExplanation('Altavoz de música')">
-
-        <img src="../imagenes/altavoz.png"
-            alt="Altavoz"
-            onerror="this.style.display='none';">
-
+        <img src="../imagenes/altavoz.png" alt="Altavoz">
         <span class="object-name">Música</span>
-        <span class="object-description">
-            Aquí irá lo que representa para ti
-        </span>
+        <span class="object-description">Aquí irá tu explicación</span>
     </button>
 
-    <!-- LAS PALMAS -->
+    <!-- 2. LAS PALMAS -->
     <button class="object laspalmas"
         onclick="showExplanation('Camiseta de la UD Las Palmas')">
-
-        <img src="../imagenes/las-palmas.png"
-            alt="Camiseta de la UD Las Palmas"
-            onerror="this.style.display='none';">
-
+        <img src="../imagenes/las-palmas.png" alt="Camiseta UD Las Palmas">
         <span class="object-name">UD Las Palmas</span>
-        <span class="object-description">
-            Aquí irá tu explicación
-        </span>
+        <span class="object-description">Aquí irá tu explicación</span>
     </button>
 
-    <!-- REAL MADRID -->
+    <!-- 3. REAL MADRID -->
     <button class="object realmadrid"
         onclick="showExplanation('Camiseta del Real Madrid')">
-
-        <img src="../imagenes/real-madrid.png"
-            alt="Camiseta del Real Madrid"
-            onerror="this.style.display='none';">
-
+        <img src="../imagenes/real-madrid.png" alt="Camiseta Real Madrid">
         <span class="object-name">Real Madrid</span>
-        <span class="object-description">
-            Aquí irá tu explicación
-        </span>
+        <span class="object-description">Aquí irá tu explicación</span>
     </button>
 
-    <!-- PLAYSTATION -->
+    <!-- 4. PLAYSTATION -->
     <button class="object playstation"
         onclick="showExplanation('PlayStation')">
-
-        <img src="../imagenes/playstation.png"
-            alt="PlayStation"
-            onerror="this.style.display='none';">
-
+        <img src="../imagenes/playstation.png" alt="PlayStation">
         <span class="object-name">PlayStation</span>
-        <span class="object-description">
-            Aquí irá tu explicación
-        </span>
+        <span class="object-description">Aquí irá tu explicación</span>
     </button>
 
-    <!-- CERVEZA -->
+    <!-- 5. CERVEZA -->
     <button class="object beer"
         onclick="showExplanation('Cerveza')">
-
-        <img src="../imagenes/cerveza.png"
-            alt="Cerveza"
-            onerror="this.style.display='none';">
-
+        <img src="../imagenes/cerveza.png" alt="Cerveza">
         <span class="object-name">Cerveza</span>
-        <span class="object-description">
-            Aquí irá tu explicación
-        </span>
+        <span class="object-description">Aquí irá tu explicación</span>
     </button>
 
-    <!-- SUDADERA -->
+    <!-- 6. SUDADERA -->
     <button class="object hoodie"
         onclick="showExplanation('Sudadera')">
-
-        <img src="../imagenes/sudadera.png"
-            alt="Sudadera"
-            onerror="this.style.display='none';">
-
+        <img src="../imagenes/sudadera.png" alt="Sudadera">
         <span class="object-name">Sudadera</span>
-        <span class="object-description">
-            Aquí irá tu explicación
-        </span>
+        <span class="object-description">Aquí irá tu explicación</span>
     </button>
 
-    <!-- NBA -->
+    <!-- 7. NBA -->
     <button class="object nba"
         onclick="showExplanation('NBA')">
-
-        <img src="../imagenes/nba.png"
-            alt="Símbolo NBA"
-            onerror="this.style.display='none';">
-
+        <img src="../imagenes/nba.png" alt="Símbolo NBA">
         <span class="object-name">NBA</span>
-        <span class="object-description">
-            Aquí irá tu explicación
-        </span>
+        <span class="object-description">Aquí irá tu explicación</span>
+    </button>
+
+    <!-- 8. OBJETO NUEVO -->
+    <button class="object extra-one"
+        onclick="showExplanation('Objeto 8')">
+        <img src="../imagenes/objeto-8.png" alt="Objeto 8">
+        <span class="object-name">Objeto 8</span>
+        <span class="object-description">Aquí irá tu explicación</span>
+    </button>
+
+    <!-- 9. OBJETO NUEVO -->
+    <button class="object extra-two"
+        onclick="showExplanation('Objeto 9')">
+        <img src="../imagenes/objeto-9.png" alt="Objeto 9">
+        <span class="object-name">Objeto 9</span>
+        <span class="object-description">Aquí irá tu explicación</span>
     </button>
 
     <!-- DETALLES DECORATIVOS -->
@@ -675,19 +592,16 @@ body {
     <span class="star star-3">✧</span>
     <span class="star star-4">✳</span>
     <span class="star star-5">·</span>
+    <span class="star star-6">✧</span>
 
-    <!-- VENTANA AL PULSAR LOS OBJETOS -->
+    <!-- VENTANA AL PULSAR -->
     <div class="explanation" id="explanation"
         onclick="closeExplanation(event)">
 
         <div class="explanation-card">
-
-            <button class="close"
-                onclick="hideExplanation()">×</button>
-
+            <button class="close" onclick="hideExplanation()">×</button>
             <h2 id="explanation-title"></h2>
             <p id="explanation-text"></p>
-
         </div>
     </div>
 
@@ -718,7 +632,13 @@ const explanations = {
         "Aquí escribe por qué has elegido esta sudadera.",
 
     "NBA":
-        "Aquí escribe qué representa el baloncesto para él."
+        "Aquí escribe qué representa el baloncesto para él.",
+
+    "Objeto 8":
+        "Aquí escribe la explicación del octavo objeto.",
+
+    "Objeto 9":
+        "Aquí escribe la explicación del noveno objeto."
 
 };
 
