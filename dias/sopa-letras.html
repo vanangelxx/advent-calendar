@@ -15,13 +15,8 @@
     /* CUADRÍCULA */
 
     .wordsearch {
-      display: grid;
-      width: min(100%, 640px);
-      margin: 18px auto 0;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
-    }
+  margin: 0 auto;
+}
 
     .letter,
     .blank {
@@ -120,7 +115,6 @@
       <div class="template-sections">
 
         <section class="template-card">
-          <h2>Cuadrícula</h2>
           <div class="wordsearch" id="wordsearch" aria-label="Sopa de letras en forma de corazón"></div>
           <button class="reset" id="reset">Borrar subrayados</button>
         </section>
