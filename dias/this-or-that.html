@@ -7,103 +7,116 @@
   <link rel="stylesheet" href="dias.css">
 
   <style>
-    /* TÍTULO DEL VÍDEO (encima de la tele) */
-
-    .video-title {
-      margin: 0 0 18px;
-      min-height: 1.2em;
-      text-align: center;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.5rem, 4vw, 2.4rem);
-      font-weight: 500;
-      line-height: 1.2;
-      color: var(--burgundy, #762E36);
-      transition: opacity .25s ease;
-    }
-
-    .video-title.fade {
-      opacity: 0;
-    }
-
-    /* TELE + BOTONES */
-
-    .tv-layout {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: clamp(12px, 3vw, 36px);
-      width: 100%;
-    }
-
-    .tv {
-      position: relative;
-      flex: 1;
-      max-width: 760px;
-    }
-
-    .tv-image {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    /* Pantalla: ajusta left, top, width y height hasta que encaje con tu PNG. */
-    .tv-screen {
-      position: absolute;
-      left: 9%;
-      top: 12%;
-      width: 70%;
-      height: 66%;
-      background: #000;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-
-    /* BOTONES */
-
-    .tv-buttons {
+    /* CONTENEDOR PRINCIPAL THIS OR THAT */
+    .tot-container {
+      max-width: 680px;
+      margin: 24px auto 0;
       display: flex;
       flex-direction: column;
-      gap: clamp(10px, 2vw, 18px);
+      gap: 10px;
     }
 
-    .tv-button {
-      width: clamp(44px, 6vw, 64px);
-      height: clamp(44px, 6vw, 64px);
+    /* FILA DE CADA PAR DE PALABRAS */
+    .choice-row {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      align-items: center;
+      padding: 6px 0;
+    }
+
+    /* LÍNEA DIVISORIA CENTRAL */
+    .divider {
+      width: 1px;
+      height: 24px;
+      background-color: var(--gold, #C9A76B);
+      opacity: 0.7;
+    }
+
+    /* BOTÓN DE CADA PALABRA */
+    .word-btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.25rem, 2.8vw, 1.65rem);
+      color: var(--burgundy, #762E36);
+      padding: 6px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      position: relative;
+    }
+
+    .word-btn:hover {
+      transform: scale(1.04);
+    }
+
+    /* ESTRELLITA DORADA (A LA IZQUIERDA AL PULSAR) */
+    .word-btn::before {
+      content: "★";
+      color: var(--gold, #C9A76B);
+      font-size: 0.9em;
+      opacity: 0;
+      transform: scale(0.4);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .word-btn.selected {
+      font-weight: 700;
+    }
+
+    .word-btn.selected::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* CORAZÓN (A LA DERECHA AL REVELAR TUS RESPUESTAS) */
+    .word-btn.my-choice::after {
+      content: "♥";
+      color: var(--burgundy, #762E36);
+      font-size: 0.9em;
+      opacity: 0;
+      transform: scale(0.4);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .tot-container.revealed .word-btn.my-choice::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* BOTÓN REVELAR */
+    .reveal-wrapper {
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .reveal-button {
+      padding: 12px 34px;
       border: 1px solid var(--gold, #C9A76B);
-      border-radius: 50%;
+      border-radius: 999px;
       background: var(--paper, #F8F0E2);
       color: var(--burgundy, #762E36);
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      font-style: italic;
       cursor: pointer;
-      transition: transform .2s ease, background .2s ease, color .2s ease;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
     }
 
-    .tv-button:hover {
-      transform: scale(1.08);
-    }
-
-    .tv-button.active {
+    .reveal-button:hover {
       background: var(--burgundy, #762E36);
       color: var(--cream, #F2E9D8);
+      transform: scale(1.03);
     }
 
-    /* MÓVIL: los botones pasan debajo de la tele, en fila */
-
-    @media (max-width: 600px) {
-      .tv-layout {
-        flex-direction: column;
-      }
-
-      .tv {
-        width: 100%;
-      }
-
-      .tv-buttons {
-        flex-direction: row;
-      }
+    .reveal-button:disabled {
+      background: var(--burgundy, #762E36);
+      color: var(--cream, #F2E9D8);
+      cursor: default;
+      transform: none;
     }
   </style>
 </head>
@@ -117,27 +130,104 @@
         <p class="template-intro">Elige un número y mira el vídeo en la tele.</p>
       </header>
 
-      <!-- TÍTULO QUE CAMBIA SEGÚN EL VÍDEO -->
-      <h2 class="video-title" id="video-title">Título del vídeo 1</h2>
+      <!-- LISTA DE 15 PARES (Añade la clase "my-choice" en tus respuestas) -->
+      <div class="tot-container" id="tot-list">
 
-      <div class="tv-layout">
-
-        <!-- TELEVISIÓN -->
-        <div class="tv">
-          <img class="tv-image" src="../imagenes/television.png" alt="Televisión">
-          <video class="tv-screen" id="tv-video" controls playsinline preload="metadata"
-                 src="../videos/video-1.mp4"></video>
+        <div class="choice-row">
+          <button class="word-btn my-choice">Café</button>
+          <span class="divider"></span>
+          <button class="word-btn">Té</button>
         </div>
 
-        <!-- BOTONES: cambia data-title por el título de cada vídeo -->
-        <div class="tv-buttons">
-          <button class="tv-button active" data-video="../videos/video-1.mp4" data-title="Título del vídeo 1" aria-label="Vídeo 1">1</button>
-          <button class="tv-button" data-video="../videos/video-2.mp4" data-title="Título del vídeo 2" aria-label="Vídeo 2">2</button>
-          <button class="tv-button" data-video="../videos/video-3.mp4" data-title="Título del vídeo 3" aria-label="Vídeo 3">3</button>
-          <button class="tv-button" data-video="../videos/video-4.mp4" data-title="Título del vídeo 4" aria-label="Vídeo 4">4</button>
-          <button class="tv-button" data-video="../videos/video-5.mp4" data-title="Título del vídeo 5" aria-label="Vídeo 5">5</button>
+        <div class="choice-row">
+          <button class="word-btn">Verano</button>
+          <span class="divider"></span>
+          <button class="word-btn my-choice">Invierno</button>
         </div>
 
+        <div class="choice-row">
+          <button class="word-btn my-choice">Dulce</button>
+          <span class="divider"></span>
+          <button class="word-btn">Salado</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn">Playa</button>
+          <span class="divider"></span>
+          <button class="word-btn my-choice">Montaña</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn">Madrugar</button>
+          <span class="divider"></span>
+          <button class="word-btn my-choice">Trasnochar</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn my-choice">Libro</button>
+          <span class="divider"></span>
+          <button class="word-btn">Película</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn">Perros</button>
+          <span class="divider"></span>
+          <button class="word-btn my-choice">Gatos</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn my-choice">Manta y sofá</button>
+          <span class="divider"></span>
+          <button class="word-btn">Salir de fiesta</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn">Pizza</button>
+          <span class="divider"></span>
+          <button class="word-btn my-choice">Sushi</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn">Llamada</button>
+          <span class="divider"></span>
+          <button class="word-btn my-choice">Mensaje</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn my-choice">Amanecer</button>
+          <span class="divider"></span>
+          <button class="word-btn">Atardecer</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn">Ciudad</button>
+          <span class="divider"></span>
+          <button class="word-btn my-choice">Pueblo</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn my-choice">Chocolate negro</button>
+          <span class="divider"></span>
+          <button class="word-btn">Chocolate con leche</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn">Improvisar</button>
+          <span class="divider"></span>
+          <button class="word-btn my-choice">Planificar</button>
+        </div>
+
+        <div class="choice-row">
+          <button class="word-btn my-choice">Navidad</button>
+          <span class="divider"></span>
+          <button class="word-btn">Año Nuevo</button>
+        </div>
+
+      </div>
+
+      <!-- BOTÓN REVELAR -->
+      <div class="reveal-wrapper">
+        <button class="reveal-button" id="reveal-btn">Revelar</button>
       </div>
 
     </div>
@@ -146,26 +236,26 @@
   <a href="../index.html" class="back-link">← Volver al calendario</a>
 
   <script>
-    const video = document.getElementById("tv-video");
-    const videoTitle = document.getElementById("video-title");
-    const buttons = document.querySelectorAll(".tv-button");
+    const rows = document.querySelectorAll(".choice-row");
+    const revealBtn = document.getElementById("reveal-btn");
+    const totList = document.getElementById("tot-list");
 
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        buttons.forEach(b => b.classList.remove("active"));
-        button.classList.add("active");
-
-        // Cambia el vídeo
-        video.src = button.dataset.video;
-        video.play();
-
-        // Cambia el título con un pequeño fundido
-        videoTitle.classList.add("fade");
-        setTimeout(() => {
-          videoTitle.textContent = button.dataset.title;
-          videoTitle.classList.remove("fade");
-        }, 250);
+    // Selección exclusiva por fila (solo una estrellita por cada pareja)
+    rows.forEach(row => {
+      const buttons = row.querySelectorAll(".word-btn");
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          buttons.forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+        });
       });
+    });
+
+    // Mostrar corazones en tus respuestas al pulsar Revelar
+    revealBtn.addEventListener("click", () => {
+      totList.classList.add("revealed");
+      revealBtn.textContent = "Mis respuestas ♥";
+      revealBtn.disabled = true;
     });
   </script>
 </body>
