@@ -97,7 +97,7 @@ body {
     color: var(--green);
 }
 
-/* PÁGINA IZQUIERDA: PLATOS */
+/* PÁGINA IZQUIERDA: PLATOS CIRCULARES */
 
 .plates {
     display: grid;
@@ -111,31 +111,120 @@ body {
     aspect-ratio: 1;
 }
 
-.plate img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    filter: drop-shadow(2px 4px 5px rgba(0, 0, 0, 0.2));
-}
-
 .plate:nth-child(odd)  { transform: rotate(-3deg); }
 .plate:nth-child(even) { transform: rotate(2deg); }
 
-/* Si todavía no has subido el PNG, se ve un círculo con el número */
-.plate.missing {
+/* Botón que gira: es un círculo */
+.flip-card {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 3px solid #FFFAF0;
+    border-radius: 50%;
+    background: #FFFAF0;
+    box-shadow: 0 4px 12px rgba(50, 30, 20, 0.28);
+    perspective: 1000px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: box-shadow .2s ease;
+}
+
+.flip-card:hover {
+    box-shadow: 0 6px 18px rgba(50, 30, 20, 0.4);
+}
+
+.flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+    transition: transform 0.75s ease;
+}
+
+.flip-card.flipped .flip-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+}
+
+/* FRENTE: LA FOTO */
+
+.flip-front {
+    background: #FFFAF0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px dashed var(--gold);
-    border-radius: 50%;
+}
+
+.flip-front img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Corazón que avisa de que se puede girar */
+.flip-front::after {
+    content: "♥";
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold);
+    font-size: 13px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+}
+
+/* Número: solo se ve si todavía no has subido la foto */
+.flip-front .number {
+    display: none;
     font-family: "Cormorant Garamond", serif;
-    font-size: 22px;
+    font-size: 24px;
     color: var(--burgundy);
 }
 
-.plate.missing img {
+.flip-front.missing img {
     display: none;
+}
+
+.flip-front.missing .number {
+    display: block;
+}
+
+/* REVERSO: EL MENSAJE */
+
+.flip-back {
+    transform: rotateY(180deg);
+    background: var(--dark-red);
+    color: var(--cream);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16%;
+    text-align: center;
+}
+
+.message {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(9px, 1.1vw, 14px);
+    line-height: 1.25;
+    font-weight: 500;
 }
 
 /* Nota pequeña abajo a la derecha */
@@ -150,20 +239,28 @@ body {
 
 /* PÁGINA DERECHA */
 
+/* Fila superior: texto a la izquierda + las tres fotos a la derecha */
+.top-row {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;   /* ← reparto entre el texto y las fotos */
+    gap: clamp(12px, 2vw, 24px);
+    align-items: center;
+    margin-top: 14px;
+}
+
 .adornos-top {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    margin-top: 14px;
 }
 
 .adornos-top .adorno {
-    width: 20%;
+    width: 28%;
     margin-left: -3%;
 }
 
 .adornos-top .adorno.big {
-    width: 34%;
+    width: 40%;
 }
 
 .adorno img {
@@ -173,6 +270,7 @@ body {
     filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.18));
 }
 
+/* Si todavía no has subido el PNG, se ve un hueco con su número */
 .adorno.missing {
     aspect-ratio: 1;
     display: flex;
@@ -184,6 +282,10 @@ body {
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--burgundy);
+}
+
+.adorno.missing::before {
+    content: attr(data-n);
 }
 
 .adorno.missing img {
@@ -261,8 +363,24 @@ body {
         margin-top: 50px;
     }
 
+    .top-row {
+        gap: 10px;
+    }
+
     .page-text {
         font-size: 15px;
+    }
+
+    .message {
+        font-size: 9.5px;
+    }
+
+    .flip-back {
+        padding: 13%;
+    }
+
+    .flip-card {
+        border-width: 2px;
     }
 }
 </style>
@@ -284,20 +402,131 @@ body {
             <span class="script">que me encantan</span>
         </h1>
 
-        <!-- 8 PLATOS -->
+        <!-- 8 PLATOS CIRCULARES: pulsa para ver el mensaje -->
         <div class="plates">
 
-            <div class="plate"><img src="../imagenes/receta-1.png" alt="Plato 1" onerror="this.parentElement.classList.add('missing')">1</div>
-            <div class="plate"><img src="../imagenes/receta-2.png" alt="Plato 2" onerror="this.parentElement.classList.add('missing')">2</div>
-            <div class="plate"><img src="../imagenes/receta-3.png" alt="Plato 3" onerror="this.parentElement.classList.add('missing')">3</div>
-            <div class="plate"><img src="../imagenes/receta-4.png" alt="Plato 4" onerror="this.parentElement.classList.add('missing')">4</div>
-            <div class="plate"><img src="../imagenes/receta-5.png" alt="Plato 5" onerror="this.parentElement.classList.add('missing')">5</div>
-            <div class="plate"><img src="../imagenes/receta-6.png" alt="Plato 6" onerror="this.parentElement.classList.add('missing')">6</div>
-            <div class="plate"><img src="../imagenes/receta-7.png" alt="Plato 7" onerror="this.parentElement.classList.add('missing')">7</div>
-            <div class="plate"><img src="../imagenes/receta-8.png" alt="Plato 8" onerror="this.parentElement.classList.add('missing')">8</div>
+            <!-- PLATO 1 -->
+            <div class="plate">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje del plato 1" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="../imagenes/receta-1.png" alt="Plato 1" onerror="this.parentElement.classList.add('missing')">
+                            <span class="number">1</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Escribe aquí el mensaje del plato 1.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- PLATO 2 -->
+            <div class="plate">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje del plato 2" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="../imagenes/receta-2.png" alt="Plato 2" onerror="this.parentElement.classList.add('missing')">
+                            <span class="number">2</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Escribe aquí el mensaje del plato 2.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- PLATO 3 -->
+            <div class="plate">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje del plato 3" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="../imagenes/receta-3.png" alt="Plato 3" onerror="this.parentElement.classList.add('missing')">
+                            <span class="number">3</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Escribe aquí el mensaje del plato 3.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- PLATO 4 -->
+            <div class="plate">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje del plato 4" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="../imagenes/receta-4.png" alt="Plato 4" onerror="this.parentElement.classList.add('missing')">
+                            <span class="number">4</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Escribe aquí el mensaje del plato 4.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- PLATO 5 -->
+            <div class="plate">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje del plato 5" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="../imagenes/receta-5.png" alt="Plato 5" onerror="this.parentElement.classList.add('missing')">
+                            <span class="number">5</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Escribe aquí el mensaje del plato 5.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- PLATO 6 -->
+            <div class="plate">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje del plato 6" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="../imagenes/receta-6.png" alt="Plato 6" onerror="this.parentElement.classList.add('missing')">
+                            <span class="number">6</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Escribe aquí el mensaje del plato 6.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- PLATO 7 -->
+            <div class="plate">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje del plato 7" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="../imagenes/receta-7.png" alt="Plato 7" onerror="this.parentElement.classList.add('missing')">
+                            <span class="number">7</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Escribe aquí el mensaje del plato 7.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- PLATO 8 -->
+            <div class="plate">
+                <button class="flip-card" type="button" aria-label="Descubrir mensaje del plato 8" aria-pressed="false">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <img src="../imagenes/receta-8.png" alt="Plato 8" onerror="this.parentElement.classList.add('missing')">
+                            <span class="number">8</span>
+                        </div>
+                        <div class="flip-back">
+                            <p class="message">Escribe aquí el mensaje del plato 8.</p>
+                        </div>
+                    </div>
+                </button>
+            </div>
 
             <p class="plates-caption">
-                Todos estos platos son mis favoritos, y algún día los comeremos juntitos. 
+                Todos estos platos son mis favoritos, y algún día los comeremos juntitos.
             </p>
 
         </div>
@@ -311,11 +540,20 @@ body {
             Lo que<br>cocinamos<br>juntos
         </h2>
 
-        <!-- Adornos pequeños junto al título -->
-        <div class="adornos-top">
-            <div class="adorno rot-a"><img src="../imagenes/receta-adorno-1.png" alt="" onerror="this.parentElement.classList.add('missing')">1</div>
-            <div class="adorno rot-b"><img src="../imagenes/receta-adorno-2.png" alt="" onerror="this.parentElement.classList.add('missing')">2</div>
-            <div class="adorno big rot-c"><img src="../imagenes/receta-adorno-3.png" alt="" onerror="this.parentElement.classList.add('missing')">3</div>
+        <!-- FILA SUPERIOR: texto a la izquierda de las fotos 1, 2 y 3 -->
+        <div class="top-row">
+
+            <p class="page-text">
+                <strong class="tip-title">Lo que más nos gusta</strong>
+                Escribe aquí el texto que acompaña a las tres primeras fotos.
+            </p>
+
+            <div class="adornos-top">
+                <div class="adorno rot-a" data-n="1"><img src="../imagenes/receta-adorno-1.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
+                <div class="adorno rot-b" data-n="2"><img src="../imagenes/receta-adorno-2.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
+                <div class="adorno big rot-c" data-n="3"><img src="../imagenes/receta-adorno-3.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
+            </div>
+
         </div>
 
         <div class="right-body">
@@ -327,28 +565,34 @@ body {
                     Todas estas son cosas que hemos hecho juntitos, como debe ser.
                 </p>
 
-                <div class="adorno rot-b"><img src="../imagenes/receta-adorno-4.png" alt="" onerror="this.parentElement.classList.add('missing')">4</div>
+                <div class="adorno rot-b" data-n="4"><img src="../imagenes/receta-adorno-4.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
 
                 <p class="page-text">
                     <strong class="tip-title">Nuestro secreto</strong>
                     Escribe aquí un consejo o truco de cocina.
                 </p>
 
-                <div class="adorno small rot-a"><img src="../imagenes/receta-adorno-5.png" alt="" onerror="this.parentElement.classList.add('missing')">5</div>
+                <div class="adorno small rot-a" data-n="5"><img src="../imagenes/receta-adorno-5.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
+
+                <!-- NUEVO: texto debajo de la foto 5 -->
+                <p class="page-text">
+                    <strong class="tip-title">Un toque final</strong>
+                    Escribe aquí el texto que va debajo de la foto 5.
+                </p>
 
             </div>
 
             <!-- COLUMNA 2 -->
             <div class="col">
 
-                <div class="adorno rot-c"><img src="../imagenes/receta-adorno-6.png" alt="" onerror="this.parentElement.classList.add('missing')">6</div>
+                <div class="adorno rot-c" data-n="6"><img src="../imagenes/receta-adorno-6.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
 
                 <p class="page-text">
                     <strong class="tip-title">Un ingrediente imprescindible</strong>
                     Escribe aquí el segundo texto, con tu explicación de por qué es especial.
                 </p>
 
-                <div class="adorno small rot-b"><img src="../imagenes/receta-adorno-7.png" alt="" onerror="this.parentElement.classList.add('missing')">7</div>
+                <div class="adorno small rot-b" data-n="7"><img src="../imagenes/receta-adorno-7.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
 
                 <p class="page-text">
                     Escribe aquí el tercer texto, para cerrar la página con algo bonito.
@@ -364,6 +608,15 @@ body {
 
 <!-- VOLVER AL CALENDARIO -->
 <a href="../index.html" class="back-link">← Volver al calendario</a>
+
+<script>
+    document.querySelectorAll(".flip-card").forEach(function (card) {
+        card.addEventListener("click", function () {
+            card.classList.toggle("flipped");
+            card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
+        });
+    });
+</script>
 
 </body>
 </html>
