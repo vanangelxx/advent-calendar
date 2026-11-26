@@ -7,7 +7,7 @@ const ordenDias = [
   "fotos-mensajes",
   "recetas",
   "this-or-that",
-  "fotos-mias",
+  "ramo-de-flores",
   "sudoku",
   "10-cosas",
   "madrid",
