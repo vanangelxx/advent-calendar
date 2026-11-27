@@ -135,7 +135,7 @@
         <div class="scratch-area">
           <ol class="template-list">
             <li><div class="scratch"><p class="template-text">Cuando me abrazas muy fuerte</p></div></li>
-            <li><div class="scratch"><p class="template-text">Que luego mis (tus) sudaderas huelan a ti</p></div></li>
+            <li><div class="scratch"><p class="template-text">Que luego mis sudaderas huelan a ti</p></div></li>
             <li><div class="scratch"><p class="template-text">Lo mucho que me río contigo</p></div></li>
             <li><div class="scratch"><p class="template-text">Lo fofillo que te pones cuando tienes sueño o te acabas de levantar</p></div></li>
             <li><div class="scratch"><p class="template-text">Que esperes a que me duerma cuando estamos en llamada para colgarme</p></div></li>
@@ -288,4 +288,22 @@
       document.body.classList.remove("holding");
     }
 
-    ["pointerup", "pointercancel",
+    ["pointerup", "pointercancel", "lostpointercapture"].forEach(type => {
+      coin.addEventListener(type, drop);
+    });
+    coin.addEventListener("contextmenu", event => event.preventDefault());
+
+    /* La moneda te acompaña al bajar por la página */
+    function followScroll() {
+      const r = column.getBoundingClientRect();
+      const max = Math.max(0, r.height - coin.offsetHeight);
+      const wanted = window.innerHeight / 2 - r.top - coin.offsetHeight / 2;
+      coin.style.transform = `translateY(${Math.min(max, Math.max(0, wanted))}px)`;
+    }
+
+    window.addEventListener("scroll", followScroll, true);
+    window.addEventListener("resize", followScroll);
+    new ResizeObserver(followScroll).observe(column);
+  </script>
+</body>
+</html>
