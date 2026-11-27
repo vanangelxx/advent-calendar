@@ -3,43 +3,350 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Día 13 · Sudoku</title>
+  <title>Día 09 · Sudoku</title>
   <link rel="stylesheet" href="dias.css">
+
+  <style>
+    .sudoku-wrap {
+      width: 100%;
+      container-type: inline-size;
+    }
+
+    /* SUDOKU A LA IZQUIERDA, NÚMEROS A LA DERECHA */
+    .sudoku-game {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sudoku-board {
+      flex: 1;
+      min-width: 0;
+      max-width: 450px;
+      display: grid;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      border: 2px solid var(--green, #18372E);
+      background: #fff;
+    }
+
+    .sudoku-board .cell {
+      box-sizing: border-box;
+      aspect-ratio: 1;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-right: 1px solid #C9BFAE;
+      border-bottom: 1px solid #C9BFAE;
+      border-radius: 0;
+      background: #fff;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 5cqw, 28px);
+      line-height: 1;
+      color: var(--burgundy, #762E36);
+      cursor: pointer;
+    }
+
+    /* Líneas gruesas de los bloques 3 x 3 */
+    .sudoku-board .cell:nth-child(9n)   { border-right: 0; }
+    .sudoku-board .cell:nth-child(9n+3),
+    .sudoku-board .cell:nth-child(9n+6) { border-right: 2px solid var(--green, #18372E); }
+    .sudoku-board .cell:nth-child(n+19):nth-child(-n+27),
+    .sudoku-board .cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--green, #18372E); }
+    .sudoku-board .cell:nth-child(n+73) { border-bottom: 0; }
+
+    /* Números que vienen puestos */
+    .sudoku-board .cell.given {
+      background: #F1E8D8;
+      color: var(--green, #18372E);
+      font-weight: 700;
+      cursor: default;
+    }
+
+    .sudoku-board .cell.selected { background: #F6D9A8; }
+
+    /* Número mal: subrayado en rojo */
+    .sudoku-board .cell.wrong {
+      background: #FBE0DD;
+      color: #C0161D;
+      text-decoration: underline;
+      text-decoration-color: #C0161D;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 3px;
+    }
+
+    /* TABLA DE NÚMEROS */
+    .number-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 46px;
+      flex-shrink: 0;
+    }
+
+    .number-pad {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+
+    .number-pad button,
+    .erase-button,
+    .solve-button {
+      font-family: 'Cormorant Garamond', serif;
+      border: 1px solid var(--gold, #C9A76B);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .number-pad button {
+      height: 30px;
+      padding: 0;
+      background: var(--paper, #F8F0E2);
+      color: var(--green, #18372E);
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .erase-button {
+      padding: 8px 2px;
+      background: #fff;
+      color: var(--burgundy, #762E36);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* En pantallas grandes los números se ven en cuadrado 3 x 3 */
+    @container (min-width: 520px) {
+      .sudoku-game  { gap: 24px; }
+      .number-panel { width: 162px; }
+      .number-pad   { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .number-pad button { height: 50px; font-size: 26px; }
+      .erase-button { font-size: 18px; }
+    }
+
+    /* BOTÓN RESOLVER Y MENSAJE */
+    .sudoku-footer {
+      margin-top: 22px;
+      text-align: center;
+    }
+
+    .solve-button {
+      padding: 12px 40px;
+      background: var(--burgundy, #762E36);
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .sudoku-message {
+      min-height: 1.5em;
+      margin: 16px 0 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--burgundy, #762E36);
+    }
+
+    .sudoku-message.win {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    /* CONFETI */
+    .confetti {
+      position: fixed;
+      top: -20px;
+      z-index: 200;
+      width: 9px;
+      height: 14px;
+      pointer-events: none;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to { transform: translate(var(--drift), 110vh) rotate(720deg); }
+    }
+  </style>
 </head>
 <body class="day-body day-body--template">
   <main class="day-frame day-template">
     <div class="template-content">
+
       <header class="template-heading">
-        <p class="template-eyebrow">Día 13 · Adviento 2026</p>
+        <p class="template-eyebrow">Día 09 · Adviento 2026</p>
         <h1>Sudoku</h1>
-        <p class="template-intro">Usa la cuadrícula vacía para preparar el sudoku.</p>
+        <p class="template-intro">Toca una casilla y después un número.</p>
       </header>
-      <div class="template-sections">
-        <section class="template-card">
-          <h2>Cuadrícula 9 × 9</h2>
-          <p>Añade aquí los números del tablero.</p>
-          <table class="template-grid-table template-grid-table--sudoku" aria-label="Cuadrícula vacía de Sudoku de 9 por 9">
-            <tbody>
-              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            </tbody>
-          </table>
-        </section>
-        <section class="template-card">
-          <h2>Notas</h2>
-          <p>Deja instrucciones o una pista, si quieres.</p>
-          <textarea class="template-input" aria-label="Notas del Sudoku"></textarea>
-        </section>
+
+      <div class="sudoku-wrap">
+        <div class="sudoku-game">
+          <div class="sudoku-board" id="board" role="group" aria-label="Sudoku"></div>
+
+          <div class="number-panel">
+            <div class="number-pad" id="number-pad" role="group" aria-label="Números del 1 al 9"></div>
+            <button type="button" class="erase-button" id="erase">Borrar</button>
+          </div>
+        </div>
       </div>
+
+      <div class="sudoku-footer">
+        <button type="button" class="solve-button" id="solve">Resolver</button>
+        <p class="sudoku-message" id="message" aria-live="polite"></p>
+      </div>
+
     </div>
   </main>
+
   <a href="../index.html" class="back-link">← Volver al calendario</a>
+
+  <script>
+    /* TU SUDOKU: cada línea es una fila. El 0 es una casilla vacía. */
+    const puzzle = [
+      "530070000",
+      "600195000",
+      "098000060",
+      "800060003",
+      "400803001",
+      "700020006",
+      "060000280",
+      "000419005",
+      "000080079"
+    ];
+
+    /* FRASE QUE SALE AL GANAR */
+    const winPhrase = "¡Felicidades! Lo has conseguido ♡";
+
+    const start = puzzle.join("").split("").map(Number);
+
+    /* Calcula la solución automáticamente */
+    function solve(grid) {
+      const i = grid.indexOf(0);
+      if (i === -1) return true;
+      const row = Math.floor(i / 9);
+      const col = i % 9;
+
+      for (let n = 1; n <= 9; n++) {
+        const used = grid.some((value, j) => {
+          const r = Math.floor(j / 9);
+          const c = j % 9;
+          const sameBox = Math.floor(r / 3) === Math.floor(row / 3) &&
+                          Math.floor(c / 3) === Math.floor(col / 3);
+          return value === n && (r === row || c === col || sameBox);
+        });
+        if (!used) {
+          grid[i] = n;
+          if (solve(grid)) return true;
+          grid[i] = 0;
+        }
+      }
+      return false;
+    }
+
+    const solution = [...start];
+    solve(solution);
+
+    const board = document.getElementById("board");
+    const pad = document.getElementById("number-pad");
+    const message = document.getElementById("message");
+    let selected = null;
+
+    function showMessage(text, win = false) {
+      message.textContent = text;
+      message.classList.toggle("win", win);
+    }
+
+    function select(cell) {
+      if (selected) selected.classList.remove("selected");
+      selected = cell;
+      if (cell) cell.classList.add("selected");
+    }
+
+    /* Crea las 81 casillas */
+    const cells = start.map((value, i) => {
+      const cell = document.createElement("button");
+      cell.type = "button";
+      cell.className = "cell";
+      cell.setAttribute("aria-label", `Fila ${Math.floor(i / 9) + 1}, columna ${i % 9 + 1}`);
+
+      if (value) {
+        cell.textContent = value;
+        cell.classList.add("given");
+        cell.disabled = true;
+      } else {
+        cell.addEventListener("click", () => select(cell));
+      }
+      board.appendChild(cell);
+      return cell;
+    });
+
+    /* Pone o borra un número en la casilla elegida */
+    function write(number) {
+      if (!selected) {
+        showMessage("Primero toca una casilla del sudoku.");
+        return;
+      }
+      selected.textContent = number;
+      selected.classList.remove("wrong");
+      select(null);
+      showMessage("");
+    }
+
+    for (let n = 1; n <= 9; n++) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = n;
+      button.addEventListener("click", () => write(n));
+      pad.appendChild(button);
+    }
+
+    document.getElementById("erase").addEventListener("click", () => write(""));
+
+    /* También se puede usar el teclado del ordenador */
+    document.addEventListener("keydown", event => {
+      if (!selected) return;
+      if (/^[1-9]$/.test(event.key)) write(Number(event.key));
+      if (event.key === "Backspace" || event.key === "Delete") write("");
+    });
+
+    function throwConfetti() {
+      const colors = ["#762E36", "#C9A76B", "#18372E", "#EE8672", "#F5C25C", "#F7B8A8"];
+
+      for (let i = 0; i < 160; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.background = colors[i % colors.length];
+        piece.style.setProperty("--drift", (Math.random() * 160 - 80) + "px");
+        piece.style.animationDuration = 2.5 + Math.random() * 2 + "s";
+        piece.style.animationDelay = Math.random() * 1.2 + "s";
+        piece.addEventListener("animationend", () => piece.remove());
+        document.body.appendChild(piece);
+      }
+    }
+
+    /* BOTÓN RESOLVER: corrige los números */
+    document.getElementById("solve").addEventListener("click", () => {
+      let wrong = 0;
+      let empty = 0;
+      select(null);
+
+      cells.forEach((cell, i) => {
+        const value = cell.textContent;
+        const isWrong = value !== "" && Number(value) !== solution[i];
+        cell.classList.toggle("wrong", isWrong);
+        if (isWrong) wrong++;
+        if (value === "") empty++;
+      });
+
+      if (wrong > 0) {
+        showMessage("Revisa los números subrayados en rojo.");
+      } else if (empty > 0) {
+        showMessage("Vas muy bien, pero todavía faltan casillas.");
+      } else {
+        showMessage(winPhrase, true);
+        throwConfetti();
+      }
+    });
+  </script>
 </body>
 </html>
