@@ -17,14 +17,105 @@
       font-size: 21px;
       line-height: 1.35;
       color: var(--green, #18372E);
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(201, 167, 107, 0.5);
     }
+
+    /* CASILLA PARA RASCAR */
+    .scratch {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      margin: 8px 0;
+      border: 1px dashed var(--gold, #C9A76B);
+      border-radius: 8px;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .scratch .template-text {
+      margin: 0;
+      padding: 8px 12px;
+      text-align: center;
+      visibility: hidden;   /* oculto hasta que la capa está pintada */
+    }
+
+    .scratch.ready .template-text { visibility: visible; }
+
+    .scratch canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;   /* solo se rasca con la moneda */
+    }
+
+    /* PREGUNTAS A LA IZQUIERDA, MONEDA A LA DERECHA */
+    .scratch-area {
+      display: flex;
+      gap: 12px;
+    }
+
+    .scratch-area .template-list {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .coin-column {
+      width: 64px;
+      flex-shrink: 0;
+    }
+
+    .coin {
+      display: block;
+      width: 64px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: none;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      color: var(--burgundy, #762E36);
+      cursor: grab;
+      touch-action: none;     /* al arrastrar la moneda no se mueve la página */
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .coin svg,
+    .coin-ghost svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .3));
+    }
+
+    .coin.held svg { opacity: .2; }
+
+    /* La moneda que llevas en la mano */
+    .coin-ghost {
+      position: fixed;
+      z-index: 200;
+      width: 60px;
+      transform: translate(-50%, -50%) rotate(-12deg);
+      pointer-events: none;
+    }
+
+    body.holding,
+    body.holding * { cursor: grabbing; }
 
     @media (max-width: 600px) {
       .template-text {
         font-size: 18px;
       }
+
+      .scratch-area { gap: 8px; }
+      .coin-column,
+      .coin { width: 52px; }
     }
   </style>
 </head>
@@ -35,29 +126,166 @@
       <header class="template-heading">
         <p class="template-eyebrow">Día 10 · Adviento 2026</p>
         <h1>10 cosas que me gustan de ti</h1>
-        <p class="template-intro">Solo las 10 primeras, que si no se hace muy largo.</p>
+        <p class="template-intro">Solo las 10 primeras, que si no se hace muy largo. Coge la moneda y rasca cada casilla para descubrirlas.</p>
       </header>
 
       <section class="template-card">
         <h2>Mis diez cosas</h2>
 
-        <ol class="template-list">
-          <li><p class="template-text">Cuando me abrazas muy fuerte</p></li>
-          <li><p class="template-text">Que luego mis sudaderas huelan a ti</p></li>
-          <li><p class="template-text">Lo mucho que me rio contigo</p></li>
-          <li><p class="template-text">Lo fofillo que te pones cuando tienes sueño o te acabas de levantar</p></li>
-          <li><p class="template-text">Que esperes a que me duerma cuando estamos en llamada para colgarme</p></li>
-          <li><p class="template-text">Tu sonrisa cuando te saco la lengua</p></li>
-          <li><p class="template-text">Que siempre estés cuando me siento un poco triste</p></li>
-          <li><p class="template-text">Las muchas veces que me dices que me quieres (te quiero)</p></li>
-          <li><p class="template-text">Tus ojitos cuando me miran</p></li>
-          <li><p class="template-text">LA PEDAZO PERSONA QUE ERES (me encantas)</p></li>
-        </ol>
+        <div class="scratch-area">
+          <ol class="template-list">
+            <li><div class="scratch"><p class="template-text">Cuando me abrazas muy fuerte</p></div></li>
+            <li><div class="scratch"><p class="template-text">Que luego mis (tus) sudaderas huelan a ti</p></div></li>
+            <li><div class="scratch"><p class="template-text">Lo mucho que me río contigo</p></div></li>
+            <li><div class="scratch"><p class="template-text">Lo fofillo que te pones cuando tienes sueño o te acabas de levantar</p></div></li>
+            <li><div class="scratch"><p class="template-text">Que esperes a que me duerma cuando estamos en llamada para colgarme</p></div></li>
+            <li><div class="scratch"><p class="template-text">Tu sonrisa cuando te saco la lengua</p></div></li>
+            <li><div class="scratch"><p class="template-text">Que siempre estés cuando me siento un poco triste</p></div></li>
+            <li><div class="scratch"><p class="template-text">Las muchas veces que me dices que me quieres (te quiero)</p></div></li>
+            <li><div class="scratch"><p class="template-text">Tus ojitos cuando me miran</p></div></li>
+            <li><div class="scratch"><p class="template-text">LA PEDAZO PERSONA QUE ERES (me encantas)</p></div></li>
+          </ol>
+
+          <div class="coin-column">
+            <button type="button" class="coin" id="coin" aria-label="Coger la moneda para rascar">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle cx="50" cy="50" r="48" fill="#B8872F"/>
+                <circle cx="50" cy="50" r="43" fill="#EBC662"/>
+                <circle cx="50" cy="50" r="35" fill="#DDB04A" stroke="#A97B27" stroke-width="2" stroke-dasharray="4 3"/>
+                <path d="M50 25 L56 42 L74 43 L60 54 L65 72 L50 62 L35 72 L40 54 L26 43 L44 42 Z" fill="#FBE7A6" stroke="#A97B27" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M18 40 A34 34 0 0 1 40 18" fill="none" stroke="#FFF6D5" stroke-width="5" stroke-linecap="round"/>
+              </svg>
+              <span>Cógeme</span>
+            </button>
+          </div>
+        </div>
       </section>
 
     </div>
   </main>
 
   <a href="../index.html" class="back-link">← Volver al calendario</a>
-</body>
-</html>
+
+  <script>
+    const BRUSH = 26;   // grosor del rascado
+
+    /* CAPA DORADA DE CADA CASILLA */
+    const layers = [...document.querySelectorAll(".scratch")].map(box => {
+      const canvas = document.createElement("canvas");
+      box.appendChild(canvas);
+      const ctx = canvas.getContext("2d");
+      const layer = { box, canvas, ctx, touched: false };
+
+      function paint() {
+        /* Si ya se ha empezado a rascar, no se vuelve a pintar */
+        if (layer.touched) return;
+        const w = box.clientWidth;
+        const h = box.clientHeight;
+        if (!w || !h) return;
+
+        const ratio = window.devicePixelRatio || 1;
+        canvas.width = w * ratio;
+        canvas.height = h * ratio;
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+        const gold = ctx.createLinearGradient(0, 0, w, h);
+        gold.addColorStop(0, "#B8934F");
+        gold.addColorStop(0.5, "#E8D3A2");
+        gold.addColorStop(1, "#B8934F");
+        ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = gold;
+        ctx.fillRect(0, 0, w, h);
+
+        /* Brillitos */
+        ctx.fillStyle = "rgba(255, 255, 255, .35)";
+        for (let i = 0; i < w * h / 150; i++) {
+          ctx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
+        }
+
+        ctx.fillStyle = "#5C1F27";
+        ctx.font = "700 18px 'Cormorant Garamond', serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("✦ Rasca aquí ✦", w / 2, h / 2);
+
+        box.classList.add("ready");
+      }
+
+      new ResizeObserver(paint).observe(box);
+      return layer;
+    });
+
+    /* Borra la capa por donde pasa la moneda */
+    function scratch(from, to) {
+      layers.forEach(layer => {
+        const { canvas, ctx } = layer;
+        const r = canvas.getBoundingClientRect();
+        const half = BRUSH / 2;
+
+        /* ¿La moneda pasa por encima de esta casilla? */
+        if (Math.max(from.x, to.x) < r.left - half || Math.min(from.x, to.x) > r.right + half ||
+            Math.max(from.y, to.y) < r.top - half  || Math.min(from.y, to.y) > r.bottom + half) return;
+
+        layer.touched = true;
+        ctx.setTransform(canvas.width / r.width, 0, 0, canvas.height / r.height, 0, 0);
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.lineWidth = BRUSH;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(from.x - r.left, from.y - r.top);
+        ctx.lineTo(to.x - r.left + 0.1, to.y - r.top);
+        ctx.stroke();
+      });
+    }
+
+    /* LA MONEDA */
+    const coin = document.getElementById("coin");
+    const column = coin.parentElement;
+    let ghost = null;
+    let last = null;
+
+    /* Con el dedo, la moneda va un poco más arriba para que se vea */
+    function point(event) {
+      const lift = event.pointerType === "touch" ? 36 : 0;
+      return { x: event.clientX, y: event.clientY - lift };
+    }
+
+    function moveGhost(p) {
+      ghost.style.left = p.x + "px";
+      ghost.style.top = p.y + "px";
+    }
+
+    coin.addEventListener("pointerdown", event => {
+      if (ghost || event.button !== 0) return;
+      event.preventDefault();
+      coin.setPointerCapture(event.pointerId);
+
+      ghost = document.createElement("div");
+      ghost.className = "coin-ghost";
+      ghost.appendChild(coin.querySelector("svg").cloneNode(true));
+      document.body.appendChild(ghost);
+
+      coin.classList.add("held");
+      document.body.classList.add("holding");
+      last = point(event);
+      moveGhost(last);
+    });
+
+    coin.addEventListener("pointermove", event => {
+      if (!ghost) return;
+      const now = point(event);
+      moveGhost(now);
+      scratch(last, now);
+      last = now;
+    });
+
+    /* Al soltarla, vuelve a su sitio */
+    function drop() {
+      if (!ghost) return;
+      ghost.remove();
+      ghost = null;
+      coin.classList.remove("held");
+      document.body.classList.remove("holding");
+    }
+
+    ["pointerup", "pointercancel",
