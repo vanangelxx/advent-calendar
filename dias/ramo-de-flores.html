@@ -5,33 +5,255 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Día 05 · Nuestra primera cita</title>
   <link rel="stylesheet" href="dias.css">
+
+  <style>
+    /* RAMO */
+
+    .bouquet {
+      position: relative;
+      width: min(100%, 400px);
+      margin: 10px auto 0;
+    }
+
+    .bouquet-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      /* hace invisible el fondo blanco de la imagen sobre el color del papel */
+      mix-blend-mode: multiply;
+    }
+
+    /* ZONAS PULSABLES SOBRE CADA FLOR */
+
+    .flower {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      aspect-ratio: 1;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background .2s ease, transform .2s ease;
+    }
+
+    .flower:hover,
+    .flower:focus-visible {
+      background: rgba(255, 255, 255, 0.28);
+      transform: translate(-50%, -50%) scale(1.06);
+      outline: none;
+    }
+
+    /* Corazón central que avisa de que se puede pulsar */
+    .flower::after {
+      content: "♥";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--burgundy, #762E36);
+      font-size: clamp(11px, 2.4vw, 16px);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
+      opacity: 0.9;
+      animation: beat 2.4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50%      { transform: translate(-50%, -50%) scale(1.25); }
+    }
+
+    /* VENTANA AL PULSAR UNA FLOR */
+
+    .flower-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(24, 55, 46, .5);
+    }
+
+    .flower-modal.active {
+      display: flex;
+    }
+
+    .flower-card {
+      position: relative;
+      width: min(100%, 440px);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 34px 28px;
+      background: var(--paper, #F8F0E2);
+      border: 1px solid var(--gold, #C9A76B);
+      text-align: center;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, .25);
+      animation: appear .3s ease;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .flower-card .ornament {
+      color: var(--gold, #C9A76B);
+      letter-spacing: 6px;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .flower-card h2 {
+      margin: 0 0 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 5vw, 2.1rem);
+      font-weight: 500;
+      color: var(--burgundy, #762E36);
+    }
+
+    .flower-card p {
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      line-height: 1.45;
+      color: var(--green, #18372E);
+    }
+
+    .flower-close {
+      position: absolute;
+      top: 6px;
+      right: 12px;
+      border: none;
+      background: none;
+      font-size: 28px;
+      color: var(--burgundy, #762E36);
+      cursor: pointer;
+    }
+
+    /* MODO AJUSTE (añade ?editar al final de la dirección) */
+
+    .coords {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 200;
+      display: none;
+      padding: 8px 12px;
+      background: #000;
+      color: #fff;
+      font: 14px monospace;
+    }
+
+    .editing .flower {
+      border: 2px dashed var(--burgundy, #762E36);
+      background: rgba(118, 46, 54, 0.12);
+    }
+  </style>
 </head>
 <body class="day-body day-body--template">
   <main class="day-frame day-template">
     <div class="template-content">
+
       <header class="template-heading">
         <p class="template-eyebrow">Día 05 · Adviento 2026</p>
         <h1>Nuestra primera cita</h1>
-        <p class="template-intro">Completa los detalles que quieras conservar de ese día.</p>
+        <p class="template-intro">Toca cada flor para descubrir un mensaje.</p>
       </header>
-      <div class="template-sections">
-        <section class="template-card">
-          <h2>Detalles</h2>
-          <p>Anota la fecha, el lugar y otros datos que quieras recordar.</p>
-          <textarea class="template-input template-input--large" aria-label="Detalles de nuestra primera cita"></textarea>
-        </section>
-        <section class="template-card">
-          <h2>Fotos y recuerdos</h2>
-          <p>Añade imágenes y escribe un pie para cada una.</p>
-          <div class="template-photos">
-            <figure class="template-photo"><div class="template-photo__placeholder">Añade una foto</div><textarea class="template-photo__caption" aria-label="Pie de foto 1"></textarea></figure>
-            <figure class="template-photo"><div class="template-photo__placeholder">Añade una foto</div><textarea class="template-photo__caption" aria-label="Pie de foto 2"></textarea></figure>
-            <figure class="template-photo"><div class="template-photo__placeholder">Añade una foto</div><textarea class="template-photo__caption" aria-label="Pie de foto 3"></textarea></figure>
-          </div>
-        </section>
+
+      <!-- RAMO -->
+      <div class="bouquet" id="bouquet">
+        <img class="bouquet-image" src="../imagenes/ramo.png" alt="Ramo de flores">
+
+        <!-- ZONAS PULSABLES: left y top son el centro de cada flor, en % de la imagen.
+             width es su tamaño. -->
+        <button class="flower" style="left: 27.9%; top: 32.3%; width: 23%;" data-flower="flor1" aria-label="Tulipán coral"></button>
+        <button class="flower" style="left: 51.4%; top: 27.2%; width: 22%;" data-flower="flor2" aria-label="Tulipán rosa"></button>
+        <button class="flower" style="left: 73.4%; top: 35.0%; width: 20%;" data-flower="flor3" aria-label="Lirio blanco"></button>
+        <button class="flower" style="left: 22.4%; top: 43.5%; width: 21%;" data-flower="flor4" aria-label="Lirio rosa"></button>
+        <button class="flower" style="left: 44.6%; top: 45.1%; width: 24%;" data-flower="flor5" aria-label="Margarita"></button>
+        <button class="flower" style="left: 68.6%; top: 45.9%; width: 23%;" data-flower="flor6" aria-label="Flor rosa"></button>
+        <button class="flower" style="left: 50.5%; top: 62.0%; width: 22%;" data-flower="lazo"  aria-label="Lazo"></button>
       </div>
+
     </div>
   </main>
+
+  <!-- VENTANA -->
+  <div class="flower-modal" id="flower-modal">
+    <div class="flower-card">
+      <button class="flower-close" id="flower-close" aria-label="Cerrar">×</button>
+      <div class="ornament">✦ ♡ ✦</div>
+      <h2 id="flower-title"></h2>
+      <p id="flower-text"></p>
+    </div>
+  </div>
+
+  <div class="coords" id="coords"></div>
+
   <a href="../index.html" class="back-link">← Volver al calendario</a>
+
+  <script>
+    /* TÍTULO Y MENSAJE DE CADA FLOR */
+
+    const flowers = {
+      flor1: { title: "Tulipán coral",  text: "Escribe aquí el mensaje de esta flor." },
+      flor2: { title: "Tulipán rosa",   text: "Escribe aquí el mensaje de esta flor." },
+      flor3: { title: "Lirio blanco",   text: "Escribe aquí el mensaje de esta flor." },
+      flor4: { title: "Lirio rosa",     text: "Escribe aquí el mensaje de esta flor." },
+      flor5: { title: "Margarita",      text: "Escribe aquí el mensaje de esta flor." },
+      flor6: { title: "Flor rosa",      text: "Escribe aquí el mensaje de esta flor." },
+      lazo:  { title: "El lazo",        text: "Escribe aquí el mensaje final, el que une todo el ramo." }
+    };
+
+    const modal = document.getElementById("flower-modal");
+    const titleEl = document.getElementById("flower-title");
+    const textEl = document.getElementById("flower-text");
+
+    function openFlower(key) {
+      titleEl.textContent = flowers[key].title;
+      textEl.textContent = flowers[key].text;
+      modal.classList.add("active");
+    }
+
+    function closeFlower() {
+      modal.classList.remove("active");
+    }
+
+    document.querySelectorAll(".flower").forEach(btn => {
+      btn.addEventListener("click", () => openFlower(btn.dataset.flower));
+    });
+
+    document.getElementById("flower-close").addEventListener("click", closeFlower);
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) closeFlower();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeFlower();
+    });
+
+    /* MODO AJUSTE: muestra las zonas y el % donde pinchas sobre el ramo */
+
+    if (location.search.includes("editar")) {
+      const bouquet = document.getElementById("bouquet");
+      const coords = document.getElementById("coords");
+      bouquet.classList.add("editing");
+      coords.style.display = "block";
+      coords.textContent = "Pincha en el centro de una flor";
+
+      bouquet.addEventListener("click", event => {
+        if (event.target.classList.contains("flower")) return;
+        const rect = bouquet.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width * 100).toFixed(1);
+        const y = ((event.clientY - rect.top) / rect.height * 100).toFixed(1);
+        coords.textContent = `left: ${x}%; top: ${y}%;`;
+      });
+    }
+  </script>
 </body>
 </html>
