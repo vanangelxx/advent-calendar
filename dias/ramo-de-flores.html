@@ -10,59 +10,76 @@
     /* RAMO */
 
     .bouquet {
-      position: relative;
-      width: min(100%, 400px);
+      width: min(100%, 460px);
       margin: 10px auto 0;
     }
 
-    .bouquet-image {
+    .bouquet-svg {
       display: block;
       width: 100%;
       height: auto;
-      /* hace invisible el fondo blanco de la imagen sobre el color del papel */
-      mix-blend-mode: multiply;
+      overflow: visible;
     }
 
-    /* ZONAS PULSABLES SOBRE CADA FLOR */
+    /* FLORES PULSABLES */
 
     .flower {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      aspect-ratio: 1;
-      padding: 0;
-      border: none;
-      border-radius: 50%;
-      background: transparent;
       cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      transition: background .2s ease, transform .2s ease;
-    }
-
-    .flower:hover,
-    .flower:focus-visible {
-      background: rgba(255, 255, 255, 0.28);
-      transform: translate(-50%, -50%) scale(1.06);
       outline: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* Corazón central que avisa de que se puede pulsar */
-    .flower::after {
-      content: "♥";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--burgundy, #762E36);
-      font-size: clamp(11px, 2.4vw, 16px);
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
-      opacity: 0.9;
-      animation: beat 2.4s ease-in-out infinite;
+    .flower .shape {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: filter .2s ease;
+    }
+
+    .flower:hover .shape,
+    .flower:focus-visible .shape {
+      filter: brightness(1.06) drop-shadow(0 3px 5px rgba(118, 46, 54, .3));
+    }
+
+    .flower:focus-visible .hit {
+      stroke: var(--burgundy, #762E36);
+      stroke-width: 2;
+      stroke-dasharray: 5 4;
+    }
+
+    /* Movimiento al pulsar */
+    .flower .shape.wiggle {
+      animation: wiggle .6s ease;
+    }
+
+    @keyframes wiggle {
+      0%   { transform: rotate(0deg); }
+      20%  { transform: rotate(-11deg) scale(1.05); }
+      45%  { transform: rotate(9deg) scale(1.05); }
+      70%  { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    /* Corazón del centro: avisa de que se puede pulsar */
+    .hint {
+      font-size: 18px;
+      fill: #fff;
+      stroke: rgba(118, 46, 54, .55);
+      stroke-width: 3px;
+      paint-order: stroke;
       pointer-events: none;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: beat 2.4s ease-in-out infinite;
     }
 
     @keyframes beat {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); }
-      50%      { transform: translate(-50%, -50%) scale(1.25); }
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.25); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flower .shape.wiggle,
+      .hint { animation: none; }
     }
 
     /* VENTANA AL PULSAR UNA FLOR */
@@ -133,25 +150,6 @@
       color: var(--burgundy, #762E36);
       cursor: pointer;
     }
-
-    /* MODO AJUSTE (añade ?editar al final de la dirección) */
-
-    .coords {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 200;
-      display: none;
-      padding: 8px 12px;
-      background: #000;
-      color: #fff;
-      font: 14px monospace;
-    }
-
-    .editing .flower {
-      border: 2px dashed var(--burgundy, #762E36);
-      background: rgba(118, 46, 54, 0.12);
-    }
   </style>
 </head>
 <body class="day-body day-body--template">
@@ -164,19 +162,148 @@
         <p class="template-intro">Toca cada flor para descubrir un mensaje.</p>
       </header>
 
-      <!-- RAMO -->
-      <div class="bouquet" id="bouquet">
-        <img class="bouquet-image" src="../imagenes/ramo.png" alt="Ramo de flores">
+      <!-- RAMO DIBUJADO EN CÓDIGO -->
+      <div class="bouquet">
+        <svg class="bouquet-svg" viewBox="0 0 400 520" role="group" aria-label="Ramo de flores">
 
-        <!-- ZONAS PULSABLES: left y top son el centro de cada flor, en % de la imagen.
-             width es su tamaño. -->
-        <button class="flower" style="left: 27.9%; top: 32.3%; width: 23%;" data-flower="flor1" aria-label="Tulipán coral"></button>
-        <button class="flower" style="left: 51.4%; top: 27.2%; width: 22%;" data-flower="flor2" aria-label="Tulipán rosa"></button>
-        <button class="flower" style="left: 73.4%; top: 35.0%; width: 20%;" data-flower="flor3" aria-label="Lirio blanco"></button>
-        <button class="flower" style="left: 22.4%; top: 43.5%; width: 21%;" data-flower="flor4" aria-label="Lirio rosa"></button>
-        <button class="flower" style="left: 44.6%; top: 45.1%; width: 24%;" data-flower="flor5" aria-label="Margarita"></button>
-        <button class="flower" style="left: 68.6%; top: 45.9%; width: 23%;" data-flower="flor6" aria-label="Flor rosa"></button>
-        <button class="flower" style="left: 50.5%; top: 62.0%; width: 22%;" data-flower="lazo"  aria-label="Lazo"></button>
+          <!-- TALLOS -->
+          <g fill="none" stroke="#6E9B6A" stroke-width="5" stroke-linecap="round">
+            <path d="M200 120 L200 410"/>
+            <path d="M115 190 Q125 330 195 410"/>
+            <path d="M290 190 Q275 330 205 410"/>
+            <path d="M105 285 Q130 360 195 410"/>
+            <path d="M200 260 Q190 330 198 410"/>
+            <path d="M295 285 Q270 360 205 410"/>
+            <!-- capullos -->
+            <path d="M235 140 Q252 100 262 62" stroke-width="4"/>
+            <path d="M310 265 Q335 235 354 205" stroke-width="4"/>
+          </g>
+          <circle cx="262" cy="52" r="10" fill="#F2A65A"/>
+          <circle cx="356" cy="198" r="9" fill="#5E8B5A"/>
+
+          <!-- HOJAS -->
+          <g>
+            <ellipse cx="45"  cy="190" rx="18" ry="42" transform="rotate(-75 45 190)"  fill="#7FA676"/>
+            <ellipse cx="355" cy="240" rx="18" ry="42" transform="rotate(75 355 240)"  fill="#86A97A"/>
+            <ellipse cx="62"  cy="305" rx="17" ry="40" transform="rotate(-55 62 305)"  fill="#A8C080"/>
+            <ellipse cx="335" cy="315" rx="17" ry="40" transform="rotate(55 335 315)"  fill="#7FA676"/>
+            <ellipse cx="125" cy="75"  rx="15" ry="38" transform="rotate(-25 125 75)"  fill="#A8C080"/>
+            <ellipse cx="285" cy="80"  rx="15" ry="38" transform="rotate(30 285 80)"   fill="#86A97A"/>
+            <ellipse cx="150" cy="350" rx="16" ry="38" transform="rotate(-35 150 350)" fill="#A8C080"/>
+            <ellipse cx="252" cy="350" rx="16" ry="38" transform="rotate(35 252 350)"  fill="#86A97A"/>
+          </g>
+
+          <!-- FLOR 1 · tulipán coral -->
+          <g class="flower" data-flower="flor1" transform="translate(115,160)" tabindex="0" role="button" aria-label="Tulipán coral">
+            <g class="shape">
+              <ellipse cx="-17" cy="0" rx="22" ry="38" transform="rotate(-18 -17 0)" fill="#EE8672"/>
+              <ellipse cx="17"  cy="0" rx="22" ry="38" transform="rotate(18 17 0)"  fill="#F4A08F"/>
+              <ellipse cx="0"   cy="8" rx="23" ry="34" fill="#F29480"/>
+              <path d="M-8 -14 C-4 -24 4 -24 8 -14" fill="none" stroke="#E4705A" stroke-width="2.5" stroke-linecap="round"/>
+              <text class="hint" y="8" text-anchor="middle" dominant-baseline="central">♥</text>
+            </g>
+            <circle class="hit" r="36" fill="transparent" style="pointer-events: all"/>
+          </g>
+
+          <!-- FLOR 2 · tulipán rosa -->
+          <g class="flower" data-flower="flor2" transform="translate(200,95)" tabindex="0" role="button" aria-label="Tulipán rosa">
+            <g class="shape">
+              <ellipse cx="-19" cy="-2" rx="22" ry="36" transform="rotate(-14 -19 -2)" fill="#F7C8BC"/>
+              <ellipse cx="19"  cy="-2" rx="22" ry="36" transform="rotate(14 19 -2)"  fill="#F4BDB0"/>
+              <ellipse cx="0" cy="-26" rx="15" ry="9" fill="#E9806E"/>
+              <ellipse cx="0" cy="8" rx="26" ry="30" fill="#F9D6CC"/>
+              <text class="hint" y="8" text-anchor="middle" dominant-baseline="central">♥</text>
+            </g>
+            <circle class="hit" r="36" fill="transparent" style="pointer-events: all"/>
+          </g>
+
+          <!-- FLOR 3 · lirio blanco -->
+          <g class="flower" data-flower="flor3" transform="translate(290,160)" tabindex="0" role="button" aria-label="Lirio blanco">
+            <g class="shape">
+              <ellipse cx="0" cy="-26" rx="12" ry="27" fill="#FFF4DF" stroke="#EDD9B5" stroke-width="1.5"/>
+              <ellipse cx="0" cy="-26" rx="12" ry="27" transform="rotate(60)"  fill="#FFF4DF" stroke="#EDD9B5" stroke-width="1.5"/>
+              <ellipse cx="0" cy="-26" rx="12" ry="27" transform="rotate(120)" fill="#FFF4DF" stroke="#EDD9B5" stroke-width="1.5"/>
+              <ellipse cx="0" cy="-26" rx="12" ry="27" transform="rotate(180)" fill="#FFF4DF" stroke="#EDD9B5" stroke-width="1.5"/>
+              <ellipse cx="0" cy="-26" rx="12" ry="27" transform="rotate(240)" fill="#FFF4DF" stroke="#EDD9B5" stroke-width="1.5"/>
+              <ellipse cx="0" cy="-26" rx="12" ry="27" transform="rotate(300)" fill="#FFF4DF" stroke="#EDD9B5" stroke-width="1.5"/>
+              <circle cx="0" cy="0" r="9" fill="#F2C265"/>
+              <circle cx="-5" cy="-4" r="2.5" fill="#E9806E"/>
+              <circle cx="3"  cy="-7" r="2.5" fill="#E9806E"/>
+              <circle cx="7"  cy="-1" r="2.5" fill="#E9806E"/>
+              <text class="hint" y="1" text-anchor="middle" dominant-baseline="central">♥</text>
+            </g>
+            <circle class="hit" r="36" fill="transparent" style="pointer-events: all"/>
+          </g>
+
+          <!-- FLOR 4 · lirio rosa -->
+          <g class="flower" data-flower="flor4" transform="translate(105,255)" tabindex="0" role="button" aria-label="Lirio rosa">
+            <g class="shape">
+              <ellipse cx="0" cy="-27" rx="14" ry="28" fill="#F7B8A8" stroke="#EE9E8B" stroke-width="1.5"/>
+              <ellipse cx="0" cy="-27" rx="14" ry="28" transform="rotate(72)"  fill="#F7B8A8" stroke="#EE9E8B" stroke-width="1.5"/>
+              <ellipse cx="0" cy="-27" rx="14" ry="28" transform="rotate(144)" fill="#F7B8A8" stroke="#EE9E8B" stroke-width="1.5"/>
+              <ellipse cx="0" cy="-27" rx="14" ry="28" transform="rotate(216)" fill="#F7B8A8" stroke="#EE9E8B" stroke-width="1.5"/>
+              <ellipse cx="0" cy="-27" rx="14" ry="28" transform="rotate(288)" fill="#F7B8A8" stroke="#EE9E8B" stroke-width="1.5"/>
+              <path d="M0 0 L-9 -20 M0 0 L0 -24 M0 0 L9 -20" stroke="#F2A65A" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <circle cx="-9" cy="-21" r="3" fill="#E9806E"/>
+              <circle cx="0"  cy="-25" r="3" fill="#E9806E"/>
+              <circle cx="9"  cy="-21" r="3" fill="#E9806E"/>
+              <circle cx="0" cy="0" r="7" fill="#F2C265"/>
+              <text class="hint" y="1" text-anchor="middle" dominant-baseline="central">♥</text>
+            </g>
+            <circle class="hit" r="36" fill="transparent" style="pointer-events: all"/>
+          </g>
+
+          <!-- FLOR 5 · margarita (centro del ramo) -->
+          <g class="flower" data-flower="flor5" transform="translate(200,235)" tabindex="0" role="button" aria-label="Margarita">
+            <g class="shape">
+              <circle cx="0"     cy="-32" r="22" fill="#FFF6E4" stroke="#F0E0C4" stroke-width="1.5"/>
+              <circle cx="27.7"  cy="-16" r="22" fill="#FFF6E4" stroke="#F0E0C4" stroke-width="1.5"/>
+              <circle cx="27.7"  cy="16"  r="22" fill="#FFF6E4" stroke="#F0E0C4" stroke-width="1.5"/>
+              <circle cx="0"     cy="32"  r="22" fill="#FFF6E4" stroke="#F0E0C4" stroke-width="1.5"/>
+              <circle cx="-27.7" cy="16"  r="22" fill="#FFF6E4" stroke="#F0E0C4" stroke-width="1.5"/>
+              <circle cx="-27.7" cy="-16" r="22" fill="#FFF6E4" stroke="#F0E0C4" stroke-width="1.5"/>
+              <circle cx="0" cy="0" r="25" fill="#F5C25C"/>
+              <text class="hint" y="1" text-anchor="middle" dominant-baseline="central">♥</text>
+            </g>
+            <circle class="hit" r="40" fill="transparent" style="pointer-events: all"/>
+          </g>
+
+          <!-- FLOR 6 · flor rosa de cinco pétalos -->
+          <g class="flower" data-flower="flor6" transform="translate(295,255)" tabindex="0" role="button" aria-label="Flor rosa">
+            <g class="shape">
+              <circle cx="0"     cy="-30"  r="23" fill="#F6BDAE" stroke="#F0A592" stroke-width="1.5"/>
+              <circle cx="28.5"  cy="-9.3" r="23" fill="#F6BDAE" stroke="#F0A592" stroke-width="1.5"/>
+              <circle cx="17.6"  cy="24.3" r="23" fill="#F6BDAE" stroke="#F0A592" stroke-width="1.5"/>
+              <circle cx="-17.6" cy="24.3" r="23" fill="#F6BDAE" stroke="#F0A592" stroke-width="1.5"/>
+              <circle cx="-28.5" cy="-9.3" r="23" fill="#F6BDAE" stroke="#F0A592" stroke-width="1.5"/>
+              <path d="M0 -22 L0 -34 M15.6 -15.6 L24 -24 M22 0 L34 0 M15.6 15.6 L24 24 M0 22 L0 34 M-15.6 15.6 L-24 24 M-22 0 L-34 0 M-15.6 -15.6 L-24 -24"
+                    stroke="#E4705A" stroke-width="2" stroke-linecap="round" fill="none"/>
+              <circle cx="0" cy="0" r="17" fill="#EE8F78"/>
+              <circle cx="0" cy="0" r="10" fill="#E4705A"/>
+              <text class="hint" y="1" text-anchor="middle" dominant-baseline="central">♥</text>
+            </g>
+            <circle class="hit" r="38" fill="transparent" style="pointer-events: all"/>
+          </g>
+
+          <!-- COLA DE TALLOS Y LAZO -->
+          <g fill="none" stroke="#6E9B6A" stroke-width="5" stroke-linecap="round">
+            <path d="M190 420 L168 498"/>
+            <path d="M196 420 L184 505"/>
+            <path d="M204 420 L216 505"/>
+            <path d="M210 420 L234 498"/>
+          </g>
+
+          <!-- colas de la cinta -->
+          <path d="M192 418 L160 500 L182 490 L205 420 Z" fill="#FBE3D0" stroke="#F0B9A0" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M195 420 L218 490 L240 500 L208 418 Z" fill="#FBE3D0" stroke="#F0B9A0" stroke-width="1.5" stroke-linejoin="round"/>
+
+          <!-- lazo -->
+          <path d="M200 410 C170 380 120 385 122 415 C124 445 175 440 200 410 Z" fill="#FBE3D0" stroke="#F4C3AA" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M200 410 C230 380 280 385 278 415 C276 445 225 440 200 410 Z" fill="#FBE3D0" stroke="#F4C3AA" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M185 412 C165 405 145 406 138 414 M215 412 C235 405 255 406 262 414" fill="none" stroke="#F4B49C" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="200" cy="412" r="14" fill="#E9806E"/>
+
+        </svg>
       </div>
 
     </div>
@@ -192,21 +319,18 @@
     </div>
   </div>
 
-  <div class="coords" id="coords"></div>
-
   <a href="../index.html" class="back-link">← Volver al calendario</a>
 
   <script>
     /* TÍTULO Y MENSAJE DE CADA FLOR */
 
     const flowers = {
-      flor1: { title: "Tulipán coral",  text: "Escribe aquí el mensaje de esta flor." },
-      flor2: { title: "Tulipán rosa",   text: "Escribe aquí el mensaje de esta flor." },
-      flor3: { title: "Lirio blanco",   text: "Escribe aquí el mensaje de esta flor." },
-      flor4: { title: "Lirio rosa",     text: "Escribe aquí el mensaje de esta flor." },
-      flor5: { title: "Margarita",      text: "Escribe aquí el mensaje de esta flor." },
-      flor6: { title: "Flor rosa",      text: "Escribe aquí el mensaje de esta flor." },
-      lazo:  { title: "El lazo",        text: "Escribe aquí el mensaje final, el que une todo el ramo." }
+      flor1: { title: "Tulipán coral", text: "Escribe aquí el mensaje de esta flor." },
+      flor2: { title: "Tulipán rosa",  text: "Escribe aquí el mensaje de esta flor." },
+      flor3: { title: "Lirio blanco",  text: "Escribe aquí el mensaje de esta flor." },
+      flor4: { title: "Lirio rosa",    text: "Escribe aquí el mensaje de esta flor." },
+      flor5: { title: "Margarita",     text: "Escribe aquí el mensaje de esta flor." },
+      flor6: { title: "Flor rosa",     text: "Escribe aquí el mensaje de esta flor." }
     };
 
     const modal = document.getElementById("flower-modal");
@@ -223,8 +347,30 @@
       modal.classList.remove("active");
     }
 
-    document.querySelectorAll(".flower").forEach(btn => {
-      btn.addEventListener("click", () => openFlower(btn.dataset.flower));
+    document.querySelectorAll(".flower").forEach(flower => {
+      const shape = flower.querySelector(".shape");
+
+      function activate() {
+        // Movimiento de la flor
+        shape.classList.remove("wiggle");
+        void shape.getBoundingClientRect();   // reinicia la animación si se pulsa dos veces seguidas
+        shape.classList.add("wiggle");
+
+        // El mensaje aparece cuando la flor ya se ha movido un poco
+        setTimeout(() => openFlower(flower.dataset.flower), 350);
+      }
+
+      shape.addEventListener("animationend", event => {
+        if (event.animationName === "wiggle") shape.classList.remove("wiggle");
+      });
+
+      flower.addEventListener("click", activate);
+      flower.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          activate();
+        }
+      });
     });
 
     document.getElementById("flower-close").addEventListener("click", closeFlower);
@@ -236,24 +382,6 @@
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") closeFlower();
     });
-
-    /* MODO AJUSTE: muestra las zonas y el % donde pinchas sobre el ramo */
-
-    if (location.search.includes("editar")) {
-      const bouquet = document.getElementById("bouquet");
-      const coords = document.getElementById("coords");
-      bouquet.classList.add("editing");
-      coords.style.display = "block";
-      coords.textContent = "Pincha en el centro de una flor";
-
-      bouquet.addEventListener("click", event => {
-        if (event.target.classList.contains("flower")) return;
-        const rect = bouquet.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width * 100).toFixed(1);
-        const y = ((event.clientY - rect.top) / rect.height * 100).toFixed(1);
-        coords.textContent = `left: ${x}%; top: ${y}%;`;
-      });
-    }
   </script>
 </body>
 </html>
