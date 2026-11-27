@@ -242,7 +242,7 @@ body {
 /* Fila superior: texto a la izquierda + las tres fotos a la derecha */
 .top-row {
     display: grid;
-    grid-template-columns: 0.8fr 1.2fr;   /* ← reparto entre el texto y las fotos */
+    grid-template-columns: 0.7fr 1.3fr;   /* ← reparto entre el texto y las fotos */
     gap: clamp(12px, 2vw, 24px);
     align-items: center;
     margin-top: 14px;
@@ -255,12 +255,13 @@ body {
 }
 
 .adornos-top .adorno {
-    width: 28%;
+    flex: none;            /* no se encogen */
+    width: 31%;
     margin-left: -3%;
 }
 
 .adornos-top .adorno.big {
-    width: 40%;
+    width: 44%;
 }
 
 .adorno img {
@@ -545,7 +546,7 @@ body {
 
             <p class="page-text">
                 <strong class="tip-title">Lo que más nos gusta</strong>
-                El sushi, si por mi fuese lo comía todos los días, jajajaj. Me encanta ir a comer contigo sushi. 
+                El sushi, si por mi fuese lo comía todos los días, jajajaj. Me encanta ir a comer contigo sushi.
             </p>
 
             <div class="adornos-top">
@@ -560,7 +561,10 @@ body {
 
             <!-- COLUMNA 1 -->
             <div class="col">
-                
+
+                <!-- FOTO 4 (recuperada) -->
+                <div class="adorno rot-b" data-n="4"><img src="../imagenes/receta-adorno-4.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
+
                 <p class="page-text">
                     <strong class="tip-title">HELADOOOOO</strong>
                     Aunque no te guste el helado de menta con chocolate y el de  tuti-fruti. Yo te sigo queriendo igual.
@@ -568,7 +572,6 @@ body {
 
                 <div class="adorno small rot-a" data-n="5"><img src="../imagenes/receta-adorno-5.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
 
-                <!-- NUEVO: texto debajo de la foto 5 -->
                 <p class="page-text">
                     <strong class="tip-title">Nuestra primera cenita</strong>
                     Fué la primera vez que cocinaba pescado, pero me lo pasé muy bien hablando contigo mientras se hacía en el horno.
@@ -583,7 +586,7 @@ body {
 
                 <p class="page-text">
                     <strong class="tip-title">Un imprescindible</strong>
-                    No podian faltar las roscas, ya sean dulces o saladas. Vaya tripotera me pegue ese día eh jajajaj. 
+                    No podian faltar las roscas, ya sean dulces o saladas. Vaya tripotera me pegue ese día eh jajajaj.
                 </p>
 
                 <div class="adorno small rot-b" data-n="7"><img src="../imagenes/receta-adorno-7.png" alt="" onerror="this.parentElement.classList.add('missing')"></div>
@@ -607,10 +610,4 @@ body {
     document.querySelectorAll(".flip-card").forEach(function (card) {
         card.addEventListener("click", function () {
             card.classList.toggle("flipped");
-            card.setAttribute("aria-pressed", card.classList.contains("flipped") ? "true" : "false");
-        });
-    });
-</script>
-
-</body>
-</html>
+            card.setAttribute("aria-pressed", card.classList.contains("flipped")
