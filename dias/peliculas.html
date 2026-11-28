@@ -4,36 +4,228 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Día 07 · Películas vistas</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="dias.css">
+
+  <style>
+    /* Colores y letras: los de dias.css (el segundo valor solo se usa si no existe) */
+
+    /* Ancho de la página para que quepa la cuadrícula */
+    .day-frame.pelis {
+      width: min(1100px, 100% - 20px);
+      margin-inline: auto;
+      max-width: none;
+      height: auto;
+      max-height: none;
+      aspect-ratio: auto;
+      overflow: visible;
+    }
+
+    .pelis .template-content {
+      width: 100%;
+      max-width: none;
+      height: auto;
+      max-height: none;
+      overflow: visible;
+    }
+
+    /* CUADRÍCULA */
+    .pelis-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 32px 20px;
+    }
+
+    .pelis-grid * { box-sizing: border-box; }
+
+    /* PRIMER RECUADRO */
+    .pelis .portada.template-heading {
+      container-type: inline-size;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      margin: 0 0 36px;
+      padding: 12px;
+      border: 1px solid var(--gold, #C9A76B);
+      background: var(--paper, #F8F0E2);
+      text-align: center;
+    }
+
+    .pelis .portada .template-eyebrow {
+      margin: 0 0 8px;
+      font-size: clamp(10px, 4.5cqw, 14px);
+    }
+
+    .pelis .portada h1 {
+      margin: 0 0 10px;
+      font-size: clamp(22px, 15cqw, 44px);
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
+
+    .pelis .portada .template-intro {
+      margin: 0;
+      font-size: clamp(13px, 6.5cqw, 19px);
+      line-height: 1.3;
+    }
+
+    /* FICHAS DE PELÍCULAS */
+    .peli {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      text-align: left;
+    }
+
+    /* Espacio para la foto */
+    .foto {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 7 / 5;
+      overflow: hidden;
+      border: 1px dashed var(--gold, #C9A76B);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 17px;
+      color: var(--burgundy, #762E36);
+    }
+
+    .foto img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .peli h2,
+    .peli p { margin: 0; }
+
+    .peli h2 {
+      margin-top: 10px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--burgundy, #762E36);
+      overflow-wrap: anywhere;
+    }
+
+    .peli h2 span { display: block; }
+
+    .peli .extra {
+      margin-top: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      color: var(--green, #18372E);
+    }
+
+    .peli .resumen {
+      margin-top: 6px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 16px;
+      line-height: 1.3;
+      white-space: pre-line;
+      color: var(--green, #18372E);
+    }
+
+    .linea {
+      margin-top: auto;
+      padding-top: 12px;
+      border-bottom: 1px solid var(--gold, #C9A76B);
+    }
+
+    /* MÓVIL Y TABLET: dos columnas */
+    @media (max-width: 900px) {
+      .pelis-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 12px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .peli h2 { font-size: 18px; }
+      .peli .extra { font-size: 10px; }
+      .peli .resumen { font-size: 15px; }
+    }
+  </style>
 </head>
 <body class="day-body day-body--template">
-  <main class="day-frame day-template">
+  <main class="day-frame day-template pelis">
     <div class="template-content">
-      <header class="template-heading">
-        <p class="template-eyebrow">Día 07 · Adviento 2026</p>
-        <h1>Películas vistas</h1>
-        <p class="template-intro">Guarda aquí las películas que habéis visto.</p>
-      </header>
-      <div class="template-sections">
-        <section class="template-card">
-          <h2>Lista de películas</h2>
-          <p>Anota el título y cualquier detalle que quieras añadir.</p>
-          <ol class="template-list">
-            <li><textarea class="template-input" aria-label="Película 1"></textarea></li>
-            <li><textarea class="template-input" aria-label="Película 2"></textarea></li>
-            <li><textarea class="template-input" aria-label="Película 3"></textarea></li>
-            <li><textarea class="template-input" aria-label="Película 4"></textarea></li>
-            <li><textarea class="template-input" aria-label="Película 5"></textarea></li>
-          </ol>
-        </section>
-        <section class="template-card">
-          <h2>Comentarios</h2>
-          <p>Escribe tus notas o valoraciones.</p>
-          <textarea class="template-input" aria-label="Comentarios sobre las películas"></textarea>
-        </section>
+      <div class="pelis-grid" id="grid">
+
+        <!-- PRIMER RECUADRO: día, título y subtítulo -->
+        <header class="template-heading portada">
+          <p class="template-eyebrow">Día 07 · Adviento 2026</p>
+          <h1>Películas vistas</h1>
+          <p class="template-intro">Guarda aquí las películas que habéis visto.</p>
+        </header>
+
       </div>
     </div>
   </main>
+
   <a href="../index.html" class="back-link">← Volver al calendario</a>
+
+  <script>
+    /* TUS PELÍCULAS: cambia el título, quién la eligió, tu comentario y la foto */
+    const peliculas = [
+      { titulo: "Título de la película 7", extra: "Elegida por: ...", comentario: "Escribe aquí tu comentario sobre la película.", foto: "../imagenes/peli-7.jpg" },
+      { titulo: "Título de la película 6", extra: "Elegida por: ...", comentario: "Escribe aquí tu comentario sobre la película.", foto: "../imagenes/peli-6.jpg" },
+      { titulo: "Título de la película 5", extra: "Elegida por: ...", comentario: "Escribe aquí tu comentario sobre la película.", foto: "../imagenes/peli-5.jpg" },
+      { titulo: "Título de la película 4", extra: "Elegida por: ...", comentario: "Escribe aquí tu comentario sobre la película.", foto: "../imagenes/peli-4.jpg" },
+      { titulo: "Título de la película 3", extra: "Elegida por: ...", comentario: "Escribe aquí tu comentario sobre la película.", foto: "../imagenes/peli-3.jpg" },
+      { titulo: "Título de la película 2", extra: "Elegida por: ...", comentario: "Escribe aquí tu comentario sobre la película.", foto: "../imagenes/peli-2.jpg" },
+      { titulo: "Título de la película 1", extra: "Elegida por: ...", comentario: "Escribe aquí tu comentario sobre la película.", foto: "../imagenes/peli-1.jpg" }
+    ];
+
+    const grid = document.getElementById("grid");
+
+    function crear(tipo, clase, texto) {
+      const elemento = document.createElement(tipo);
+      if (clase) elemento.className = clase;
+      if (texto) elemento.textContent = texto;
+      return elemento;
+    }
+
+    /* Si la foto todavía no está subida, se ve el hueco vacío */
+    function ponerFoto(caja, peli) {
+      const img = document.createElement("img");
+      img.alt = peli.titulo;
+      img.onerror = () => img.remove();
+      img.src = peli.foto;
+      caja.replaceChildren("Tu foto", img);
+    }
+
+    peliculas.forEach((peli, i) => {
+      const numero = "." + String(peliculas.length - i).padStart(2, "0");
+
+      const ficha = crear("article", "peli");
+      const foto = crear("div", "foto");
+      ponerFoto(foto, peli);
+
+      const titulo = crear("h2");
+      titulo.append(crear("span", "", numero), crear("span", "", "—" + peli.titulo));
+
+      ficha.append(
+        foto,
+        titulo,
+        crear("p", "extra", peli.extra),
+        crear("p", "resumen", peli.comentario),
+        crear("div", "linea")
+      );
+      grid.appendChild(ficha);
+    });
+
+  </script>
 </body>
 </html>
